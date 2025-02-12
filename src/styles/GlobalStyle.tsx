@@ -31,8 +31,10 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
 
   }
 html {
-    font-size: 62.5%;
-  //font-size: ${(props) => (props.isMobile ? '62.5%' : '100%')}; 
+  font-size: ${(props) =>
+    props.isMobile
+      ? '62.5%'
+      : '120%'}; //TODO : 크기 임의 설정, 웹뷰 화면 크기 나오면 조정하기
 }
   body {
     margin: 0;
