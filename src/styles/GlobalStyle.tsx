@@ -31,7 +31,8 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
 
   }
 html {
-  font-size: 62.5%; 
+    font-size: 62.5%;
+  //font-size: ${(props) => (props.isMobile ? '62.5%' : '100%')}; 
 }
   body {
     margin: 0;
@@ -41,6 +42,7 @@ html {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color:${({ theme }) => theme.colors.black}
   }
 
   #root {
