@@ -52,10 +52,6 @@ const RadioButton = styled.div<{ isSelected: boolean }>`
   align-items: center;
   gap: 1rem;
   cursor: pointer;
-  &:active {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
 `;
 
 const RadioCircle = styled.div<{ isSelected: boolean }>`

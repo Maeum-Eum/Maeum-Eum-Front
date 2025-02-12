@@ -56,8 +56,4 @@ const SelectButton = styled.button<buttonProps>`
     props.isSelected
       ? `${props.theme.colors.black}`
       : `${props.theme.colors.black40}`};
-  &:active {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
 `;

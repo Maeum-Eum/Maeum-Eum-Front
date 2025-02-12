@@ -45,6 +45,17 @@ html {
     color:${({ theme }) => theme.colors.black}
   }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  button, a, input, textarea {
+    &:active {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
   #root {
     width: 100%;
     height: 100%;
