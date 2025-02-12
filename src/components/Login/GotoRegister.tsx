@@ -1,11 +1,13 @@
-import styled from "styled-components";
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
 export const GotoRegister = () => {
+  const navigate = useNavigate();
   return (
     <FooterContainer>
       <Divider />
       <Text>계정이 아직 없으신가요?</Text>
-      <SignUp>회원가입하기</SignUp>
+      <SignUp onClick={() => navigate('/signup')}>회원가입하기</SignUp>
     </FooterContainer>
   );
 };
@@ -28,14 +30,13 @@ const Divider = styled.div`
   height: 5px;
   background-color: #f5f5f5;
   margin-bottom: 2rem;
-
 `;
 
 const Text = styled.p`
   font-size: 1.5rem;
   color: #666;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
 `;
 
 const SignUp = styled.button`

@@ -31,7 +31,10 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
 
   }
 html {
-  font-size: 62.5%; 
+  font-size: ${(props) =>
+    props.isMobile
+      ? '62.5%'
+      : '120%'}; //TODO : 크기 임의 설정, 웹뷰 화면 크기 나오면 조정하기
 }
   body {
     margin: 0;
@@ -41,8 +44,20 @@ html {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color:${({ theme }) => theme.colors.black}
   }
 
+  * {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  button, a, input, textarea {
+    &:active {
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
   #root {
     width: 100%;
     height: 100%;

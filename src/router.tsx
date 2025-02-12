@@ -4,6 +4,7 @@ import { Login } from './pages/Login';
 import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
+import { SignUp } from './pages/SignUp';
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: 'login', element: <Login /> },
+      { path: 'signup', element: <SignUp /> },
       {
         path: '',
         element: <ProtectedRoute />,
