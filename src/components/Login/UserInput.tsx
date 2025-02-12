@@ -1,5 +1,4 @@
-import { useState } from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface Props {
   id: string;
@@ -9,7 +8,13 @@ interface Props {
   error: string;
 }
 
-export const UserInput = ({ id, setId, password, setPassword, error }: Props) => {
+export const UserInput = ({
+  id,
+  setId,
+  password,
+  setPassword,
+  error,
+}: Props) => {
   return (
     <InputContainer>
       <Label>아이디</Label>
