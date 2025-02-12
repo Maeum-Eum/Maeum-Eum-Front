@@ -11,28 +11,29 @@ interface SignUpLayoutProps {
 
 export const SignUpLayout = ({ title, children, func }: SignUpLayoutProps) => {
   return (
-    <>
-      <Wrapper>
-        <SignUpHeader />
-        <Title>{title}</Title>
-        <Content>
-          <Line />
-          {children}
-        </Content>
-        <SignUpFooter nextStep={func} />
-      </Wrapper>
-    </>
+    <Wrapper>
+      <SignUpHeader />
+      <Title>{title}</Title>
+      <Content>
+        <Line />
+        {children}
+      </Content>
+      <SignUpFooter nextStep={func} />
+    </Wrapper>
   );
 };
 const Content = styled.div`
   padding: 0 3rem;
   box-sizing: border-box;
   flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 7rem;
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  overflow: hidden;
 `;
 
 const Line = styled.div`
