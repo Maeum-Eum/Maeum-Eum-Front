@@ -1,11 +1,14 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { useSignUpNavStore } from '../../store/signUpNavStore';
 
 export const SignUpHeader = () => {
+  const { step, prevStep } = useSignUpNavStore();
+
   const navigate = useNavigate();
   return (
     <HeaderWrapper>
-      <BackIcon onClick={() => navigate(-1)}>
+      <BackIcon onClick={() => (step == 1 ? navigate(-1) : prevStep())}>
         <img src="src/assets/icons/back.svg" alt="뒤로가기" />
       </BackIcon>
       회원가입
