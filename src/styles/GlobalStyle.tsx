@@ -7,27 +7,27 @@ interface GlobalStyleProps {
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
  @font-face {
     font-family: 'PretendardRegular';
-    src: url('/src/assets/fonts/Pretendard-Regular.woff') format('truetype');
+    src: url('/fonts/Pretendard-Regular.woff') format('truetype');
   }
   
   @font-face {
     font-family: 'PretendardMedium';
-    src: url('/src/assets/fonts/Pretendard-Medium.woff') format('truetype');
+    src: url('/fonts/Pretendard-Medium.woff') format('truetype');
   }
 
   @font-face {
     font-family: 'PretendardSemiBold';
-    src: url('/src/assets/fonts/Pretendard-SemiBold.woff') format('truetype');
+    src: url('/fonts/Pretendard-SemiBold.woff') format('truetype');
   }
 
   @font-face {
     font-family: 'PretendardBold';
-    src: url('/src/assets/fonts/Pretendard-Bold.woff') format('truetype');
+    src: url('/fonts/Pretendard-Bold.woff') format('truetype');
 
   }
   @font-face {
     font-family: 'PretendardLight';
-    src: url('/src/assets/fonts/Pretendard-Light.woff') format('truetype');
+    src: url('/fonts/Pretendard-Light.woff') format('truetype');
 
   }
 html {
@@ -52,7 +52,9 @@ html {
     outline: none;
   }
 
-  button, a, input, textarea {
+  button, a, input, textarea, select {
+    -webkit-appearance: none;
+    appearance: none;
     &:active {
       outline: none;
       -webkit-tap-highlight-color: transparent;
