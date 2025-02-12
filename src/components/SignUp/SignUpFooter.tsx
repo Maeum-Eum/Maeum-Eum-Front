@@ -9,11 +9,17 @@ export const SignUpFooter = ({ nextStep }: { nextStep: () => void }) => {
 };
 
 const Wrapper = styled.div`
+  border-top: 0.5rem solid ${({ theme }) => theme.colors.black5};
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
+  padding-top: 3.3rem;
   padding-bottom: 5.5rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const Button = styled.button`
