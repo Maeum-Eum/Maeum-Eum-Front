@@ -15,7 +15,7 @@ export const SignUpInput = styled.input`
   ${({ theme }) => theme.fontStyles.bodyMediumR};
   &:focus {
     //TODO : UI 나온 후 수정 필요
-    border-color: ${({ theme }) => theme.colors.color};
+    border-color: ${({ theme }) => theme.colors.mainColor};
   }
   &::placeholder {
     color: ${({ theme }) => theme.colors.black40}; /* placeholder 텍스트 색상 */

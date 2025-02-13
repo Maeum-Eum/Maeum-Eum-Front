@@ -29,7 +29,7 @@ const Button = styled.button`
   box-sizing: border-box;
   border-radius: 1.3rem;
   border-color: transparent;
-  background-color: ${({ theme }) => theme.colors.color};
+  background-color: ${({ theme }) => theme.colors.mainColor};
   ${({ theme }) => theme.fontStyles.headingB}
   color: #ffffff;
 `;

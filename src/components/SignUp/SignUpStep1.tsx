@@ -22,8 +22,8 @@ export const SignUpStep1 = () => {
       <SignUpLabel label="비밀번호 재확인" />
       <SignUpInput placeholder="비밀번호를 입력해주세요" />
       <Buttons>
-        <SelectButton isSelected={true}>요양보호사입니다</SelectButton>
-        <SelectButton isSelected={false}>사회복지사입니다</SelectButton>
+        <SelectButton isSelected={true}>요양보호사</SelectButton>
+        <SelectButton isSelected={false}>사회복지사</SelectButton>
       </Buttons>
     </SignUpLayout>
   );
@@ -43,7 +43,7 @@ const SelectButton = styled.button<buttonProps>`
   border-radius: 1.3rem;
   border: ${(props) =>
     props.isSelected
-      ? `0.4rem solid ${props.theme.colors.color}`
+      ? `0.4rem solid ${props.theme.colors.mainColor}`
       : `0.1rem solid ${props.theme.colors.black20}`};
 
   ${(props) =>

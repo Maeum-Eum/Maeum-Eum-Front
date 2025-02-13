@@ -2,8 +2,9 @@ import { css } from 'styled-components';
 
 export const theme = {
   colors: {
+    white: '#FFFFFF',
     background: '#FCFCFC',
-    color: '#371FF0',
+    mainColor: '#371FF0',
     black: '#000000',
     black80: '#000000CC',
     black60: '#00000099',
@@ -12,6 +13,8 @@ export const theme = {
     black20: '#00000033',
     black10: '#0000001A',
     black5: '#0000000D',
+    sColor1: '#884EDA',
+    sColor2: '#F3DCFF',
   },
   fontStyles: {
     largeSB: css`
