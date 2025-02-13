@@ -1,5 +1,5 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   id: string;
@@ -9,9 +9,15 @@ interface Props {
   error: string;
 }
 
-export const UserInput = ({ id, setId, password, setPassword, error }: Props) => {
+export const UserInput = ({
+  id,
+  setId,
+  password,
+  setPassword,
+  error,
+}: Props) => {
   return (
-    <InputContainer>
+    <>
       <Label>아이디</Label>
       <Input
         type="text"
@@ -27,34 +33,39 @@ export const UserInput = ({ id, setId, password, setPassword, error }: Props) =>
         onChange={(e) => setPassword(e.target.value)}
       ></Input>
       {error && <ErrorText>{error}</ErrorText>}
-    </InputContainer>
+    </>
   );
 };
 
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
-const Label = styled.label`
-  font-size: 14px;
-  font-weight: 600;
+const Label = styled.div`
+  ${({ theme }) => theme.fontStyles.bodyMediumSB}
+  margin-bottom: 1rem;
+  margin-top: 3rem;
 `;
 
 const Input = styled.input`
   width: 100%;
-  padding: 2rem;
-  font-size: 16px;
-  border: 3px solid #888;
+  border: 0.08rem solid ${({ theme }) => theme.colors.black20};
+  border-radius: 1.3rem;
+  font-size: 1.2rem;
   outline: none;
-  border-radius: 20px;
+  text-decoration: none;
+  height: 4rem;
+  padding-left: 1.3rem;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  ${({ theme }) => theme.fontStyles.bodyMediumR};
   &:focus {
-    border-color: #333;
+    border-color: ${({ theme }) => theme.colors.color};
+  }
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.black40};
+    opacity: 0.6;
   }
 `;
 
 const ErrorText = styled.p`
-  color: red;
+  color: #26B11C;
   font-size: 1rem;
 `;

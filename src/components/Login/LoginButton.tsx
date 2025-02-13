@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-interface Props {
+interface ButtonProps {
   onClick: () => void;
 }
 
-export const LoginButton = ({onClick} : Props) => {
+export const LoginButton = ({ onClick }: ButtonProps) => {
   return (
     <ButtonContainer>
-      <Button onClick={onClick}>로그인 하기</Button>
+      <Button onClick={onClick}>로그인하기</Button>
     </ButtonContainer>
   );
 };
@@ -16,20 +16,21 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   alien-items: center;
-  margin-top: 3rem;
+  padding-top: 3.3rem;
+  padding-bottom: 5.5rem;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const Button = styled.button`
-  width: 40%;
-  padding: 2rem;
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-  background-color: #371ff0;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-top: 16px;
+  bottom: 5.5rem;
+  width: 20.7rem;
+  padding: 1.3rem 0rem;
+  box-sizing: border-box;
+  border-radius: 1.3rem;
+  border-color: transparent;
+  background-color: ${({ theme }) => theme.colors.color};
+  ${({ theme }) => theme.fontStyles.headingB}
+  color: #ffffff;
   &:hover {
     background-color: #3923cc;
   }
