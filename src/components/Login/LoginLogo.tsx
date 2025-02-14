@@ -21,7 +21,6 @@ const LogoContainer = styled.div`
   height: 15rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 6rem;
 `;
 
 const MainLogo = styled.div`

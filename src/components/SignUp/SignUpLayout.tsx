@@ -1,24 +1,21 @@
 import styled from 'styled-components';
 import { SignUpHeader } from './SignUpHeader';
 import { ReactNode } from 'react';
-import { SignUpFooter } from './SignUpFooter';
+//import { SignUpFooter } from './ButtonFooter';
 
 interface SignUpLayoutProps {
   children: ReactNode;
   title: string;
-  func: () => void;
 }
 
-export const SignUpLayout = ({ title, children, func }: SignUpLayoutProps) => {
+export const SignUpLayout = ({ title, children }: SignUpLayoutProps) => {
   return (
     <Wrapper>
-      <SignUpHeader />
       <Title>{title}</Title>
       <Content>
         <Line />
         {children}
       </Content>
-      <SignUpFooter nextStep={func} />
     </Wrapper>
   );
 };
@@ -43,7 +40,6 @@ const Line = styled.div`
 `;
 const Title = styled.span`
   margin-left: 3rem;
-  margin-top: 1.5rem;
   ${({ theme }) => theme.fontStyles.bodyMediumR};
 `;
 

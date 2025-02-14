@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { SignUp } from './pages/SignUp';
 import { SignUpComplete } from './pages/SignUpComplete';
 import { FindAccount } from './pages/FindAccount';
+import { Accept } from './pages/Accept';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: 'signup', element: <SignUp /> },
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
+      { path: 'accept', element: <Accept /> },
       {
         path: '',
         element: <ProtectedRoute />,

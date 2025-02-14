@@ -9,9 +9,8 @@ interface buttonProps {
   isSelected: boolean;
 }
 export const SignUpStep1 = () => {
-  const { nextStep } = useSignUpNavStore();
   return (
-    <SignUpLayout func={nextStep} title="계정 정보 입력">
+    <SignUpLayout title="계정 정보 입력">
       <SignUpLabel label="아이디" />
       <InputWrapper>
         <SignUpInput placeholder="아이디를 입력해주세요" />

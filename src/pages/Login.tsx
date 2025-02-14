@@ -74,13 +74,11 @@ export const Login = () => {
 const LoginContainer = styled.div`
   width: 100%;
   margin: 5rem auto;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding-top: 10rem;
 `;
 
 const LoginContent = styled.div`
+  margin-top: 10rem;
   padding: 0 3rem;
 `;
 
