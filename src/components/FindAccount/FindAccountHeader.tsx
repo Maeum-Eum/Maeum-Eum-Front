@@ -10,7 +10,7 @@ export const FindAccountHeader = () => {
     return (
         <HeaderWrapper>
             <BackIcon onClick={() => (step == 1 ? navigate(-1) : prevStep())}>
-                <img src="src/assets/icons/back.svg"/>
+                <img src="/icons/back.svg"/>
             </BackIcon>
             아이디 / 비밀번호 찾기
         </HeaderWrapper>
