@@ -1,19 +1,23 @@
-import styled from "styled-components";
-import { UserInput } from "../components/Login/UserInput";
-import { LoginOption } from "../components/Login/LoginOption";
-import { LoginButton } from "../components/Login/LoginButton";
-import { GotoRegister } from "../components/Login/GotoRegister";
-import { useEffect, useState } from "react";
+import styled from 'styled-components';
+import { UserInput } from '../components/Login/UserInput';
+import { LoginOption } from '../components/Login/LoginOption';
+import { LoginButton } from '../components/Login/LoginButton';
+import { LoginFooter } from '../components/Login/LoginFooter';
+import { useEffect, useState } from 'react';
+import { LoginLogo } from '../components/Login/LoginLogo';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [rememberId, setRememberId] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const storeId = localStorage.getItem("rememberdId");
+    const storeId = localStorage.getItem('rememberedId');
     if (storeId) {
       setId(storeId);
       setRememberId(true);
@@ -23,25 +27,30 @@ export const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await mockLogin(id, password);
-      console.log("로그인 성공: ", response);
-      setError("");
+      console.log('로그인 성공: ', response);
+      setError('');
       if (rememberId) {
-        localStorage.setItem("rememberdId", id);
+        localStorage.setItem('rememberedId', id);
       } else {
-        localStorage.removeItem("rememberdId");
+        localStorage.removeItem('rememberedId');
       }
 
       if (autoLogin) {
-        localStorage.setItem("autoLogin", "true");
+        localStorage.setItem('autoLogin', 'true');
       }
+
+      localStorage.setItem('isLogin', 'true');
+
+      navigate('/');
     } catch (error) {
-      setError("로그인 실패 : 아이디 또는 비밀번호가 올바르지 않습니다.");
+      setError('로그인 실패 : 아이디 또는 비밀번호가 올바르지 않습니다.');
     }
   };
 
   return (
-    <Title>
-      <LoginContainer>
+    <LoginContainer>
+      <LoginLogo />
+      <LoginContent>
         <UserInput
           id={id}
           setId={setId}
@@ -56,35 +65,30 @@ export const Login = () => {
           setAutoLogin={setAutoLogin}
         />
         <LoginButton onClick={handleLogin} />
-        <GotoRegister />
-      </LoginContainer>
-    </Title>
+      </LoginContent>
+      <LoginFooter />
+    </LoginContainer>
   );
 };
 
-const Title = styled.div`
-  ${({ theme }) => theme.fontStyles.largeSB};
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`;
-
 const LoginContainer = styled.div`
   width: 100%;
-  max-width: 768px;
-  margin: auto;
-  padding: 160px 8px;
+  margin: 5rem auto;
+`;
+
+const LoginContent = styled.div`
+  padding: 0 3rem;
 `;
 
 // 가짜 로그인 API (Mock API)
 const mockLogin = (id: string, password: string) => {
   return new Promise((resolve, reject) => {
-    if (id === "test" && password === "123456") {
-      resolve({ success: true, token: "mockToken123" });
+    if (id === 'test' && password === '123456') {
+      resolve({ success: true, token: 'mockToken123' });
     } else {
       reject({
         success: false,
-        message: "아이디 또는 비밀번호가 올바르지 않습니다.",
+        message: '아이디 또는 비밀번호가 올바르지 않습니다.',
       });
     }
   });

@@ -13,6 +13,7 @@ const Button = styled.button`
   ${(props) => props.theme.fontStyles.bodySmallM}
   background-color: transparent;
   border: 0.08rem solid ${({ theme }) => theme.colors.black60};
-  padding: 0.9rem 1.3rem;
+  width: 8rem;
+  height: 4rem;
   white-space: nowrap;
 `;

@@ -6,6 +6,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
 import { SignUp } from './pages/SignUp';
 import { SignUpComplete } from './pages/SignUpComplete';
+import { FindAccount } from './pages/FindAccount';
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'welcome', element: <SignUpComplete /> },
+      { path: '/login/find-account', element: <FindAccount /> },
       {
         path: '',
         element: <ProtectedRoute />,
