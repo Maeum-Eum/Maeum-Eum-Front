@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import { HomeHeader } from '../components/home/homeHeader';
 import { HomeDropdown } from '../components/home/HomeDropdown';
-import { NavigationBar } from '../components/home/NavigationBar';
 
 export const Home = () => {
   return (
     <Wrapper>
       <Dropdowns>
         <HomeDropdown items={['도보 20분 이내', '도보 10분 이내']} />
-
         <HomeDropdown items={['최신순', '가능 업무 일자순']} />
       </Dropdowns>
       <Content></Content>

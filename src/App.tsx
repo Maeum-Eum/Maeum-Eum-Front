@@ -4,12 +4,12 @@ import { Layout } from './components/Layout';
 import { Outlet } from 'react-router-dom';
 import useMediaQuery from './hooks/useMediaQuery';
 import GlobalStyle from './styles/GlobalStyle';
-import { BackButtonHeader } from './components/BackbuttonHeader';
 import { ButtonFooter } from './components/ButtonFooter';
-import { HomeHeader } from './components/home/homeHeader';
 import { NavigationBar } from './components/home/NavigationBar';
 import { useLocation, useNavigate } from 'react-router';
 import { useSignUpNavStore } from './store/signUpNavStore';
+import { BackButtonHeader } from './components/BackButtonHeader';
+import { HomeHeader } from './components/home/HomeHeader';
 
 function App() {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.mobile})`);

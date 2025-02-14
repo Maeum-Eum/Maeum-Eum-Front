@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { SignUpHeader } from './SignUpHeader';
 import { ReactNode } from 'react';
-//import { SignUpFooter } from './ButtonFooter';
 
 interface SignUpLayoutProps {
   children: ReactNode;

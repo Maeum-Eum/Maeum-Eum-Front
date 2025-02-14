@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { SignUpInput } from './SignUpInput';
 import { SignUpLabel } from './SignUpLabel';
 import { InputWrapper, SignUpLayout } from './SignUpLayout';
-import { useSignUpNavStore } from '../../store/signUpNavStore';
 import { RoundedButton } from './RoundedButton';
 
 interface buttonProps {
