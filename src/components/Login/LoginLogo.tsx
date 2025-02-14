@@ -5,10 +5,10 @@ export const LoginLogo = () => {
     <LogoContainer>
       <MainLogo>
         {' '}
-        <img src="src/assets/icons/Logo.svg" />
+        <img src="icons/Logo.svg" />
       </MainLogo>
       <LogoText>
-        <img src="src/assets/icons/LogoText.svg" />
+        <img src="icons/LogoText.svg" />
       </LogoText>
     </LogoContainer>
   );
@@ -21,7 +21,6 @@ const LogoContainer = styled.div`
   height: 15rem;
   justify-content: center;
   align-items: center;
-  margin-top: 10rem;
 `;
 
 const MainLogo = styled.div`
