@@ -9,12 +9,15 @@ const Wrapper = styled.div<WrapperProps>`
 
   @media (min-width: 768px) {
     //태블릿 사이즈
-    max-width: 700px;
+    max-width: 500px;
+    min-height: 100vh;
+    height: 100%;
   }
 
   @media (min-width: 1024px) {
     //데스크탑 사이즈
-    max-width: 900px;
+
+    width: 500px;
   }
   background-color: ${(props) => props.theme.colors.background};
   border-radius: ${({ isMobile }) => (isMobile ? '0' : '2.5rem')};
