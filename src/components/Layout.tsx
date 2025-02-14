@@ -2,16 +2,30 @@ import { ReactNode } from 'react';
 
 import styled from 'styled-components';
 
+interface LayoutProps {
+  isMobile: boolean;
+  children: ReactNode;
+  header?: ReactNode;
+  footer?: ReactNode;
+}
+
+interface WrapperProps {
+  isMobile: boolean;
+}
+
 const Wrapper = styled.div<WrapperProps>`
   min-width: 320px; //모바일 크기
   width: 100%;
   margin: 0 auto;
+  max-height: 100dvh;
+  position: relative;
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 
   @media (min-width: 768px) {
     //태블릿 사이즈
     max-width: 500px;
-    height: 100%;
   }
 
   @media (min-width: 1024px) {
@@ -22,20 +36,37 @@ const Wrapper = styled.div<WrapperProps>`
   border-radius: ${({ isMobile }) => (isMobile ? '0' : '2.5rem')};
   box-shadow: ${({ isMobile }) =>
     isMobile ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.1)'};
-  overflow: hidden;
-  position: relative;
 `;
 
-interface LayoutProps {
-  isMobile: boolean;
-  children: ReactNode;
-}
-
-interface WrapperProps {
-  isMobile: boolean;
-}
-
-//TODO: 로그인 여부에 따른 layout 변경필요
-export const Layout = ({ children, isMobile }: LayoutProps) => {
-  return <Wrapper isMobile={isMobile}>{children}</Wrapper>;
+export const Layout = ({ children, isMobile, header, footer }: LayoutProps) => {
+  return (
+    <Wrapper isMobile={isMobile}>
+      {header && <HeaderContainer>{header}</HeaderContainer>}
+      <ContentContainer>{children}</ContentContainer>
+      {footer && <FooterContainer>{footer}</FooterContainer>}
+    </Wrapper>
+  );
 };
+const ContentContainer = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+`;
+const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: ${({ theme }) => theme.colors.background};
+  z-index: 1000;
+`;
+
+const FooterContainer = styled.div`
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
