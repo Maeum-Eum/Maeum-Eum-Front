@@ -5,6 +5,7 @@ import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
 import { SignUp } from './pages/SignUp';
+import { FindAccount } from './pages/FindAccount';
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
     children: [
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
+      { path: '/login/find-account', element: <FindAccount /> },
       {
         path: '',
         element: <ProtectedRoute />,
