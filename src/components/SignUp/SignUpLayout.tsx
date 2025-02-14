@@ -43,7 +43,6 @@ const Line = styled.div`
 `;
 const Title = styled.span`
   margin-left: 3rem;
-  margin-top: 1.5rem;
   ${({ theme }) => theme.fontStyles.bodyMediumR};
 `;
 

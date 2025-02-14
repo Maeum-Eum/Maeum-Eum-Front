@@ -22,9 +22,8 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
   ${({ theme }) => theme.fontStyles.headingSB}
-  margin-top: 4.0rem;
   align-items: center;
-  height: 7rem;
+  height: 11.2rem;
 `;
 
 const BackIcon = styled.button`
