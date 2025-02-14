@@ -36,7 +36,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.black5};
   display: flex;
   flex-direction: column;
-  ${({ theme }) => theme.fontStyles.bodyMediumR}
+  ${({ theme }) => theme.fontStyles.bodyMediumL}
   span:first-child {
     ${({ theme }) => theme.fontStyles.bodyMediumM}
   }
