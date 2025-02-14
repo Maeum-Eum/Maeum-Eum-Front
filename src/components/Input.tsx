@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SignUpInput = styled.input`
+export const Input = styled.input`
   width: 100%;
   border: 0.08rem solid ${({ theme }) => theme.colors.black20};
   border-radius: 1.3rem;
