@@ -11,7 +11,7 @@ export const ButtonFooter = ({
 }) => {
   return (
     <Wrapper line={line}>
-      <SignupButton onClick={nextStep}>{title}</SignupButton>
+      <Button onClick={nextStep}>{title}</Button>
     </Wrapper>
   );
 };
@@ -22,11 +22,11 @@ const Wrapper = styled.div<{ line: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 13rem;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-const SignupButton = styled.button`
-  margin-top: 3.3rem;
+const Button = styled.button`
   bottom: 5.5rem;
   width: 20.7rem;
   padding: 1.3rem 0rem;
