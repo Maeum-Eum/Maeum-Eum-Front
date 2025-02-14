@@ -1,16 +1,9 @@
-import styled from 'styled-components';
-import { useFindAccountNavStore } from '../../store/findAccountStore';
 import { InputWrapper } from '../SignUp/SignUpLayout';
 import { SignUpInput } from '../SignUp/SignUpInput';
 import { RoundedButton } from '../SignUp/RoundedButton';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
 
 export const FindId = () => {
-  const { nextStep } = useFindAccountNavStore();
-
-  const handleVerify = () => {
-    nextStep();
-  };
   return (
     <>
       <SignUpLabel label="아이디 찾기" />
@@ -18,7 +11,7 @@ export const FindId = () => {
         <SignUpInput placeholder="휴대전화 번호를 입력해주세요." />
         <RoundedButton text={'인증번호 전송'} func={() => {}} />
       </InputWrapper>
-      <div style={{marginTop:"1rem"}}></div>
+      <div style={{ marginTop: '1rem' }}></div>
       <InputWrapper>
         <SignUpInput placeholder="인증번호를 입력해주세요." />
         <RoundedButton text={'확인'} func={() => {}} />
@@ -26,4 +19,3 @@ export const FindId = () => {
     </>
   );
 };
-

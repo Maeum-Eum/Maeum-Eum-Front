@@ -1,12 +1,9 @@
-import { useFindAccountNavStore } from '../../store/findAccountStore';
 import { RoundedButton } from '../SignUp/RoundedButton';
 import { SignUpInput } from '../SignUp/SignUpInput';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
 import { InputWrapper } from '../SignUp/SignUpLayout';
-import { FindAccountLayout } from './FindAccountLayout';
 
 export const FindPassword = () => {
-  const { nextStep } = useFindAccountNavStore();
   return (
     <>
       <SignUpLabel label="비밀번호 찾기" />

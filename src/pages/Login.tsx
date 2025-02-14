@@ -71,13 +71,6 @@ export const Login = () => {
   );
 };
 
-const Title = styled.div`
-  ${({ theme }) => theme.fontStyles.largeSB};
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`;
-
 const LoginContainer = styled.div`
   width: 100%;
   margin: 5rem auto;
