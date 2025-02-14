@@ -9,7 +9,7 @@ export const SignUpHeader = () => {
   return (
     <HeaderWrapper>
       <BackIcon onClick={() => (step == 1 ? navigate(-1) : prevStep())}>
-        <img src="src/assets/icons/back.svg" alt="뒤로가기" />
+        <img src="/icons/back.svg" alt="뒤로가기" />
       </BackIcon>
       회원가입
     </HeaderWrapper>
