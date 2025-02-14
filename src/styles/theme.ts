@@ -15,9 +15,19 @@ export const theme = {
     black5: '#0000000D',
     sColor1: '#884EDA',
     sColor2: '#F3DCFF',
+    sColor3: '#26B11C',
+    sColor4: '#DA2528',
   },
   fontStyles: {
-    largeSB: css`
+    large1B: css`
+      font-size: 2.4rem;
+      font-family: PretendardSemiBold;
+    `,
+    large2B: css`
+      font-size: 2rem;
+      font-family: PretendardBold;
+    `,
+    large2SB: css`
       font-size: 2rem;
       font-family: PretendardSemiBold;
     `,
@@ -28,6 +38,26 @@ export const theme = {
     headingSB: css`
       font-size: 1.6rem;
       font-family: PretendardSemiBold;
+    `,
+    headingR: css`
+      font-size: 1.6rem;
+      font-family: PretendardRegular;
+    `,
+    head2B: css`
+      font-size: 1.4rem;
+      font-family: PretendardBold;
+    `,
+    head2SB: css`
+      font-size: 1.4rem;
+      font-family: PretendardSemiBold;
+    `,
+    head2M: css`
+      font-size: 1.4rem;
+      font-family: PretendardMedium;
+    `,
+    head2R: css`
+      font-size: 1.4rem;
+      font-family: PretendardRegular;
     `,
     bodyMediumSB: css`
       font-size: 1.2rem;
