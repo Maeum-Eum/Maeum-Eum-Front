@@ -2,12 +2,10 @@ import styled from 'styled-components';
 import { SignUpInput } from './SignUpInput';
 import { SignUpLabel } from './SignUpLabel';
 import { SignUpLayout } from './SignUpLayout';
-import { useNavigate } from 'react-router';
 
 export const SignUpAddition = () => {
-  const navigate = useNavigate();
   return (
-    <SignUpLayout func={() => navigate('/welcome')} title="추가 정보 입력">
+    <SignUpLayout title="추가 정보 입력">
       <SignUpLabel label="경력사항" />
       <SignUpInput placeholder="" />
       <SignUpLabel label="자신있는 지원사항" />

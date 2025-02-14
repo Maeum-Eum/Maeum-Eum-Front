@@ -8,11 +8,14 @@ import { BackButtonHeader } from './components/BackbuttonHeader';
 import { ButtonFooter } from './components/ButtonFooter';
 import { HomeHeader } from './components/home/homeHeader';
 import { NavigationBar } from './components/home/NavigationBar';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { useSignUpNavStore } from './store/signUpNavStore';
 
 function App() {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.mobile})`);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { step, nextStep } = useSignUpNavStore();
   const getHeader = () => {
     if (location.pathname.startsWith('/signup'))
       return <BackButtonHeader title="회원가입" />;
@@ -26,8 +29,18 @@ function App() {
   };
 
   const getFooter = () => {
-    if (location.pathname.startsWith('/signup'))
-      return <ButtonFooter title="다음으로 넘어가기" nextStep={() => {}} />;
+    if (location.pathname.startsWith('/signup')) {
+      if (step == 4) {
+        return (
+          <ButtonFooter
+            title="다음으로 넘어가기"
+            nextStep={() => navigate('/welcome')}
+          />
+        );
+      }
+      return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+    }
+
     if (location.pathname === '/') return <NavigationBar />;
     if (location.pathname === '/accept')
       return <ButtonFooter nextStep={() => {}} title="다음으로 넘어가기" />;

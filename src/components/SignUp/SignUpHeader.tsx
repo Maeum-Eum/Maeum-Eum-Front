@@ -17,8 +17,6 @@ export const SignUpHeader = () => {
 };
 
 const HeaderWrapper = styled.div`
-  position: sticky;
-  width: 100%;
   display: flex;
   justify-content: center;
   ${({ theme }) => theme.fontStyles.headingSB}
