@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SignUpInput } from './SignUpInput';
+import { Input } from '../Input';
 import { SignUpLabel } from './SignUpLabel';
 import { SignUpLayout } from './SignUpLayout';
 
@@ -7,9 +7,9 @@ export const SignUpAddition = () => {
   return (
     <SignUpLayout title="추가 정보 입력">
       <SignUpLabel label="경력사항" />
-      <SignUpInput placeholder="" />
+      <Input placeholder="" />
       <SignUpLabel label="자신있는 지원사항" />
-      <SignUpInput placeholder="숫자만 입력해주세요" />
+      <Input placeholder="숫자만 입력해주세요" />
       <SignUpLabel label="한 줄 소개" />
 
       <Container>
@@ -19,7 +19,7 @@ export const SignUpAddition = () => {
           <br /> 운전을 잘 해요 등
         </span>
       </Container>
-      <SignUpInput placeholder="*10자 이상 입력해 주세요" />
+      <Input placeholder="*10자 이상 입력해 주세요" />
     </SignUpLayout>
   );
 };

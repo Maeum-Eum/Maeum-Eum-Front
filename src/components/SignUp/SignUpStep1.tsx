@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SignUpInput } from './SignUpInput';
+import { Input } from '../Input';
 import { SignUpLabel } from './SignUpLabel';
 import { InputWrapper, SignUpLayout } from './SignUpLayout';
 import { RoundedButton } from './RoundedButton';
@@ -12,13 +12,13 @@ export const SignUpStep1 = () => {
     <SignUpLayout title="계정 정보 입력">
       <SignUpLabel label="아이디" />
       <InputWrapper>
-        <SignUpInput placeholder="아이디를 입력해주세요" />
+        <Input placeholder="아이디를 입력해주세요" />
         <RoundedButton text={'중복확인'} func={() => {}}></RoundedButton>
       </InputWrapper>
       <SignUpLabel label="비밀번호" />
-      <SignUpInput placeholder="비밀번호를 입력해주세요" />
+      <Input placeholder="비밀번호를 입력해주세요" />
       <SignUpLabel label="비밀번호 재확인" />
-      <SignUpInput placeholder="비밀번호를 입력해주세요" />
+      <Input placeholder="비밀번호를 입력해주세요" />
       <Buttons>
         <SelectButton isSelected={true}>요양보호사</SelectButton>
         <SelectButton isSelected={false}>사회복지사</SelectButton>
