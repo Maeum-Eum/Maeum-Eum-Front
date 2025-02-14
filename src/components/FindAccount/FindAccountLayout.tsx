@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
-import styled, { keyframes, css } from 'styled-components';
-import { SignUpFooter } from '../SignUp/SignUpFooter';
+import styled from 'styled-components';
 import { FindAccountHeader } from './FindAccountHeader';
 import { FindAccountTab } from './FindAccountTab';
 import { FindAccountFooter } from './FindAccountFooter';
