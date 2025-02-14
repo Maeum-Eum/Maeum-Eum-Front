@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SignUpFooter } from '../components/SignUp/SignUpFooter';
+//import { SignUpFooter } from '../components/SignUp/ButtonFooter';
 import { LoginLogo } from '../components/Login/LoginLogo';
 
 export const SignUpComplete = () => {
@@ -16,7 +16,6 @@ export const SignUpComplete = () => {
           </span>
         </Text>
       </Content>
-      <SignUpFooter nextStep={() => {}} line={false} />
     </Wrapper>
   );
 };
