@@ -16,7 +16,7 @@ export const ButtonFooter = ({
   return (
     <Wrapper $line={line}>
       <Button onClick={nextStep}>{title}</Button>
-      {skip ? <Skip onClick={() => setStep(2)}>나중에 등록하기</Skip> : null}
+      {skip ? <Skip onClick={() => setStep(5)}>나중에 등록하기</Skip> : null}
     </Wrapper>
   );
 };
