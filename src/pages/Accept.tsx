@@ -6,7 +6,7 @@ export const Accept = () => {
     <Wrapper>
       <span>요양보호사님의 연락처를 알려주세요.</span>
       <span>관리자님이 확인할 경우, 서로에게 연락처가 공개됩니다.</span>
-      <Input placeholder="전화번호를 입력해주세요"></Input>
+      <Input placeholder="휴대전화 번호를 입력해주세요"></Input>
     </Wrapper>
   );
 };
