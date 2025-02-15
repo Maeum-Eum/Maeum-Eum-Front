@@ -1,11 +1,11 @@
 import { SignUpStep1 } from '../components/SignUp/SignUpStep1';
 import { SignUpSocialWorker } from '../components/SignUp/SignUpSocialWorker';
-import { useSignUpNavStore } from '../store/signUpNavStore';
+import { useSignUpStore } from '../store/signUpStore';
 import { SignUpCareWorker } from '../components/SignUp/SignUpCareWorker';
 import { SignUpAddition } from '../components/SignUp/SignUpAddition';
 
 export const SignUp = () => {
-  const { step } = useSignUpNavStore();
+  const { step } = useSignUpStore();
 
   return (
     <>

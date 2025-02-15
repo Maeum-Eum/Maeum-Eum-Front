@@ -6,6 +6,6 @@ export const SignUpLabel = ({ label }: { label: string }) => {
 
 const Title = styled.div`
   ${({ theme }) => theme.fontStyles.bodyMediumSB}
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   margin-top: 3rem;
 `;
