@@ -94,8 +94,8 @@ const SelectButton = styled.button<buttonProps>`
 
   ${(props) =>
     props.$isSelected
-      ? `${props.theme.fontStyles.bodyMediumSB}`
-      : `${props.theme.fontStyles.bodyMediumR}`}
+      ? `${props.theme.fontStyles.head2B}`
+      : `${props.theme.fontStyles.head2R}`}
 
   color:
   ${(props) =>

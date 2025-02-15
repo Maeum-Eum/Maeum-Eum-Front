@@ -41,7 +41,7 @@ const Line = styled.div`
 `;
 const Title = styled.span<{ $require: boolean }>`
   margin-left: 3rem;
-  ${({ theme }) => theme.fontStyles.bodyMediumR};
+  ${({ theme }) => theme.fontStyles.bodyMediumM};
   span {
     color: ${({ theme, $require }) =>
       $require ? theme.colors.sColor4 : theme.colors.sColor3};
