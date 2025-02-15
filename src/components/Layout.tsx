@@ -51,6 +51,7 @@ const ContentContainer = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 2rem;
 `;
 const HeaderContainer = styled.div`
   position: sticky;
