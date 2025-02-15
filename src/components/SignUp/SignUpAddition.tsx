@@ -1,41 +1,30 @@
 import styled from 'styled-components';
-import { Input } from '../Input';
+import { Experience } from './Experience';
 import { SignUpLabel } from './SignUpLabel';
 import { SignUpLayout } from './SignUpLayout';
 
-export const SignUpAddition = () => {
-  return (
-    <SignUpLayout title="추가 정보 입력">
-      <SignUpLabel label="경력사항" />
-      <Input placeholder="" />
-      <SignUpLabel label="자신있는 지원사항" />
-      <Input placeholder="숫자만 입력해주세요" />
-      <SignUpLabel label="한 줄 소개" />
+import { useState } from 'react';
 
-      <Container>
-        <span>구체적인 장점같은 내용을 알려주세요.</span>
-        <span>
-          오래 근무할 수 있어요, 신체 활동 보조에 자신 있어요,
-          <br /> 운전을 잘 해요 등
-        </span>
-      </Container>
-      <Input placeholder="*10자 이상 입력해 주세요" />
+export const SignUpAddition = () => {
+  const [cnt, setCnt] = useState(1);
+  return (
+    <SignUpLayout title="추가 정보 입력" require={false}>
+      <SignUpLabel label="경력사항" />
+      {Array.from({ length: cnt }).map((_, index) => {
+        return <Experience key={index} />;
+      })}
+      {cnt === 3 ? null : (
+        <Add onClick={() => setCnt((cnt) => cnt + 1)}>추가 하기</Add>
+      )}
     </SignUpLayout>
   );
 };
-
-const Container = styled.div`
+const Add = styled.div`
   width: 100%;
-  margin-bottom: 1rem;
-  box-sizing: border-box;
-
-  padding: 1.2rem 1.4rem;
-  border-radius: 1.3rem;
-  background-color: ${({ theme }) => theme.colors.black5};
-  display: flex;
-  flex-direction: column;
-  ${({ theme }) => theme.fontStyles.bodyMediumL}
-  span:first-child {
-    ${({ theme }) => theme.fontStyles.bodyMediumM}
-  }
+  align-self: center;
+  text-align: center;
+  margin-top: 1rem;
+  text-decoration: underline;
+  ${({ theme }) => theme.fontStyles.head2M}
+  cursor: pointer;
 `;
