@@ -6,7 +6,7 @@ import { SignUpLayout } from './SignUpLayout';
 import { useSignUpStore } from '../../store/signUpStore';
 
 export const SignUpAddition2 = () => {
-  const { formData, updateFormData, errors } = useSignUpStore();
+  const { formData, updateFormData } = useSignUpStore();
 
   return (
     <SignUpLayout title="추가 정보 입력" require={false}>
