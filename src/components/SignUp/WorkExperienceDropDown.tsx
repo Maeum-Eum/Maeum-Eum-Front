@@ -59,7 +59,7 @@ export const WorkExperienceDropDown = ({
       </DropdownButton>
       {isOpen && (
         <DropdownContent>
-          {items.map((i, index) => (
+          {items.map((i) => (
             <DropdownItem key={i} onClick={() => clickItem(i)}>
               {i}
             </DropdownItem>
