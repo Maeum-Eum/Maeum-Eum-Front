@@ -3,7 +3,7 @@ import { Input } from '../Input';
 import { SignUpLabel } from './SignUpLabel';
 import { ErrorText, InputWrapper, SignUpLayout } from './SignUpLayout';
 import { useSignUpStore } from '../../store/signUpStore';
-import { SelectedAddress } from '../address/SelectedAddress';
+import { AddressBox } from '../address/AddressBox';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { hangeulInput, numInput } from '../../utils/regex';
 
@@ -61,7 +61,7 @@ export const SignUpCareWorker = () => {
       {errors.address && (
         <ErrorText error={errors.address !== null}>{errors.address}</ErrorText>
       )}
-      {formData.address.zonecode && <SelectedAddress {...formData.address} />}
+      {formData.address.zonecode && <AddressBox address={formData.address} />}
     </SignUpLayout>
   );
 };
