@@ -98,11 +98,11 @@ function App() {
         return (
           <ButtonFooter
             title="다음으로 넘어가기"
-            nextStep={() => navigate('/welcome')}
+            nextStep={() => navigate('/welcome', {replace: true})}
           />
         );
       }
-      return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+      //return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
     }
 
     if (location.pathname.startsWith('/elder-register')) {
@@ -114,7 +114,7 @@ function App() {
           />
         );
       }
-      return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+     // return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
     }
 
     if (location.pathname === '/') return <NavigationBar />;
