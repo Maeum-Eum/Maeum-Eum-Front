@@ -7,6 +7,7 @@ import { Home } from './pages/Home';
 import { SignUp } from './pages/SignUp';
 import { SignUpComplete } from './pages/SignUpComplete';
 import { FindAccount } from './pages/FindAccount';
+import { Resume } from './pages/Resume';
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
     children: [
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
+      {path: 'resume', element:<Resume />},
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
       {
