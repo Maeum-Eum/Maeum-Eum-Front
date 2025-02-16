@@ -5,9 +5,11 @@ import { ErrorText, InputWrapper, SignUpLayout } from './SignUpLayout';
 import { RoundedButton } from './RoundedButton';
 import { hangeulInput, numInput } from '../../utils/regex';
 import { useSignUpStore } from '../../store/signUpStore';
+import { useNavigate } from 'react-router';
 
 export const SignUpSocialWorker = () => {
   const { formData, updateFormData, errors } = useSignUpStore();
+  const navigate = useNavigate();
   return (
     <SignUpLayout title="사회복지사님 정보 입력" require={true}>
       <SignUpLabel label="이름" />
@@ -33,7 +35,12 @@ export const SignUpSocialWorker = () => {
       <SignUpLabel label="소속" />
       <InputWrapper>
         <Input placeholder="소속을 입력해주세요" disabled={true} />
-        <RoundedButton text={'검색하기'} func={() => {}}></RoundedButton>
+        <RoundedButton
+          text={'검색하기'}
+          func={() => {
+            navigate('/search-center');
+          }}
+        ></RoundedButton>
       </InputWrapper>
       {errors.centerAddress && (
         <ErrorText error={errors.centerAddress !== null}>
