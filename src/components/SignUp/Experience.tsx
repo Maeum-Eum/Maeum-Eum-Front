@@ -5,29 +5,32 @@ import { RoundedButton } from './RoundedButton';
 import { InputWrapper } from './SignUpLayout';
 import { WorkExperienceDropDown } from './WorkExperienceDropDown';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export const Experience = () => {
   const [date, setDate] = useState('');
+  const navigate = useNavigate();
 
   return (
     <Wrapper>
       <DateInputs>
-        <DateInput
-          value={date}
-          onChange={setDate}
-          placeholder="경험 시작시간"
-        />
+        <DateInput value={date} onChange={setDate} placeholder="입사 연월일" />
         <div>부터</div>
         <DateInput
           value={date}
           onChange={setDate}
-          placeholder="경험 종료시간"
+          placeholder="퇴사 연월일"
         />{' '}
         <div>까지</div>
       </DateInputs>
       <InputWrapper>
         <Input placeholder="센터명을 입력해주세요" disabled={true} />
-        <RoundedButton text={'검색하기'} func={() => {}}></RoundedButton>
+        <RoundedButton
+          text={'검색하기'}
+          func={() => {
+            navigate('/search-center');
+          }}
+        ></RoundedButton>
       </InputWrapper>
       <WorkExperienceDropDown
         items={[
