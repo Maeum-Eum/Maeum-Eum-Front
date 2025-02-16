@@ -41,7 +41,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100dvh;
     color:${({ theme }) => theme.colors.black}
   }
 
@@ -51,12 +51,12 @@ html {
   }
 
   button, a, input, textarea, select {
+    outline: none;
+  }
+
+  input[type="text"], select {
     -webkit-appearance: none;
     appearance: none;
-    &:active {
-      outline: none;
-      -webkit-tap-highlight-color: transparent;
-    }
   }
   #root {
     width: 100%;

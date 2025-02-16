@@ -1,23 +1,22 @@
 import styled from 'styled-components';
-import { SignUpInput } from './SignUpInput';
+import { Input } from '../Input';
 import { SignUpLabel } from './SignUpLabel';
 import { InputWrapper, SignUpLayout } from './SignUpLayout';
-import { useSignUpNavStore } from '../../store/signUpNavStore';
 import { useState } from 'react';
 import { RoundedButton } from './RoundedButton';
 
 export const SignUpSocialWorker = () => {
   const [selected, setSelected] = useState<string>('있음');
-  const { nextStep } = useSignUpNavStore();
+
   return (
-    <SignUpLayout func={nextStep} title="사회복지사님 정보 입력">
+    <SignUpLayout title="사회복지사님 정보 입력">
       <SignUpLabel label="이름" />
-      <SignUpInput placeholder="이름을 입력해주세요" />
+      <Input placeholder="이름을 입력해주세요" />
       <SignUpLabel label="휴대전화" />
-      <SignUpInput placeholder="숫자만 입력해주세요" />
+      <Input placeholder="숫자만 입력해주세요" />
       <SignUpLabel label="소속" />
       <InputWrapper>
-        <SignUpInput placeholder="소속을 입력해주세요" />
+        <Input placeholder="소속을 입력해주세요" />
         <RoundedButton text={'검색하기'} func={() => {}}></RoundedButton>
       </InputWrapper>
       <SignUpLabel label="목욕차량 소유 여부" />

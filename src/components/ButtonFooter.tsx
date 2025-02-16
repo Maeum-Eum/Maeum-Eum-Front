@@ -1,24 +1,28 @@
 import styled from 'styled-components';
 
-export const SignUpFooter = ({ nextStep }: { nextStep: () => void }) => {
+export const ButtonFooter = ({
+  nextStep,
+  line = true,
+  title,
+}: {
+  nextStep: () => void;
+  line?: boolean;
+  title: string;
+}) => {
   return (
-    <Wrapper>
-      <Button onClick={nextStep}>다음으로 넘어가기</Button>
+    <Wrapper line={line}>
+      <Button onClick={nextStep}>{title}</Button>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
-  border-top: 0.5rem solid ${({ theme }) => theme.colors.black5};
+const Wrapper = styled.div<{ line: boolean }>`
+  border-top: ${(props) =>
+    props.line ? `0.5rem solid ${props.theme.colors.black5}` : 'none'};
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
-  padding-top: 3.3rem;
-  padding-bottom: 5.5rem;
-  position: sticky;
-  bottom: 0;
-  z-index: 1000;
+  height: 13rem;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
