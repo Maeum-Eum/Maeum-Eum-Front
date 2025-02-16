@@ -1,14 +1,24 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { useSignUpNavStore } from '../../store/signUpNavStore';
+import { useSignUpStore } from '../../store/signUpStore';
 
 export const SignUpHeader = () => {
-  const { step, prevStep } = useSignUpNavStore();
+  const { step, setStep, formData } = useSignUpStore();
 
   const navigate = useNavigate();
   return (
     <HeaderWrapper>
-      <BackIcon onClick={() => (step == 1 ? navigate(-1) : prevStep())}>
+      <BackIcon
+        onClick={() =>
+          step === 1
+            ? navigate(-1)
+            : step === 2 || step === 3
+            ? setStep(1)
+            : formData.type === '요양보호사'
+            ? setStep(3)
+            : setStep(2)
+        }
+      >
         <img src="/icons/back.svg" alt="뒤로가기" />
       </BackIcon>
       회원가입

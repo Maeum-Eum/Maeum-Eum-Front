@@ -11,11 +11,13 @@ export const Input = styled.input`
   padding-left: 1.3rem;
   background-color: transparent;
   box-sizing: border-box;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
 
+  color: ${({ theme }) => theme.colors.black};
   ${({ theme }) => theme.fontStyles.bodyMediumR};
   &:focus {
-    //TODO : UI 나온 후 수정 필요
-    border-color: ${({ theme }) => theme.colors.mainColor};
+    border-color: ${({ theme }) => theme.colors.black60};
   }
   &::placeholder {
     color: ${({ theme }) => theme.colors.black40}; /* placeholder 텍스트 색상 */
