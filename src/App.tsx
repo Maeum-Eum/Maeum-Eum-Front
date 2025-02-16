@@ -22,6 +22,8 @@ function App() {
   const { step, setStep, validateForm, formData } = useSignUpStore();
   const getHeader = () => {
     if (location.pathname.startsWith('/signup')) return <SignUpHeader />;
+    if (location.pathname.startsWith('/elder-register'))
+      return <BackButtonHeader title="어르신 등록" />;
     if (location.pathname === '/')
       return <HomeHeader child={<span>서울 특별시 영등포구 문래동</span>} />;
     if (location.pathname === '/accept')
@@ -89,6 +91,30 @@ function App() {
           skip={step === 4}
         />
       );
+    }
+
+    if (location.pathname.startsWith('/elder-register')) {
+      if (step == 4) {
+        return (
+          <ButtonFooter
+            title="다음으로 넘어가기"
+            nextStep={() => navigate('/welcome', {replace: true})}
+          />
+        );
+      }
+      //return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+    }
+
+    if (location.pathname.startsWith('/elder-register')) {
+      if (step == 4) {
+        return (
+          <ButtonFooter
+            title="다음으로 넘어가기"
+            nextStep={() => navigate('/welcome', {replace: true})}
+          />
+        );
+      }
+     // return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
     }
 
     if (location.pathname === '/') return <NavigationBar />;
