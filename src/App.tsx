@@ -14,16 +14,25 @@ import { SignUpHeader } from './components/SignUp/SignUpHeader';
 import { Input } from './components/Input';
 import { RoundedButton } from './components/SignUp/RoundedButton';
 import { InputWrapper } from './components/SignUp/SignUpLayout';
+import { useElderRegisterStore } from './store/elderRegisterStore';
 
 function App() {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.mobile})`);
   const location = useLocation();
   const navigate = useNavigate();
-  const { step, setStep, validateForm, formData } = useSignUpStore();
+  const {
+    step: signUpStep,
+    setStep,
+    validateForm,
+    formData,
+  } = useSignUpStore();
+  const { step: elderRegisterStep, nextStep } = useElderRegisterStore();
   const getHeader = () => {
     if (location.pathname.startsWith('/signup')) return <SignUpHeader />;
     if (location.pathname.startsWith('/elder-register'))
       return <BackButtonHeader title="어르신 등록" />;
+    if (location.pathname.startsWith('/resume'))
+      return <BackButtonHeader title="이력서 등록" />;
     if (location.pathname === '/')
       return <HomeHeader child={<span>서울 특별시 영등포구 문래동</span>} />;
     if (location.pathname === '/accept')
@@ -46,7 +55,7 @@ function App() {
 
   const getFooter = () => {
     if (location.pathname.startsWith('/signup')) {
-      if (step === 4)
+      if (signUpStep === 4)
         return (
           <ButtonFooter
             title="다음으로 넘어가기"
@@ -59,9 +68,9 @@ function App() {
 
       return (
         <ButtonFooter
-          title={step === 5 ? '회원가입 완료하기' : '다음으로 넘어가기'}
+          title={signUpStep === 5 ? '회원가입 완료하기' : '다음으로 넘어가기'}
           nextStep={() => {
-            switch (step) {
+            switch (signUpStep) {
               case 1:
                 if (validateForm(['id', 'password', 'passwordCheck', 'type'])) {
                   if (formData.type === '사회복지사') setStep(2);
@@ -88,33 +97,33 @@ function App() {
                 navigate('/welcome', { replace: true });
             }
           }}
-          skip={step === 4}
+          skip={signUpStep === 4}
         />
       );
     }
 
-    if (location.pathname.startsWith('/elder-register')) {
-      if (step == 4) {
+    if (location.pathname.startsWith('/resume')) {
+      if (elderRegisterStep == 10) {
         return (
           <ButtonFooter
-            title="다음으로 넘어가기"
-            nextStep={() => navigate('/welcome', {replace: true})}
+            title="이력서 제출"
+            nextStep={() => navigate('/welcome', { replace: true })}
           />
         );
       }
-      //return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+      return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
     }
 
     if (location.pathname.startsWith('/elder-register')) {
-      if (step == 4) {
+      if (elderRegisterStep == 4) {
         return (
           <ButtonFooter
             title="다음으로 넘어가기"
-            nextStep={() => navigate('/welcome', {replace: true})}
+            nextStep={() => navigate('/welcome', { replace: true })}
           />
         );
       }
-     // return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
+      return <ButtonFooter title="다음으로 넘어가기" nextStep={nextStep} />;
     }
 
     if (location.pathname === '/') return <NavigationBar />;
