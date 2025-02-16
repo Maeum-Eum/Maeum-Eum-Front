@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-export const GotoRegister = () => {
+export const LoginFooter = () => {
   const navigate = useNavigate();
   return (
     <FooterContainer>
-      <Divider />
       <Text>계정이 아직 없으신가요?</Text>
       <SignUp onClick={() => navigate('/signup')}>회원가입하기</SignUp>
     </FooterContainer>
@@ -13,23 +12,17 @@ export const GotoRegister = () => {
 };
 
 const FooterContainer = styled.div`
-  width: 100%;
-  height: 20vh;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  border-top: 0.5rem solid ${({theme}) => theme.colors.black5};
   display: flex;
   flex-direction: column;
+  width: 100%;
+  align-items: center;
   justify-content: center;
-  position: absolute;
+  padding-top: 3.3rem;
+  position: sticky;
   bottom: 0;
-  left: 0;
-`;
-
-const Divider = styled.div`
-  width: 120%;
-  height: 5px;
-  background-color: #f5f5f5;
-  margin-bottom: 2rem;
+  z-index: 1000;
+  background-color: ${({theme}) => theme.colors.background}
 `;
 
 const Text = styled.p`
