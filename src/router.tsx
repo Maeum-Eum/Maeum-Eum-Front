@@ -9,6 +9,7 @@ import { SignUpComplete } from './pages/SignUpComplete';
 import { FindAccount } from './pages/FindAccount';
 import { SearchCenter } from './pages/SearchCenter';
 import { ElderRegister } from './pages/ElderRegister';
+import { Resume } from './pages/Resume';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'elder-register', element:<ElderRegister/>},
+      { path: 'resume', element: <Resume />},
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
       { path: 'search-center', element: <SearchCenter /> },
