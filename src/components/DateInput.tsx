@@ -14,9 +14,9 @@ export const DateInput = ({ value, onChange, placeholder }: DateInputProps) => {
     let inputValue = e.target.value.replace(/\D/g, '');
 
     if (inputValue.length > 4)
-      inputValue = `${inputValue.slice(0, 4)}/${inputValue.slice(4)}`;
+      inputValue = `${inputValue.slice(0, 4)}-${inputValue.slice(4)}`;
     if (inputValue.length > 7)
-      inputValue = `${inputValue.slice(0, 7)}/${inputValue.slice(7, 9)}`;
+      inputValue = `${inputValue.slice(0, 7)}-${inputValue.slice(7, 9)}`;
 
     onChange(inputValue);
   };
@@ -26,7 +26,7 @@ export const DateInput = ({ value, onChange, placeholder }: DateInputProps) => {
       type="text"
       value={value}
       onChange={handleInputChange}
-      placeholder={isFocused ? 'yyyy/mm/dd' : placeholder}
+      placeholder={isFocused ? 'yyyy-mm-dd' : placeholder}
       onFocus={() => setIsFocused(true)}
     />
   );

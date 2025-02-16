@@ -2,12 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 interface HomeDropdownProps {
-  items: string[];
+  item: string;
+  setWork: (i: string) => void;
 }
+const items = [
+  '방문 요양',
+  '입주 요양',
+  '방문 목욕',
+  '주야간 보호',
+  '요양원',
+  '병원',
+  '병원 동행',
+];
 
-export const WorkExperienceDropDown = ({ items }: HomeDropdownProps) => {
+export const WorkExperienceDropDown = ({
+  item,
+  setWork,
+}: HomeDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [item, setItem] = useState(-1);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,8 +39,8 @@ export const WorkExperienceDropDown = ({ items }: HomeDropdownProps) => {
     };
   }, []);
 
-  const clickItem = (index: number) => {
-    setItem(index);
+  const clickItem = (item: string) => {
+    setWork(item);
     setIsOpen(false);
   };
   return (
@@ -37,7 +50,7 @@ export const WorkExperienceDropDown = ({ items }: HomeDropdownProps) => {
         $isOpen={isOpen}
         $item={item}
       >
-        {item === -1 ? '경력사항 선택하기' : items[item]}
+        {item === '' ? '경력사항 선택하기' : item}
         {isOpen ? (
           <IoIosArrowUp style={{ marginLeft: '1.5rem' }} />
         ) : (
@@ -47,7 +60,7 @@ export const WorkExperienceDropDown = ({ items }: HomeDropdownProps) => {
       {isOpen && (
         <DropdownContent>
           {items.map((i, index) => (
-            <DropdownItem key={i} onClick={() => clickItem(index)}>
+            <DropdownItem key={i} onClick={() => clickItem(i)}>
               {i}
             </DropdownItem>
           ))}
@@ -70,12 +83,12 @@ const DropdownWrapper = styled.div<{ $isOpen: boolean }>`
   border-radius: 1.3rem;
 `;
 
-const DropdownButton = styled.button<{ $isOpen: boolean; $item: number }>`
+const DropdownButton = styled.button<{ $isOpen: boolean; $item: string }>`
   background-color: transparent;
   color: ${(props) =>
     props.$isOpen
       ? props.theme.colors.white
-      : props.$item !== -1
+      : props.$item !== ''
       ? props.theme.colors.black
       : props.theme.colors.black40};
   cursor: pointer;

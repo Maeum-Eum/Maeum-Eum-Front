@@ -1,9 +1,18 @@
 import { create } from 'zustand';
+
 export interface IAddress {
   zonecode: string;
   roadAddress: string;
   jibunAddress: string;
 }
+
+export interface IExperience {
+  startDate: string;
+  endDate: string;
+  centerId: number;
+  work: string;
+}
+
 interface SignUpState {
   step: number;
   setStep: (step: number) => void;
@@ -18,7 +27,7 @@ interface SignUpState {
     address: IAddress;
     centerAddress: IAddress;
     hasCar: boolean;
-    experience: string;
+    experience: IExperience[];
     introduction: string;
   };
   errors: {
@@ -30,9 +39,16 @@ interface SignUpState {
     phone: string | null;
     address: string | null;
     centerAddress: string | null;
+    experience: string | null;
   };
 
   updateFormData: (data: Partial<SignUpState['formData']>) => void;
+  updateExperienceField: (
+    index: number,
+    field: keyof IExperience,
+    value: string | number
+  ) => void;
+  removeExperience: (index: number) => void;
   validateForm: (fields?: (keyof SignUpState['formData'])[]) => boolean;
 }
 
@@ -48,13 +64,49 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     address: { zonecode: '', roadAddress: '', jibunAddress: '' },
     centerAddress: { zonecode: '', roadAddress: '', jibunAddress: '' },
     hasCar: true,
-    experience: '',
+    experience: [{ startDate: '', endDate: '', work: '', centerId: -1 }],
     introduction: '',
   },
   setStep: (step) => set({ step }),
 
   updateFormData: (data) =>
     set((state) => ({ formData: { ...state.formData, ...data } })),
+
+  updateExperienceField: (
+    index: number,
+    field: keyof IExperience,
+    value: string | number
+  ) =>
+    set((state) => {
+      const updatedExperience = [...state.formData.experience]; // 기존 경험 배열 복사
+      if (!updatedExperience[index]) {
+        updatedExperience[index] = {
+          startDate: '',
+          endDate: '',
+          centerId: 0,
+          work: '',
+        }; // 없으면 초기값 생성
+      }
+      updatedExperience[index] = {
+        ...updatedExperience[index],
+        [field]: value,
+      }; // 필드 업데이트
+
+      return {
+        formData: {
+          ...state.formData,
+          experience: updatedExperience,
+        },
+      };
+    }),
+
+  removeExperience: (index) =>
+    set((state) => ({
+      formData: {
+        ...state.formData,
+        experience: state.formData.experience.filter((_, i) => i !== index),
+      },
+    })),
   errors: {
     id: null,
     password: null,
@@ -64,11 +116,20 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     phone: null,
     address: null,
     centerAddress: null,
+    experience: null,
   },
   validateForm: (fields?: (keyof SignUpState['formData'])[]) => {
     const { formData, errors } = get();
     const newErrors = { ...errors };
+    const hasPartialExperience = formData.experience.some(
+      ({ startDate, endDate, centerId, work }) => {
+        const isPartiallyFilled =
+          (startDate || endDate || centerId !== -1 || work) &&
+          (!startDate || !endDate || centerId === -1 || !work);
 
+        return isPartiallyFilled;
+      }
+    );
     const fieldValidators = {
       id: formData.id.trim() !== '' ? null : '*올바른 이메일을 입력하세요.', //중복확인 등 체크 요소 변경
       password:
@@ -90,6 +151,8 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
           : null,
       phone:
         formData.phone.length < 11 ? '*휴대전화 번호를 확인해주세요' : null,
+
+      experience: hasPartialExperience ? '*비어있는 필드가 있습니다.' : null,
     };
     // 특정 필드만 검사하는 경우
     if (fields) {
@@ -104,20 +167,9 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
           fieldValidators[key as keyof typeof fieldValidators];
       });
     } // 특정 필드만 검사하는 경우
-    if (fields) {
-      fields.forEach((field) => {
-        newErrors[field as keyof typeof newErrors] =
-          fieldValidators[field as keyof typeof fieldValidators];
-      });
-    } else {
-      // 모든 필드를 검사하는 경우
-      Object.keys(fieldValidators).forEach((key) => {
-        newErrors[key as keyof typeof newErrors] =
-          fieldValidators[key as keyof typeof fieldValidators];
-      });
-    }
+
     set({ errors: newErrors });
-    console.log(Object.values(newErrors).every((error) => error === null));
+    console.log(formData.experience);
     return Object.values(newErrors).every((error) => error === null);
   },
 }));

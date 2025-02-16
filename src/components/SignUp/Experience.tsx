@@ -4,23 +4,37 @@ import { Input } from '../Input';
 import { RoundedButton } from './RoundedButton';
 import { InputWrapper } from './SignUpLayout';
 import { WorkExperienceDropDown } from './WorkExperienceDropDown';
-import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-export const Experience = () => {
-  const [date, setDate] = useState('');
+interface IExperience {
+  start: string;
+  end: string;
+  work: string;
+  setStart: (i: string) => void;
+  setEnd: (i: string) => void;
+  setWork: (i: string) => void;
+}
+
+export const Experience = ({
+  start,
+  end,
+  work,
+  setStart,
+  setEnd,
+  setWork,
+}: IExperience) => {
   const navigate = useNavigate();
 
   return (
     <Wrapper>
       <DateInputs>
-        <DateInput value={date} onChange={setDate} placeholder="입사 연월일" />
-        <div>부터</div>
         <DateInput
-          value={date}
-          onChange={setDate}
-          placeholder="퇴사 연월일"
-        />{' '}
+          value={start}
+          onChange={setStart}
+          placeholder="입사 연월일"
+        />
+        <div>부터</div>
+        <DateInput value={end} onChange={setEnd} placeholder="퇴사 연월일" />
         <div>까지</div>
       </DateInputs>
       <InputWrapper>
@@ -32,17 +46,7 @@ export const Experience = () => {
           }}
         ></RoundedButton>
       </InputWrapper>
-      <WorkExperienceDropDown
-        items={[
-          '방문 요양',
-          '입주 요양',
-          '방문 목욕',
-          '주야간 보호',
-          '요양원',
-          '병원',
-          '병원 동행',
-        ]}
-      />
+      <WorkExperienceDropDown setWork={setWork} item={work} />
     </Wrapper>
   );
 };
