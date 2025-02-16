@@ -31,7 +31,7 @@ function App() {
         <div>
           <BackButtonHeader title="센터 검색하기" />
           <InputWrapper style={{ padding: '0 3rem' }}>
-            <Input />
+            <Input placeholder="소속 기관명을 입력해주세요." disabled={true} />
             <RoundedButton text="검색하기" func={() => {}} />
           </InputWrapper>
         </div>
