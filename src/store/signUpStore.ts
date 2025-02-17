@@ -9,14 +9,15 @@ export interface IAddress {
 export interface IExperience {
   startDate: string;
   endDate: string;
-  centerId: number;
+  centerId: number; //TODO: 도로명으로 수정?
   work: string;
 }
 
-interface SignUpState {
+export interface SignUpState {
   step: number;
   setStep: (step: number) => void;
-
+  idDuplicate: boolean | null;
+  setDuplicate: (dup: boolean | null) => void;
   formData: {
     id: string;
     password: string;
@@ -54,6 +55,8 @@ interface SignUpState {
 
 export const useSignUpStore = create<SignUpState>((set, get) => ({
   step: 1,
+  idDuplicate: null,
+  setDuplicate: (idDuplicate) => set({ idDuplicate }),
   formData: {
     id: '',
     password: '',
@@ -119,7 +122,7 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     experience: null,
   },
   validateForm: (fields?: (keyof SignUpState['formData'])[]) => {
-    const { formData, errors } = get();
+    const { formData, errors, idDuplicate } = get();
     const newErrors = { ...errors };
     const hasPartialExperience = formData.experience.some(
       ({ startDate, endDate, centerId, work }) => {
@@ -131,11 +134,18 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
       }
     );
     const fieldValidators = {
-      id: formData.id.trim() !== '' ? null : '*올바른 이메일을 입력하세요.', //중복확인 등 체크 요소 변경
+      id:
+        formData.id.trim() !== ''
+          ? idDuplicate
+            ? '*사용할 수 없는 아이디 입니다.'
+            : idDuplicate === null
+            ? '*중복확인을 해주세요'
+            : null
+          : '*8~20자의 영문소문자와 숫자를 입력해주세요',
       password:
-        formData.password.length >= 2 //변경 필요
+        formData.password.length >= 8 //TODO: 변경 필요
           ? null
-          : '*비밀번호는 최소 6자리 이상이어야 합니다.',
+          : '*비밀번호는 최소 8자리 이상이어야 합니다.',
       passwordCheck:
         formData.password === formData.passwordCheck
           ? null
@@ -150,7 +160,7 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
           ? '*소속을 입력해주세요.'
           : null,
       phone:
-        formData.phone.length < 11 ? '*휴대전화 번호를 확인해주세요' : null,
+        formData.phone.length < 13 ? '*휴대전화 번호를 확인해주세요' : null,
 
       experience: hasPartialExperience ? '*비어있는 필드가 있습니다.' : null,
     };
