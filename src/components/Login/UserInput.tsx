@@ -1,28 +1,23 @@
 import styled from 'styled-components';
+import { useLoginStore } from '../../store/loginStore';
 
-interface Props {
-  id: string;
-  setId: (ud: string) => void;
-  password: string;
-  setPassword: (password: string) => void;
-  error: string;
-}
+export const UserInput = () => {
+  const {
+    username,
+    password,
+    setUsername,
+    setPassword,
+    error,
+  } = useLoginStore();
 
-export const UserInput = ({
-  id,
-  setId,
-  password,
-  setPassword,
-  error,
-}: Props) => {
   return (
     <>
       <Label>아이디</Label>
       <Input
         type="text"
         placeholder="아이디를 입력해주세요."
-        value={id}
-        onChange={(e) => setId(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       ></Input>
       <Label>비밀번호</Label>
       <Input
@@ -65,6 +60,6 @@ const Input = styled.input`
 `;
 
 const ErrorText = styled.p`
-  color: #26B11C;
+  color: #26b11c;
   font-size: 1rem;
 `;
