@@ -85,7 +85,8 @@ const DropdownItem = styled.div`
   padding: 10px;
   cursor: pointer;
   ${(props) => props.theme.fontStyles.head2SB};
-  &:hover {
+  &:hover,
+  &:active {
     background-color: ${(props) => props.theme.colors.black10};
   }
 `;

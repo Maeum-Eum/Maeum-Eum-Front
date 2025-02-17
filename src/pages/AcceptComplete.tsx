@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { LoginLogo } from '../components/Login/LoginLogo';
 
-export const SignUpComplete = () => {
+export const AcceptComplete = () => {
   return (
     <Wrapper>
       <Content>
-        <LoginLogo />
         <Text>
-          <span>회원가입이 완료 되었습니다.</span>
+          <span>[평일/주말] 방문 요양 - 4등급 여자 어르신</span>
           <span>
-            마음이음에서 제공하는 특별한 서비스를
+            관리자가 곧 전화할 예정입니다.
             <br />
-            함께 시작해봐요
+            기다려 주세요!
           </span>
+          <span>관리자 전화번호: (010-0000-0000)</span>
         </Text>
       </Content>
     </Wrapper>
@@ -36,10 +35,13 @@ const Text = styled.div`
   flex-direction: column;
   ${({ theme }) => theme.fontStyles.bodyMediumL}
   text-align: center;
-  span:first-child {
+  span:nth-child(1) {
+    margin-bottom: 8rem;
+    ${({ theme }) => theme.fontStyles.headingB};
+  }
+  span:nth-child(2) {
     margin-bottom: 2rem;
     ${({ theme }) => theme.fontStyles.large2SB};
     color: ${({ theme }) => theme.colors.mainColor};
-    margin-top: 7rem;
   }
 `;
