@@ -4,6 +4,10 @@ import { NavigationBar } from '../home/NavigationBar';
 import { useSignUpStore } from '../../store/signUpStore';
 import { useElderRegisterStore } from '../../store/elderRegisterStore';
 import { useAcceptStore } from '../../store/acceptStore';
+import { postManagerSignUp } from '../../services/signup';
+import styled from 'styled-components';
+import { HomeButtons } from '../home/HomeButtons';
+import { useContactStore } from '../../store/contactStore';
 
 export const Footer = () => {
   const location = useLocation();
@@ -15,9 +19,9 @@ export const Footer = () => {
     formData,
   } = useSignUpStore();
   const { step: elderRegisterStep, nextStep } = useElderRegisterStore();
-  const { setStep: setAcceptStep } = useAcceptStore();
+  const { step: acceptStep, setStep: setAcceptStep } = useAcceptStore();
 
-  if (location.pathname.startsWith('/signup')) {
+  if (location.pathname === '/signup') {
     if (signUpStep === 4)
       return (
         <ButtonFooter
@@ -49,13 +53,23 @@ export const Footer = () => {
               setStep(5);
               break;
             case 5:
-              navigate('/welcome', { replace: true });
+              if (formData.type === '사회복지사') {
+                postManagerSignUp(formData)
+                  .then(() => {
+                    navigate('/welcome', { replace: true });
+                  })
+                  .catch((error) => {
+                    console.error('회원가입 실패:', error);
+                  });
+              }
           }
         }}
         skip={signUpStep === 4}
       />
     );
   }
+  if (location.pathname.endsWith('/profile-upload'))
+    return <ButtonFooter title="사진 등록하기" nextStep={() => {}} />;
 
   if (location.pathname.startsWith('/resume')) {
     return (
@@ -85,12 +99,29 @@ export const Footer = () => {
     );
   }
 
-  if (location.pathname === '/') return <NavigationBar />;
+  if (['/', '/near', '/mypage'].includes(location.pathname))
+    return <NavigationBar />;
   if (location.pathname === '/accept') {
     return (
       <ButtonFooter
-        nextStep={() => setAcceptStep(2)}
-        title="다음으로 넘어가기"
+        nextStep={() => {
+          if (acceptStep === 2) {
+            navigate('/accept/complete');
+          } else {
+            setAcceptStep(2);
+          }
+        }}
+        title={acceptStep === 1 ? '다음으로 넘어가기' : '완료하기'}
+      />
+    );
+  }
+  if (location.pathname === '/accept/complete') {
+    return (
+      <ButtonFooter
+        nextStep={() => {
+          navigate('/', { replace: true });
+        }}
+        title="확인"
       />
     );
   }
@@ -104,5 +135,68 @@ export const Footer = () => {
     );
   }
 
+  if (location.pathname.startsWith('/detail/elder')) {
+    return (
+      <Wrapper>
+        <HomeButtons
+          leftFunc={() => {}}
+          rightFunc={() => {
+            navigate('/accept');
+          }}
+          leftText="저장"
+          rightText="수락하기"
+        />
+      </Wrapper>
+    );
+  }
+
+  if (location.pathname.startsWith('/detail/care')) {
+    return (
+      <Wrapper>
+        <HomeButtons
+          leftFunc={() => {}}
+          rightFunc={() => {
+            navigate('/contact/1');
+          }}
+          leftText="저장"
+          rightText="연락하기"
+        />
+      </Wrapper>
+    );
+  }
+  if (location.pathname.startsWith('/contact')) {
+    const { step, setStep } = useContactStore();
+
+    if (step === 1) {
+      return (
+        <ButtonFooter title="다음으로 넘어가기" nextStep={() => setStep(2)} />
+      );
+    } else if (step === 4) {
+      return <ButtonFooter title="완료하기" nextStep={() => {}} />;
+    } else {
+      return (
+        <Wrapper>
+          <HomeButtons
+            leftFunc={() => {
+              setStep(step - 1);
+            }}
+            rightFunc={() => {
+              setStep(step + 1);
+            }}
+            leftText="이전으로"
+            rightText="다음으로 넘어가기"
+          />
+        </Wrapper>
+      );
+    }
+  }
   return null;
 };
+const Wrapper = styled.div`
+  border-top: ${(props) => `0.5rem solid ${props.theme.colors.black5}`};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 13rem;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
