@@ -17,8 +17,7 @@ api.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${accessToken}`;
       config.headers['X-Refresh-Token'] = refreshToken;
     }
-    console.log('Request Headers:', config.headers);
-    console.log('Request Headers1:', accessToken);
+    console.log('Request Headers:', config.headers);    console.log('Request Headers1:', accessToken);
     console.log('Request Headers:2', refreshToken);
     return config;
   },
