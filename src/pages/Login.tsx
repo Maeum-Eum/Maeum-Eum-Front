@@ -10,17 +10,14 @@ import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
   const {
-    username,
-    password,
+ 
     setUsername,
-    setPassword,
+
     login,
     isAuthenticated,
-    error,
-    rememberId,
+ 
     setRememberId,
-    autoLogin,
-    setAutoLogin,
+ 
   } = useLoginStore();
 
   const navigate = useNavigate();
@@ -68,16 +65,3 @@ const LoginContent = styled.div`
   padding: 0 3rem;
 `;
 
-// 가짜 로그인 API (Mock API)
-const mockLogin = (id: string, password: string) => {
-  return new Promise((resolve, reject) => {
-    if (id === 'test' && password === '123456') {
-      resolve({ success: true, token: 'mockToken123' });
-    } else {
-      reject({
-        success: false,
-        message: '아이디 또는 비밀번호가 올바르지 않습니다.',
-      });
-    }
-  });
-};
