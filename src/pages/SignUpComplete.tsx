@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-//import { SignUpFooter } from '../components/SignUp/ButtonFooter';
 import { LoginLogo } from '../components/Login/LoginLogo';
 
 export const SignUpComplete = () => {
