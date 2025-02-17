@@ -1,15 +1,22 @@
-import styled from 'styled-components';
+import styled from "styled-components"
 
-export const SignUpFooter = ({ nextStep }: { nextStep: () => void }) => {
-  return (
-    <Wrapper>
-      <Button onClick={nextStep}>다음으로 넘어가기</Button>
-    </Wrapper>
-  );
-};
+interface FindAccountFooterProps{
+    activeTab: "id" | "password";
+    nextStep: () => void;
+}
+
+export const FindAccountFooter = ({ activeTab,nextStep }: FindAccountFooterProps) => {
+    const buttonText = activeTab === "id" ? "아이디 찾기" : "비밀번호 변경하기"
+    
+    return (
+        <Wrapper>
+            <Button onClick={nextStep}>{buttonText}</Button>
+        </Wrapper>
+    )
+}
 
 const Wrapper = styled.div`
-  border-top: 0.5rem solid ${({ theme }) => theme.colors.black5};
+     border-top: 0.5rem solid ${({ theme }) => theme.colors.black5};
   display: flex;
   width: 100%;
   align-items: center;
@@ -20,7 +27,7 @@ const Wrapper = styled.div`
   bottom: 0;
   z-index: 1000;
   background-color: ${({ theme }) => theme.colors.background};
-`;
+`
 
 const Button = styled.button`
   bottom: 5.5rem;
