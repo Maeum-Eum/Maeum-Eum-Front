@@ -21,6 +21,7 @@ import { Contact } from './pages/Contact';
 import { MyPage } from './pages/MyPage';
 import { InBox } from './pages/InBox';
 import { OutGoingBox } from './pages/OutGoingBox';
+import { DynamicHome } from './components/home/DynamicHome';
 
 export const router = createBrowserRouter([
   {
@@ -46,7 +47,7 @@ export const router = createBrowserRouter([
             element: <Home />,
             children: [
               //TODO: 요양보호사/사회복지사 여부에 따라 element 바꾸기
-              { path: '', element: <HomeSocialWorker /> },
+              { path: '', element: <DynamicHome /> },
               { path: '/near', element: <NearElder /> },
               { path: 'mypage', element: <MyPage /> },
             ],

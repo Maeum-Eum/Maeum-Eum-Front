@@ -5,6 +5,7 @@ const API_BASE_URL = '/api';
 // 기본 axios 인스턴스 생성
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },

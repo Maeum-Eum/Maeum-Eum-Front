@@ -1,9 +1,7 @@
 import { BackButtonHeader } from '../BackButtonHeader';
-import { HomeHeader, SocialHomeHeader } from '../home/HomeHeader';
+import { DynamicHomeHeader, HomeHeader } from '../home/HomeHeader';
 import { SignUpHeader } from '../SignUp/SignUpHeader';
 import { useLocation } from 'react-router';
-import { HomeDropdown } from '../home/HomeDropdown';
-import { Dropdowns } from '../../pages/Home';
 import { InBoxTab } from '../inbox/InBoxTab';
 import { FindCenterHeader } from '../address/FindCenterHeader';
 
@@ -29,19 +27,7 @@ export const Header = () => {
         <InBoxTab index={0} />
       </div>
     );
-  if (['/', '/near'].includes(location.pathname))
-    //TODO: 요양보호사/사회복지사 여부에 따라 헤더 바꾸기
-    return (
-      <div>
-        <SocialHomeHeader />
-        <Dropdowns>
-          <HomeDropdown
-            items={['도보 15분 이내', '도보 20분 이내', '3km', '5km']}
-          />
-          <HomeDropdown items={['업무정확도순', '시간일치순', '높은급여순']} />
-        </Dropdowns>
-      </div>
-    );
+  if (['/', '/near'].includes(location.pathname)) return <DynamicHomeHeader />;
   if (location.pathname.startsWith('/mypage'))
     return <HomeHeader child={<span>내정보</span>} />;
   if (location.pathname.startsWith('/accept'))
