@@ -1,9 +1,6 @@
 import { BackButtonHeader } from '../BackButtonHeader';
 import { HomeHeader, SocialHomeHeader } from '../home/HomeHeader';
 import { SignUpHeader } from '../SignUp/SignUpHeader';
-import { Input } from '../Input';
-import { RoundedButton } from '../SignUp/RoundedButton';
-import { InputWrapper } from '../SignUp/SignUpLayout';
 import { useLocation } from 'react-router';
 import { HomeDropdown } from '../home/HomeDropdown';
 import { Dropdowns } from '../../pages/Home';
