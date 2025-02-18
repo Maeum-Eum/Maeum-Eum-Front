@@ -19,6 +19,8 @@ import { HomeSocialWorker } from './pages/HomeSocialWorker';
 import { DetailCareInfo } from './pages/DetailCareInfo';
 import { Contact } from './pages/Contact';
 import { MyPage } from './pages/MyPage';
+import { InBox } from './pages/InBox';
+import { OutGoingBox } from './pages/OutGoingBox';
 
 export const router = createBrowserRouter([
   {
@@ -31,16 +33,9 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       { path: 'signup/profile-upload', element: <ProfileUpload /> },
-      { path: 'elder-register', element: <ElderRegister /> },
-      { path: 'resume', element: <Resume /> },
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
       { path: 'search-center', element: <SearchCenter /> },
-      { path: 'accept', element: <Accept /> },
-      { path: 'accept/complete', element: <AcceptComplete /> },
-      { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
-      { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
-      { path: 'contact/:careId', element: <Contact /> },
 
       {
         path: '',
@@ -56,6 +51,15 @@ export const router = createBrowserRouter([
               { path: 'mypage', element: <MyPage /> },
             ],
           },
+          { path: 'elder-register', element: <ElderRegister /> },
+          { path: 'resume', element: <Resume /> },
+          { path: 'accept', element: <Accept /> },
+          { path: 'accept/complete', element: <AcceptComplete /> },
+          { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
+          { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
+          { path: 'contact/:careId', element: <Contact /> },
+          { path: 'inbox', element: <InBox /> },
+          { path: 'outgoing-box', element: <OutGoingBox /> },
         ],
       },
     ],
