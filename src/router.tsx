@@ -15,7 +15,6 @@ import { ProfileUpload } from './pages/ProfileUpload';
 import { NearElder } from './pages/NearElder';
 import { DetailElderInfo } from './pages/DetailElderInfo';
 import { AcceptComplete } from './pages/AcceptComplete';
-import { HomeSocialWorker } from './pages/HomeSocialWorker';
 import { DetailCareInfo } from './pages/DetailCareInfo';
 import { Contact } from './pages/Contact';
 import { MyPage } from './pages/MyPage';
