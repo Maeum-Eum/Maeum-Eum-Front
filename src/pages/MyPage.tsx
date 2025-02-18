@@ -5,22 +5,44 @@ import { useState } from 'react';
 import { FaBookmark } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { MyPageRow } from '../components/mypage/MyPageRow';
+import { useNavigate } from 'react-router';
 
-// const RotatedSendIcon = styled(IoSend)`
-//   transform: rotate(180deg);
-// `;
-//TODO: 요양보호사/사회복지사 여부에 따라 데이터 바꾸기
-// const careWorkerList = [
-//   { icon: <FaBookmark />, text: '저장함', num: 1 },
-//   { icon: <IoSend />, text: '받은 연락함', num: 3 },
-//   { icon: <RotatedSendIcon />, text: '보낸 연락함', num: 3 },
-// ];
-
-const socialList = [
-  { icon: <FaBookmark />, text: '저장함', num: 1 },
-  { icon: <IoSend />, text: '연락함', num: 3 },
-];
 export const MyPage = () => {
+  const navigate = useNavigate();
+  // TODO: 요양보호사/사회복지사 여부에 따라 데이터 바꾸기
+  const RotatedSendIcon = styled(IoSend)`
+    transform: rotate(180deg);
+  `;
+
+  const careWorkerList = [
+    {
+      icon: <FaBookmark />,
+      text: '저장함',
+      num: 1,
+      onClick: () => {},
+    },
+    {
+      icon: <IoSend />,
+      text: '받은 연락함',
+      num: 3,
+      onClick: () => {
+        navigate('/inbox');
+      },
+    },
+    {
+      icon: <RotatedSendIcon />,
+      text: '보낸 연락함',
+      num: 3,
+      onClick: () => {
+        navigate('/outgoing-box');
+      },
+    },
+  ];
+
+  // const socialList = [
+  //   { icon: <FaBookmark />, text: '저장함', num: 1 },
+  //   { icon: <IoSend />, text: '연락함', num: 3 },
+  // ];
   const [isOn, setIsOn] = useState(true);
 
   return (
@@ -32,7 +54,7 @@ export const MyPage = () => {
           <ToggleSlider isOn={isOn} />
         </ToggleWrapper>
       </JopOpen>
-      {socialList.map((li) => MyPageRow(li))}
+      {careWorkerList.map((li) => MyPageRow(li))}
     </Wrapper>
   );
 };
