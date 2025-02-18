@@ -16,7 +16,7 @@ export const ResumeTime = () => {
         }
       };
       return (
-        <ElderRegisterLayout title="기본 정보 입력">
+        <ElderRegisterLayout title="기본 정보 입력" require={true}>
             <SignUpLabel label="일하는 요일을 선택해 주세요."/>
             <SelectedButton 
             options={weekdays}

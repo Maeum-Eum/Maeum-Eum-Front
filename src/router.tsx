@@ -19,6 +19,7 @@ import { HomeSocialWorker } from './pages/HomeSocialWorker';
 import { DetailCareInfo } from './pages/DetailCareInfo';
 import { Contact } from './pages/Contact';
 import { MyPage } from './pages/MyPage';
+import { HomeAdminCare } from './pages/HomeAdminCare';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
       { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
       { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
       { path: 'contact/:careId', element: <Contact /> },
+      {path:'admin', element:<HomeAdminCare/>},
 
       {
         path: '',

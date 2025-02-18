@@ -12,7 +12,7 @@ export const ResumeGrade = () => {
   };
 
   return (
-    <ElderRegisterLayout title="희망 근무 조건 입력">
+    <ElderRegisterLayout title="희망 근무 조건 입력" require={true}>
       <SignUpLabel label="가능한 어르신 등급을 모두 알려주세요." />
       <SelectedButton
         options={['모두가능', '1등급', '2등급']}

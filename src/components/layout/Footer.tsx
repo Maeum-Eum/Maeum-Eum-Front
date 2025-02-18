@@ -99,7 +99,7 @@ export const Footer = () => {
     );
   }
 
-  if (['/', '/near', '/mypage'].includes(location.pathname))
+  if (['/', '/near', '/mypage', '/admin'].includes(location.pathname))
     return <NavigationBar />;
   if (location.pathname === '/accept') {
     return (

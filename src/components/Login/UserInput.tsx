@@ -60,6 +60,6 @@ const Input = styled.input`
 `;
 
 const ErrorText = styled.p`
-  color: #26b11c;
+  color: #DA2528;
   font-size: 1rem;
 `;

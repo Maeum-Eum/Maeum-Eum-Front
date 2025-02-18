@@ -18,7 +18,7 @@ export const ResumeRegionSelect = () => {
     }
   };
   return (
-    <ElderRegisterLayout title="기본 정보 입력">
+    <ElderRegisterLayout title="기본 정보 입력" require={true}>
       <SignUpLabel label="본인 명의의 자동차를 소유하고 계신가요?" />
       <SelectedButton
         options={['있어요', '없어요']}

@@ -12,7 +12,7 @@ export const ResumeTask = () => {
     }
   };
   return (
-    <ElderRegisterLayout title="기본 정보 입력">
+    <ElderRegisterLayout title="기본 정보 입력" require={true}>
       <SignUpLabel label="가능한 업무를 선택해 해주세요" />
       <ElderRegisterSubLabel label="요양보호사님의 조건에 딱맞는 어르신을 추천해드릴게요." />
       <SignUpLabel label="식사 보조" />
@@ -23,10 +23,10 @@ export const ResumeTask = () => {
         hoverColor={{ '모두 가능': '#371FF0', '식사 도움': '#371FF0' }}
       />
        <SelectedButton
-        options={['요리가능', '콧줄 식사 도움움']}
+        options={['요리가능', '콧줄 식사 도움']}
         multiSelect={true}
         onSelect={handleTask}
-        hoverColor={{ '모두 가능': '#371FF0', '식사 도움': '#371FF0' }}
+        hoverColor={{ '요리 가능': '#371FF0', '콧줄 식사 도움': '#371FF0' }}
       />
 
 <SignUpLabel label="배변 보조" />

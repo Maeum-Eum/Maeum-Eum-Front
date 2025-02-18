@@ -1,14 +1,21 @@
 import axios from 'axios';
 
-export const api = axios.create({
-  baseURL: '/api',
+export const apiClient = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-api.interceptors.request.use(
+export const authApiClient = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+authApiClient.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');

@@ -20,7 +20,7 @@ export const ResumeJobSelect = () => {
       };
     
     return (
-        <ElderRegisterLayout title="기본 정보 입력">
+        <ElderRegisterLayout title="기본 정보 입력" require={true}>
             <SignUpLabel label="찾고 있는 일자리를 모두 선택해 주세요."/>
             <SelectedButton 
             options={['방문 요양', '입주 요양']}

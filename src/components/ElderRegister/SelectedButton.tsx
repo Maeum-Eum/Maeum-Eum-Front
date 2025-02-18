@@ -7,6 +7,8 @@ interface ButtonProps {
   hoverColor?: { [key: string]: string };
   multiSelect: boolean;
   gap?: string;
+  maxWidth?: string;
+  fontSize?: string;
 }
 
 export const SelectedButton = ({
@@ -14,7 +16,9 @@ export const SelectedButton = ({
   onSelect,
   hoverColor,
   multiSelect,
-  gap = '2rem'
+  gap = '2rem',
+  maxWidth = '48%',
+  fontSize = '1.5rem',
 }: ButtonProps) => {
   const [selected, setSelected] = useState<string | string[]>(
     multiSelect ? [] : ''
@@ -29,8 +33,8 @@ export const SelectedButton = ({
       setSelected(updatedSelected);
       onSelect(updatedSelected);
     } else {
-      setSelected(option);
-      onSelect?.(option);
+      setSelected(selected === option ? '' : option);
+      onSelect?.(selected === option ? '' : option);
     }
   };
 
@@ -47,6 +51,8 @@ export const SelectedButton = ({
           isSelected={isSelected(option)}
           hoverColor={hoverColor?.[option]}
           onClick={() => handleClick(option)}
+          maxWidth={maxWidth}
+          fontSize={fontSize}
         >
           {option}
         </Button>
@@ -55,7 +61,7 @@ export const SelectedButton = ({
   );
 };
 
-const ButtonContainer = styled.div<{gap: string}>`
+const ButtonContainer = styled.div<{ gap: string }>`
   display: flex;
   justify-content: flex-start;
   gap: ${(props) => props.gap};
@@ -64,9 +70,14 @@ const ButtonContainer = styled.div<{gap: string}>`
   margin-top: 2rem;
 `;
 
-const Button = styled.button<{ isSelected: boolean; hoverColor?: string }>`
+const Button = styled.button<{
+  isSelected: boolean;
+  hoverColor?: string;
+  maxWidth: string;
+  fontSize: string;
+}>`
   flex: 1 1 48%;
-  max-width: 48%;
+  max-width: ${(props) => props.maxWidth};
   padding: 2rem;
   border: 0.2rem solid ${(props) => props.theme.colors.black40};
   border-radius: 20px;
@@ -76,7 +87,7 @@ const Button = styled.button<{ isSelected: boolean; hoverColor?: string }>`
     props.isSelected ? props.hoverColor : 'white'};
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-  font-size: 1.5rem;
+  font-size: ${(props) => props.fontSize};
   text-align: center;
   display: flex;
   justify-content: center;
