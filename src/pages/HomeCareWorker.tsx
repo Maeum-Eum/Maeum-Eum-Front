@@ -2,15 +2,21 @@ import styled from 'styled-components';
 import { PeopleInfoContainer } from '../components/home/PeopleInfoContainer';
 import { HomeButtons } from '../components/home/HomeButtons';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import { Modal } from '../components/Modal';
 
 export const HomeCareWorker = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
     <Wrapper>
       <ContentWrapper>
         <PeopleInfoContainer isCare={true} />
         <HomeButtons
-          leftFunc={() => {}}
+          leftFunc={() => {
+            setModalOpen(true);
+          }}
           rightFunc={() => navigate('/detail/elder/1')}
           leftText="거절하기"
           rightText="자세히 보기"
@@ -25,6 +31,18 @@ export const HomeCareWorker = () => {
           rightText="자세히 보기"
         />
       </ContentWrapper>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        title="[평일/주말] 방문 요양 - 4등급 여자 어르신"
+        content="거절할 경우<br/>영구적으로 삭제됩니다. <br/>그래도 거절하시겠습니까?"
+        left="취소"
+        right="확인"
+        onConfirm={() => {
+          //TODO 거절 api 호출
+          setModalOpen(false);
+        }}
+      />
     </Wrapper>
   );
 };
