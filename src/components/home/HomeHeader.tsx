@@ -18,7 +18,9 @@ export const HomeHeader = ({ child }: HomeHeaderProps) => {
   );
 };
 const Icons = styled.div`
-  padding-right: 1.5rem;
+  position: absolute;
+
+  right: 1.5rem;
 `;
 const Wrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};
@@ -29,6 +31,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-items: center;
+  justify-content: center;
   :first-child {
     width: 100%;
     text-align: center;
@@ -71,6 +74,7 @@ export const CareHomeHeader = () => {
 };
 
 const DropDownWrapper = styled.div`
+  align-self: center;
   display: flex;
   flex-direction: column;
   ${(props) => props.theme.fontStyles.headingSB};

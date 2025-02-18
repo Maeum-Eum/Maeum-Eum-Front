@@ -2,11 +2,15 @@ import styled from 'styled-components';
 
 interface IPeopleInfoContainer {
   isCare: boolean;
+  border?: boolean;
 }
 
-export const PeopleInfoContainer = ({ isCare }: IPeopleInfoContainer) => {
+export const PeopleInfoContainer = ({
+  isCare,
+  border = true,
+}: IPeopleInfoContainer) => {
   return (
-    <Wrapper>
+    <Wrapper $border={border}>
       <SubInfo>
         {isCare ? '함께해요재가 센터 - 방금' : '2025-02-01 등록'}
         {isCare ? null : <img src="public/icons/certificate.svg" />}
@@ -50,10 +54,11 @@ const RoundedWrapper = styled.div`
   box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.25);
 `;
 
-const Wrapper = styled.div`
-  padding-left: 2rem;
+const Wrapper = styled.div<{ $border: boolean }>`
+  padding-left: ${({ $border }) => ($border ? '2rem' : '0')};
 
-  border-left: 0.5rem solid ${({ theme }) => theme.colors.mainColor};
+  border-left: ${({ $border, theme }) =>
+    $border ? `0.5rem solid ${theme.colors.mainColor}` : 'none'};
 `;
 
 const SubInfo = styled.div`
