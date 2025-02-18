@@ -8,7 +8,7 @@ import { Footer } from './components/layout/Footer';
 import { Header } from './components/layout/Header';
 import { useEffect, useState } from 'react';
 import { getUserRole } from './services/home';
-import { BottomPopup } from './components/BottomPopup';
+import { AccessPermissionPopup } from './components/BottomPopup';
 
 function App() {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.mobile})`);
@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     //TODO 예시로 설정한 값
     localStorage.setItem('userRole', 'ROLE_CAREGIVER');
-    setPopupOpen(true);
+    if (localStorage.getItem('permission') !== 'true') setPopupOpen(true);
 
     const token = localStorage.getItem('accessToken');
     if (!token) {
@@ -50,7 +50,7 @@ function App() {
       <GlobalStyle isMobile={isMobile} />
       <Layout isMobile={isMobile} header={<Header />} footer={<Footer />}>
         <Outlet />
-        <BottomPopup
+        <AccessPermissionPopup
           isOpen={isPopupOpen}
           onClose={() => setPopupOpen(false)}
           options={['카메라 및 저장공간 접근', '위치 접근']}
