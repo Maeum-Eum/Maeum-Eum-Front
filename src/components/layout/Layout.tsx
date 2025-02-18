@@ -24,17 +24,16 @@ const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 500px) {
+  @media (min-width: 440px) {
     //태블릿 사이즈
-    max-width: 500px;
+    max-width: 440px;
   }
 
   @media (min-width: 1024px) {
     //데스크탑 사이즈
-    max-width: 500px;
+    max-width: 440px;
   }
   background-color: ${(props) => props.theme.colors.background};
-  border-radius: ${({ isMobile }) => (isMobile ? '0' : '2.5rem')};
   box-shadow: ${({ isMobile }) =>
     isMobile ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.1)'};
 `;
