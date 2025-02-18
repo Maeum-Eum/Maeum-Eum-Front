@@ -15,6 +15,7 @@ interface WrapperProps {
 
 const Wrapper = styled.div<WrapperProps>`
   min-width: 320px; //모바일 크기
+
   width: 100%;
   margin: 0 auto;
   max-height: 100dvh;
@@ -23,14 +24,14 @@ const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
+  @media (min-width: 500px) {
     //태블릿 사이즈
     max-width: 500px;
   }
 
   @media (min-width: 1024px) {
     //데스크탑 사이즈
-    width: 500px;
+    max-width: 500px;
   }
   background-color: ${(props) => props.theme.colors.background};
   border-radius: ${({ isMobile }) => (isMobile ? '0' : '2.5rem')};
@@ -40,11 +41,13 @@ const Wrapper = styled.div<WrapperProps>`
 
 export const Layout = ({ children, isMobile, header, footer }: LayoutProps) => {
   return (
-    <Wrapper isMobile={isMobile}>
-      {header && <HeaderContainer>{header}</HeaderContainer>}
-      <ContentContainer>{children}</ContentContainer>
-      {footer && <FooterContainer>{footer}</FooterContainer>}
-    </Wrapper>
+    <OuterWrapper>
+      <Wrapper isMobile={isMobile}>
+        {header && <HeaderContainer>{header}</HeaderContainer>}
+        <ContentContainer>{children}</ContentContainer>
+        {footer && <FooterContainer>{footer}</FooterContainer>}
+      </Wrapper>
+    </OuterWrapper>
   );
 };
 const ContentContainer = styled.div`
@@ -70,4 +73,17 @@ const FooterContainer = styled.div`
   width: 100%;
   max-width: 500px;
   background-color: ${({ theme }) => theme.colors.background};
+`;
+const OuterWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    background: url('public/icons/background.svg') no-repeat center;
+    background-size: cover;
+  }
 `;
