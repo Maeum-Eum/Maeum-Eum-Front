@@ -5,7 +5,7 @@ import { IProfileImage } from './myPage';
 
 export const postValidateId = async (id: string) => {
   const response = await apiClient.post('/validateID', { id: id });
-  return response.data;
+  return response.status;
 };
 
 export const postManagerSignUp = async (formData: SignUpState['formData']) => {
@@ -35,7 +35,7 @@ export const postCareGiverSignUp = async (
   return response.data;
 };
 
-interface ICenter {
+export interface ICenter {
   centerId: number;
   centerName: string;
   address: string;
@@ -48,7 +48,7 @@ interface ICenter {
 
 export const getCenterList = async ({ centerName }: { centerName: string }) => {
   const response = await apiClient.get(`/center?name=${centerName}`);
-  return response.data as ICenter;
+  return response.data as ICenter[];
 };
 
 export const postPhoto = async ({ file, id }: { file: File; id: string }) => {

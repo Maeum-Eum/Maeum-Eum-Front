@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AddressBox } from '../components/address/AddressBox';
+import { CenterAddressBox } from '../components/address/AddressBox';
 
 import { useCenterStore } from '../store/centerStore';
 
@@ -10,7 +10,7 @@ export const SearchCenter = () => {
       <CenterList>
         {centers.map((i, index) => (
           <div>
-            <AddressBox key={index} address={i} border={false} />
+            <CenterAddressBox key={index} centerAddress={i} />
             <Line />
           </div>
         ))}
