@@ -1,27 +1,14 @@
 import styled from 'styled-components';
 import { AddressBox } from '../components/address/AddressBox';
-import { IAddress } from '../store/signUpStore';
 
-//TODO: 실제 센터 주소 불러오기
-const sampleAddress: IAddress = {
-  roadAddress: '서울특별시 강남구 테헤란로 123',
-  jibunAddress:
-    '서울특별시 마포구 서교동 399-1 테스트 빌딩서울특별시 마포구 어울마당로5길 41 (서교동)',
-  zonecode: '06164',
-};
+import { useCenterStore } from '../store/centerStore';
 
-const AddressList = [
-  sampleAddress,
-  sampleAddress,
-  sampleAddress,
-  sampleAddress,
-  sampleAddress,
-];
 export const SearchCenter = () => {
+  const { centers } = useCenterStore();
   return (
     <Wrapper>
       <CenterList>
-        {AddressList.map((i, index) => (
+        {centers.map((i, index) => (
           <div>
             <AddressBox key={index} address={i} border={false} />
             <Line />

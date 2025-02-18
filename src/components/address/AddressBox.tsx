@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { IAddress } from '../../store/signUpStore';
+import { ICenter } from '../../services/signup';
 
 interface AddressBoxProps {
-  address: IAddress;
+  address: ICenter;
   border?: boolean; // ✅ 선택적 props
 }
 
@@ -11,13 +11,16 @@ export const AddressBox = ({ address, border = true }: AddressBoxProps) => {
     <Wrapper $border={border}>
       <Row>
         <span>우편번호</span>
-        <PostCode>{address.zonecode}</PostCode>
+        <PostCode>{address.zipCode}</PostCode>
       </Row>
       <Row>
-        <span>구주소</span> <span>{address.roadAddress} </span>
+        <span>센터명</span> <span>{address.centerName} </span>
       </Row>
       <Row>
-        <span>도로명</span> <span>{address.jibunAddress} </span>
+        <span>상세주소</span>
+        <span>
+          {address.address} {address.detailAddress}
+        </span>
       </Row>
     </Wrapper>
   );
