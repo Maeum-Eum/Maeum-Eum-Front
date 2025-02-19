@@ -3,43 +3,46 @@ import { UserInput } from '../components/Login/UserInput';
 import { LoginOption } from '../components/Login/LoginOption';
 import { LoginButton } from '../components/Login/LoginButton';
 import { LoginFooter } from '../components/Login/LoginFooter';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { LoginLogo } from '../components/Login/LoginLogo';
 import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
-  const {
- 
-    setUsername,
-
-    login,
-    isAuthenticated,
- 
-    setRememberId,
- 
-  } = useLoginStore();
+  const { setId, login, isAuthenticated, setRememberId } = useLoginStore();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const storeId = localStorage.getItem('rememberedId');
     if (storeId) {
-      setUsername(storeId);
+      setId(storeId);
       setRememberId(true);
     }
   }, []);
 
-  const handleLogin = async () => {
+  const handleLogin = useCallback(async () => {
     await login();
-    if (isAuthenticated) {
-      navigate('/home');
-    }
-  };
 
-  if (isAuthenticated) {
-    return <p>로그인 성공 메인페이지로 이동</p>;
-  }
+    console.log('authenticate', useLoginStore.getState().isAuthenticated);
+  }, [login]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    const handleEnterKey = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        handleLogin();
+      }
+    };
+
+    window.addEventListener('keydown', handleEnterKey);
+    return () => window.removeEventListener('keydown', handleEnterKey);
+  }, [handleLogin]);
 
   return (
     <LoginContainer>
@@ -57,11 +60,10 @@ export const Login = () => {
 const LoginContainer = styled.div`
   width: 100%;
   margin: 5rem auto;
-  padding-top: 10rem;
+  padding-top: 8rem;
 `;
 
 const LoginContent = styled.div`
   margin-top: 10rem;
   padding: 0 3rem;
 `;
-

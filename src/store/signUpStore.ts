@@ -1,22 +1,31 @@
 import { create } from 'zustand';
+import { isValidId, isValidPassword } from '../utils/utils';
 
 export interface IAddress {
   zonecode: string;
   roadAddress: string;
   jibunAddress: string;
+  centerId?: number;
 }
 
 export interface IExperience {
   startDate: string;
   endDate: string;
-  centerId: number;
+  center: string;
   work: string;
 }
 
-interface SignUpState {
+export interface SignUpState {
   step: number;
   setStep: (step: number) => void;
-
+  idDuplicate: boolean | null;
+  setDuplicate: (dup: boolean | null) => void;
+  permission1: boolean;
+  permission2: boolean;
+  setPermission1: (p: boolean) => void;
+  setPermission2: (p: boolean) => void;
+  file: File | null;
+  setFile: (f: File) => void;
   formData: {
     id: string;
     password: string;
@@ -39,9 +48,9 @@ interface SignUpState {
     phone: string | null;
     address: string | null;
     centerAddress: string | null;
-    experience: string | null;
   };
-
+  experienceIndex: number;
+  setExperienceIndex: (index: number) => void;
   updateFormData: (data: Partial<SignUpState['formData']>) => void;
   updateExperienceField: (
     index: number,
@@ -54,6 +63,27 @@ interface SignUpState {
 
 export const useSignUpStore = create<SignUpState>((set, get) => ({
   step: 1,
+  idDuplicate: null,
+  permission2: false,
+  permission1: false,
+  file: null,
+  setFile: (file) => set({ file }),
+  setPermission1: (permission1) => set({ permission1 }),
+  setPermission2: (permission2) => set({ permission2 }),
+  setDuplicate: (idDuplicate) =>
+    set((state) => ({
+      idDuplicate,
+      errors: {
+        ...state.errors,
+        id: isValidId(state.formData.id)
+          ? idDuplicate === null
+            ? '*중복확인을 해주세요'
+            : idDuplicate === true
+            ? '*사용할 수 없는 아이디입니다'
+            : null
+          : '*8~20자의 영문소문자와 숫자만 입력 가능합니다.',
+      },
+    })),
   formData: {
     id: '',
     password: '',
@@ -62,16 +92,22 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     name: '',
     phone: '',
     address: { zonecode: '', roadAddress: '', jibunAddress: '' },
-    centerAddress: { zonecode: '', roadAddress: '', jibunAddress: '' },
+    centerAddress: {
+      zonecode: '',
+      roadAddress: '',
+      jibunAddress: '',
+      centerId: 0,
+    },
     hasCar: true,
-    experience: [{ startDate: '', endDate: '', work: '', centerId: -1 }],
+    experience: [{ startDate: '', endDate: '', work: '', center: '' }],
     introduction: '',
   },
   setStep: (step) => set({ step }),
 
   updateFormData: (data) =>
     set((state) => ({ formData: { ...state.formData, ...data } })),
-
+  experienceIndex: 0,
+  setExperienceIndex: (experienceIndex) => set({ experienceIndex }),
   updateExperienceField: (
     index: number,
     field: keyof IExperience,
@@ -83,7 +119,7 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
         updatedExperience[index] = {
           startDate: '',
           endDate: '',
-          centerId: 0,
+          center: '',
           work: '',
         }; // 없으면 초기값 생성
       }
@@ -116,26 +152,38 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     phone: null,
     address: null,
     centerAddress: null,
-    experience: null,
   },
   validateForm: (fields?: (keyof SignUpState['formData'])[]) => {
-    const { formData, errors } = get();
-    const newErrors = { ...errors };
-    const hasPartialExperience = formData.experience.some(
-      ({ startDate, endDate, centerId, work }) => {
-        const isPartiallyFilled =
-          (startDate || endDate || centerId !== -1 || work) &&
-          (!startDate || !endDate || centerId === -1 || !work);
+    const { formData, errors, idDuplicate } = get();
 
-        return isPartiallyFilled;
-      }
-    );
+    if (fields && fields[0] === 'experience') {
+      const filteredExperience = formData.experience.filter(
+        (exp) => exp.startDate && exp.endDate && exp.center && exp.work
+      );
+      // 필터링된 experience로 업데이트
+      set((state) => ({
+        formData: {
+          ...state.formData,
+          experience:
+            filteredExperience.length === 0
+              ? [{ startDate: '', endDate: '', work: '', center: '' }]
+              : filteredExperience,
+        },
+      }));
+      return true;
+    }
+    const newErrors = { ...errors };
     const fieldValidators = {
-      id: formData.id.trim() !== '' ? null : '*올바른 이메일을 입력하세요.', //중복확인 등 체크 요소 변경
-      password:
-        formData.password.length >= 2 //변경 필요
-          ? null
-          : '*비밀번호는 최소 6자리 이상이어야 합니다.',
+      id: isValidId(formData.id)
+        ? idDuplicate === null
+          ? '*중복확인을 해주세요'
+          : idDuplicate === true
+          ? '*사용할 수 없는 아이디입니다'
+          : null
+        : '*8~20자의 영문소문자와 숫자만 입력 가능합니다.',
+      password: isValidPassword(formData.password)
+        ? null
+        : '*10~20자의 영문, 숫자, 특수문자를 모두 포함한 비밀번호를 입력해주세요',
       passwordCheck:
         formData.password === formData.passwordCheck
           ? null
@@ -150,9 +198,7 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
           ? '*소속을 입력해주세요.'
           : null,
       phone:
-        formData.phone.length < 11 ? '*휴대전화 번호를 확인해주세요' : null,
-
-      experience: hasPartialExperience ? '*비어있는 필드가 있습니다.' : null,
+        formData.phone.length < 13 ? '*휴대전화 번호를 확인해주세요' : null,
     };
     // 특정 필드만 검사하는 경우
     if (fields) {
@@ -169,7 +215,7 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     } // 특정 필드만 검사하는 경우
 
     set({ errors: newErrors });
-    console.log(formData.experience);
+
     return Object.values(newErrors).every((error) => error === null);
   },
 }));

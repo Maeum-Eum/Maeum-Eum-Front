@@ -3,9 +3,10 @@ import { Input } from '../Input';
 import { SignUpLabel } from './SignUpLabel';
 import { ErrorText, InputWrapper, SignUpLayout } from './SignUpLayout';
 import { RoundedButton } from './RoundedButton';
-import { hangeulInput, numInput } from '../../utils/regex';
+import { hangeulInput } from '../../utils/regex';
 import { useSignUpStore } from '../../store/signUpStore';
 import { useNavigate } from 'react-router';
+import { formatPhoneNumber } from '../../utils/utils';
 
 export const SignUpSocialWorker = () => {
   const { formData, updateFormData, errors } = useSignUpStore();
@@ -26,15 +27,19 @@ export const SignUpSocialWorker = () => {
       <Input
         placeholder="휴대전화 번호를 입력해주세요."
         value={formData.phone}
-        maxLength={11}
-        onChange={(e) => updateFormData({ phone: numInput(e) })}
+        maxLength={13}
+        onChange={(e) => updateFormData({ phone: formatPhoneNumber(e) })}
       />
       {errors.phone && (
         <ErrorText error={errors.phone !== null}>{errors.phone}</ErrorText>
       )}
       <SignUpLabel label="소속" />
       <InputWrapper>
-        <Input placeholder="소속을 입력해주세요" disabled={true} />
+        <Input
+          placeholder="소속을 입력해주세요"
+          disabled={true}
+          value={formData.centerAddress.jibunAddress}
+        />
         <RoundedButton
           text={'검색하기'}
           func={() => {
@@ -71,7 +76,7 @@ export const SignUpSocialWorker = () => {
 
 const Options = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 const RadioButton = styled.div<{ $isSelected: boolean }>`
@@ -94,6 +99,6 @@ const RadioCircle = styled.div<{ $isSelected: boolean }>`
 `;
 
 const Text = styled.span<{ isSelected: boolean }>`
-  font-size: 1rem;
+  ${({ theme }) => theme.fontStyles.head2M};
   color: ${({ isSelected }) => (isSelected ? '#000' : '#00000066')};
 `;

@@ -1,23 +1,37 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HiMiniHome } from 'react-icons/hi2';
 import { FaSearch } from 'react-icons/fa';
+import { BiSolidPencil } from 'react-icons/bi';
 
 export const NavigationBar = () => {
+  const location = useLocation();
+  const role = localStorage.getItem('userRole');
+  const menuItems = [
+    { path: '/', icon: <HiMiniHome />, label: '홈' },
+    role === 'ROLE_MANAGER'
+      ? { path: '/elderadmin', icon: <BiSolidPencil />, label: '어르신 관리' }
+      : { path: '/near', icon: <FaSearch />, label: '근처 어르신' },
+
+    {
+      path: '/mypage',
+      icon: <img src="public/icons/userProfile.svg" />,
+      label: '내 정보',
+    },
+  ];
+
   return (
     <Items>
-      <Item to="/">
-        <HiMiniHome />
-        <span>홈</span>
-      </Item>
-      <Item to="/">
-        <FaSearch />
-        <span>근처 일자리</span>
-      </Item>
-      <Item to="/accept">
-        <img src="public/icons/userProfile.svg" />
-        <span>내 정보</span>
-      </Item>
+      {menuItems.map((item, index) => (
+        <Item
+          key={index}
+          to={item.path}
+          isActive={location.pathname === item.path}
+        >
+          {item.icon}
+          <span>{item.label}</span>
+        </Item>
+      ))}
     </Items>
   );
 };
@@ -31,19 +45,24 @@ const Items = styled.div`
   border-radius: 3rem 3rem 0 0;
 `;
 
-const Item = styled(Link)`
+const Item = styled(Link)<{ isActive: boolean }>`
   display: flex;
   flex-direction: column;
-  color: black;
+  color: ${(props) =>
+    props.isActive ? props.theme.colors.mainColor : 'black'};
   align-items: center;
   text-decoration: none;
   justify-content: center;
   ${(props) => props.theme.fontStyles.head2SB};
   :first-child {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
   }
-  span {
+  img {
+    filter: ${(props) =>
+      props.isActive
+        ? 'invert(19%) sepia(82%) saturate(7496%) hue-rotate(245deg) brightness(90%) contrast(100%)'
+        : 'none'};
   }
 `;

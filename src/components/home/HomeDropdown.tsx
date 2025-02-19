@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
+import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
 interface HomeDropdownProps {
   items: string[];
+  home?: boolean;
+  range?: boolean;
 }
 
-export const HomeDropdown = ({ items }: HomeDropdownProps) => {
+export const HomeDropdown = ({
+  items,
+  home = false,
+  range,
+}: HomeDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [item, setItem] = useState(0);
+  const { setRange, setOrder, setDistance } = useHomeOptionStoreStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,6 +35,16 @@ export const HomeDropdown = ({ items }: HomeDropdownProps) => {
   }, []);
 
   const clickItem = (index: number) => {
+    if (home) {
+      if (range) {
+        setDistance(items[index]);
+        setRange(
+          index === 0 ? '1.25' : index === 1 ? '1.65' : index === 2 ? '3' : '5'
+        );
+      } else {
+        setOrder(index + 1 + '');
+      }
+    }
     setItem(index);
     setIsOpen(false);
   };
@@ -85,7 +103,8 @@ const DropdownItem = styled.div`
   padding: 10px;
   cursor: pointer;
   ${(props) => props.theme.fontStyles.head2SB};
-  &:hover {
+  &:hover,
+  &:active {
     background-color: ${(props) => props.theme.colors.black10};
   }
 `;

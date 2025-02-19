@@ -1,34 +1,57 @@
 import { BackButtonHeader } from '../BackButtonHeader';
-import { HomeHeader } from '../home/HomeHeader';
+import { DynamicHomeHeader, HomeHeader } from '../home/HomeHeader';
 import { SignUpHeader } from '../SignUp/SignUpHeader';
-import { Input } from '../Input';
-import { RoundedButton } from '../SignUp/RoundedButton';
-import { InputWrapper } from '../SignUp/SignUpLayout';
 import { useLocation } from 'react-router';
+import { InBoxTab } from '../inbox/InBoxTab';
+import { FindCenterHeader } from '../address/FindCenterHeader';
+import { useMemo } from 'react';
 
 export const Header = () => {
   const location = useLocation();
-
-  if (location.pathname.startsWith('/signup')) return <SignUpHeader />;
+  const role = useMemo(() => localStorage.getItem('userRole'), []);
+  if (location.pathname === '/signup') return <SignUpHeader />;
   if (location.pathname.startsWith('/elder-register'))
     return <BackButtonHeader title="어르신 등록" />;
   if (location.pathname.startsWith('/resume'))
     return <BackButtonHeader title="이력서 등록" />;
-  if (location.pathname === '/')
-    return <HomeHeader child={<span>서울 특별시 영등포구 문래동</span>} />;
-  if (location.pathname === '/accept')
-    return <BackButtonHeader title="수락하기" />;
-  if (location.pathname === '/search-center') {
+  if (location.pathname.startsWith('/inbox'))
     return (
       <div>
-        <BackButtonHeader title="센터 검색하기" />
-        <InputWrapper style={{ padding: '0 3rem' }}>
-          <Input placeholder="소속 기관명을 입력해주세요." disabled={true} />
-          <RoundedButton text="검색하기" func={() => {}} />
-        </InputWrapper>
+        <BackButtonHeader title="받은 지원함" />
+        <InBoxTab isOut={false} />
       </div>
     );
+  if (location.pathname.startsWith('/outgoing-box'))
+    return (
+      <div>
+        <BackButtonHeader
+          title={role === 'ROLE_MANAGER' ? '보낸 연락함' : '보낸 지원함'}
+        />
+        <InBoxTab isOut={true} />
+      </div>
+    );
+  if (['/', '/near'].includes(location.pathname)) return <DynamicHomeHeader />;
+  if (location.pathname.startsWith('/mypage'))
+    return <HomeHeader child={<span>내정보</span>} />;
+  if (location.pathname.startsWith('/accept'))
+    return <BackButtonHeader title="수락하기" />;
+  if (location.pathname.startsWith('/apply'))
+    return <BackButtonHeader title="지원하기" />;
+  if (location.pathname === '/search-center') {
+    return <FindCenterHeader />;
   }
+  if (location.pathname.endsWith('/profile-upload'))
+    return <BackButtonHeader title="프로필 사진 등록하기" />;
 
+  if (location.pathname.startsWith('/detail'))
+    return <BackButtonHeader title="자세히 보기" />;
+  if (location.pathname.startsWith('/contact'))
+    return <BackButtonHeader title="연락하기" />;
+  if (location.pathname.startsWith('/modify-center')) {
+    return <BackButtonHeader title="센터 정보 수정하기" />;
+  }
+  if (location.pathname.startsWith('/bookmark')) {
+    return <BackButtonHeader title="저장함" />;
+  }
   return null;
 };

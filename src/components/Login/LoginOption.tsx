@@ -39,6 +39,7 @@ export const LoginOption = () => {
 };
 
 const OptionContainer = styled.div`
+  ${({ theme }) => theme.fontStyles.bodySmallM}
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,7 +60,7 @@ const FindPassword = styled.button`
   background: none;
   cursor: pointer;
   text-decoration: underline;
-  font-size: 0.8rem;
+
   font-weight: 600;
   &:hover {
     color: #4a33ff;

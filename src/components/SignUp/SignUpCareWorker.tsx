@@ -5,7 +5,8 @@ import { ErrorText, InputWrapper, SignUpLayout } from './SignUpLayout';
 import { useSignUpStore } from '../../store/signUpStore';
 import { AddressBox } from '../address/AddressBox';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { hangeulInput, numInput } from '../../utils/regex';
+import { hangeulInput } from '../../utils/regex';
+import { formatPhoneNumber } from '../../utils/utils';
 
 export const SignUpCareWorker = () => {
   const { formData, updateFormData, errors } = useSignUpStore();
@@ -19,7 +20,8 @@ export const SignUpCareWorker = () => {
       address: {
         zonecode: data.zonecode,
         roadAddress: data.roadAddress,
-        jibunAddress: data.jibunAddress,
+        jibunAddress:
+          data.jibunAddress === '' ? data.autoJibunAddress : data.jibunAddress,
       },
     });
   };
@@ -44,8 +46,8 @@ export const SignUpCareWorker = () => {
       <Input
         placeholder="휴대전화 번호를 입력해주세요"
         value={formData.phone}
-        maxLength={11}
-        onChange={(e) => updateFormData({ phone: numInput(e) })}
+        maxLength={13}
+        onChange={(e) => updateFormData({ phone: formatPhoneNumber(e) })}
       />
       {errors.phone && (
         <ErrorText error={errors.phone !== null}>{errors.phone}</ErrorText>

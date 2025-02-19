@@ -5,6 +5,7 @@ import { RoundedButton } from './RoundedButton';
 import { InputWrapper } from './SignUpLayout';
 import { WorkExperienceDropDown } from './WorkExperienceDropDown';
 import { useNavigate } from 'react-router';
+import { useSignUpStore } from '../../store/signUpStore';
 
 interface IExperience {
   start: string;
@@ -13,6 +14,7 @@ interface IExperience {
   setStart: (i: string) => void;
   setEnd: (i: string) => void;
   setWork: (i: string) => void;
+  index?: number;
 }
 
 export const Experience = ({
@@ -22,8 +24,10 @@ export const Experience = ({
   setStart,
   setEnd,
   setWork,
+  index,
 }: IExperience) => {
   const navigate = useNavigate();
+  const { formData } = useSignUpStore();
 
   return (
     <Wrapper>
@@ -38,7 +42,11 @@ export const Experience = ({
         <div>까지</div>
       </DateInputs>
       <InputWrapper>
-        <Input placeholder="센터명을 입력해주세요" disabled={true} />
+        <Input
+          placeholder="센터명을 입력해주세요"
+          disabled={true}
+          value={formData.experience[index ?? 0].center ?? ''}
+        />
         <RoundedButton
           text={'검색하기'}
           func={() => {

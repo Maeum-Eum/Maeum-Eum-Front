@@ -15,6 +15,7 @@ interface WrapperProps {
 
 const Wrapper = styled.div<WrapperProps>`
   min-width: 320px; //모바일 크기
+
   width: 100%;
   margin: 0 auto;
   max-height: 100dvh;
@@ -23,17 +24,16 @@ const Wrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
+  @media (min-width: 440px) {
     //태블릿 사이즈
-    max-width: 500px;
+    max-width: 440px;
   }
 
   @media (min-width: 1024px) {
     //데스크탑 사이즈
-    width: 500px;
+    max-width: 440px;
   }
   background-color: ${(props) => props.theme.colors.background};
-  border-radius: ${({ isMobile }) => (isMobile ? '0' : '2.5rem')};
   box-shadow: ${({ isMobile }) =>
     isMobile ? 'none' : '0 4px 20px rgba(0, 0, 0, 0.1)'};
 `;
@@ -58,7 +58,7 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 440px;
   background-color: ${({ theme }) => theme.colors.background};
   z-index: 1000;
 `;
@@ -68,6 +68,6 @@ const FooterContainer = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 440px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
