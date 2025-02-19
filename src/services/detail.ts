@@ -64,8 +64,8 @@ export interface ICareGiverDetailInfo {
   hasDementiaTraining: 'UNKNOWN' | 'COMPLETE' | 'NOT_COMPLETE';
   hasVehicle: boolean;
   workPlace: string[];
-  workDay: string[];
-  workTimeSlot: string[];
+  workDay: number[];
+  workTimeSlot: number[];
   isNegotiableTime: boolean;
   wage: number;
   elderRank: number[];
