@@ -55,6 +55,10 @@ const Overlay = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: ${({ theme }) => theme.colors.background};
   width: 90%;
   max-width: 450px;
@@ -66,21 +70,25 @@ const ModalContainer = styled.div`
 
 const Title = styled.div`
   margin-top: 2rem;
-
   ${({ theme }) => theme.fontStyles.headingSB};
 `;
 
 const Message = styled.div`
+  flex-direction: column;
   ${({ theme }) => theme.fontStyles.headingR};
-  margin-bottom: 3rem;
-  margin-top: 2rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`
+  bottom: 0;
   display: grid;
   height: 6.5rem;
   grid-template-columns: repeat(2, 1fr);
-
+  margin-top: auto;
   border-top: 0.1rem solid ${({ theme }) => theme.colors.black10};
 `;
 

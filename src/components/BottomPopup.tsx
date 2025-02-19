@@ -131,7 +131,7 @@ const Content = styled.div`
   }
 `;
 
-const Check = styled.div`
+export const Check = styled.div`
   margin-top: 1rem;
   text-decoration: underline;
   ${({ theme }) => theme.fontStyles.headingSB}
@@ -141,7 +141,7 @@ const Check = styled.div`
   gap: 1rem;
 `;
 
-const CheckBox = styled.div<{ $checked: boolean }>`
+export const CheckBox = styled.div<{ $checked: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
