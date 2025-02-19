@@ -5,6 +5,7 @@ export interface IAddress {
   zonecode: string;
   roadAddress: string;
   jibunAddress: string;
+  centerId?: number;
 }
 
 export interface IExperience {
@@ -91,7 +92,12 @@ export const useSignUpStore = create<SignUpState>((set, get) => ({
     name: '',
     phone: '',
     address: { zonecode: '', roadAddress: '', jibunAddress: '' },
-    centerAddress: { zonecode: '', roadAddress: '', jibunAddress: '' },
+    centerAddress: {
+      zonecode: '',
+      roadAddress: '',
+      jibunAddress: '',
+      centerId: 0,
+    },
     hasCar: true,
     experience: [{ startDate: '', endDate: '', work: '', center: '' }],
     introduction: '',

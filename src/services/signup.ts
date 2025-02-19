@@ -16,6 +16,7 @@ export const postManagerSignUp = async (formData: SignUpState['formData']) => {
     address: formData.centerAddress.roadAddress,
     phone: formData.phone,
     hasCar: formData.hasCar,
+    centerId: formData.centerAddress.centerId,
   });
   return response.data;
 };

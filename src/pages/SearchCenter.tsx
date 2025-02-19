@@ -18,6 +18,7 @@ export const SearchCenter = () => {
           zonecode: e[0],
           roadAddress: e[1],
           jibunAddress: e[2],
+          centerId: +e[3],
         },
       });
     }
@@ -28,6 +29,7 @@ export const SearchCenter = () => {
           zonecode: e[0],
           roadAddress: e[1],
           jibunAddress: e[2],
+          centerId: +e[3],
         },
       });
     }

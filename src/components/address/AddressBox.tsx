@@ -39,6 +39,7 @@ export const CenterAddressBox = ({
           centerAddress?.zipCode ?? '',
           centerAddress?.detailAddress ?? '',
           centerAddress?.centerName ?? '',
+          centerAddress?.centerId + '',
         ])
       }
     >
