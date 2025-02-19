@@ -10,6 +10,8 @@ import {
 import { useInboxStore } from '../../store/inboxStore';
 import { sampleMainList } from '../home/DynamicHome';
 import { useOutGoingBoxStore } from '../../store/outGoingBox';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
+import { getElderList } from '../../services/home';
 
 export const InBoxTab = ({ isOut }: { isOut: boolean }) => {
   const [loading, setLoading] = useState(false);
@@ -20,19 +22,38 @@ export const InBoxTab = ({ isOut }: { isOut: boolean }) => {
     setManagerOutGoingDataPending,
   } = useOutGoingBoxStore();
   const role = localStorage.getItem('userRole');
+  const [elder, setElder] = useState<string>('');
+  const { setElderList } = useManagerHomeStore();
+  const { setElderName } = useOutGoingBoxStore();
+
+  useEffect(() => {
+    const getHome = async () => {
+      setLoading(true);
+      try {
+        const elders = await getElderList();
+        setElderList(elders);
+        setElder(elders[0].elderName);
+        setElderName(elders[0].elderName);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getHome();
+  }, []);
 
   useEffect(() => {
     const fetchManagerData = async () => {
       setLoading(true);
       try {
         if (isOut) {
-          //TODO 어르신 이름 넣기
-          const response1 = await getManagerSendApproved('어르신 이름');
-          const response2 = await getManagerSendPending('어르신 이름');
+          const response1 = await getManagerSendApproved(elder);
+          const response2 = await getManagerSendPending(elder);
           setManagerOutGoingDataApproved(response1);
           setManagerOutGoingDataPending(response2);
         } else {
-          const response = await getManagerInBox('어르신 이름');
+          const response = await getManagerInBox(elder);
           setManagerData(response);
         }
       } catch (error) {
@@ -70,7 +91,7 @@ export const InBoxTab = ({ isOut }: { isOut: boolean }) => {
     } else {
       fetchData();
     }
-  }, [isOut, index]);
+  }, [isOut, index, elder]);
   if (loading) return <></>;
 
   return (

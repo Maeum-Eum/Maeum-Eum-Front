@@ -11,6 +11,8 @@ interface OutGoingBoxState {
   managerOutGoingDataApproved: IManagerSend[] | null;
   setManagerOutGoingDataPending: (data: IManagerSend[]) => void;
   setManagerOutGoingDataApproved: (data: IManagerSend[]) => void;
+  elderName: string;
+  setElderName: (name: string) => void;
 }
 
 export const useOutGoingBoxStore = create<OutGoingBoxState>((set) => ({
@@ -24,4 +26,6 @@ export const useOutGoingBoxStore = create<OutGoingBoxState>((set) => ({
     set({ managerOutGoingDataPending }),
   setManagerOutGoingDataApproved: (managerOutGoingDataApproved) =>
     set({ managerOutGoingDataApproved }),
+  elderName: '',
+  setElderName: (name) => set({ elderName: name }),
 }));

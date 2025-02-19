@@ -8,13 +8,24 @@ import { HomeButtons } from '../home/HomeButtons';
 import { Modal } from '../Modal';
 import { useOutGoingBoxStore } from '../../store/outGoingBox';
 import { IManagerSend } from '../../services/myPage';
+import { DropDownWrapper, PersonButton } from '../inbox/ManagerInBox';
+import { IoIosArrowDown } from 'react-icons/io';
+import { BottomPopup } from '../BottomPopup';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
+import { BlankPage } from '../BlankPage';
 
 export const ManagerOutGoingBox = () => {
-  const { managerOutGoingDataApproved, managerOutGoingDataPending, index } =
-    useOutGoingBoxStore();
+  const {
+    managerOutGoingDataApproved,
+    managerOutGoingDataPending,
+    index,
+    elderName,
+    setElderName,
+  } = useOutGoingBoxStore();
   const [data, setData] = useState<IManagerSend[]>();
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const { elderList } = useManagerHomeStore();
   const navigate = useNavigate();
   useEffect(() => {
     if (index === 0) {
@@ -30,53 +41,76 @@ export const ManagerOutGoingBox = () => {
   )
     if (data === undefined || data === null) return <></>;
   return (
-    <Wrapper>
-      {data?.map((item) => (
-        <Container>
-          <PeopleInfoContainer
-            isCare={true}
-            title={item.title}
-            wage={item.wage}
-            negotiable={item.negotiable}
-            center={''}
-            tags={[]}
-            contactId={item.managerContactId}
-            positions={item.possibleTasks}
-            elderId={null}
-          />
-          {index === 0 ? (
-            <HomeButtons
-              leftFunc={() => {
-                setModalOpen(true);
-              }}
-              leftText="연락 취소하기"
-              rightFunc={() => {
-                setModalOpen(true);
-              }}
-              rightText="한번 더 연락하기"
-            />
-          ) : (
-            <Button
-              onClick={() => {
-                navigate(`/detail/care/${item.caregiverId}?done=true`);
-              }}
-            >
-              자세히 보기
-            </Button>
-          )}
-          <Modal
-            isOpen={isModalOpen}
-            onClose={() => setModalOpen(false)}
-            content="해당 기능은 현재 제공되지 않으며,<br/> 추후 업데이트될 예정입니다"
-            left="취소"
-            right="확인"
-            onConfirm={async () => {
-              setModalOpen(false);
-            }}
-          />
-        </Container>
-      ))}
-    </Wrapper>
+    <>
+      {' '}
+      <DropDownWrapper>
+        <PersonButton onClick={() => setPopupOpen(true)}>
+          <span> {elderName} </span>
+          <IoIosArrowDown />
+        </PersonButton>
+        <BottomPopup
+          isOpen={isPopupOpen}
+          onClose={() => setPopupOpen(false)}
+          options={elderList.map((item) => item.elderName)}
+          onSelect={(option) => {
+            setElderName(option);
+            setPopupOpen(false);
+            console.log(option);
+          }}
+        />
+      </DropDownWrapper>
+      {data?.length === 0 ? (
+        <BlankPage text={'보낸 요청이 없어요'} />
+      ) : (
+        <Wrapper>
+          {data?.map((item) => (
+            <Container>
+              <PeopleInfoContainer
+                isCare={true}
+                title={item.title}
+                wage={item.wage}
+                negotiable={item.negotiable}
+                center={''}
+                tags={[]}
+                contactId={item.managerContactId}
+                positions={item.possibleTasks}
+                elderId={null}
+              />
+              {index === 0 ? (
+                <HomeButtons
+                  leftFunc={() => {
+                    setModalOpen(true);
+                  }}
+                  leftText="연락 취소하기"
+                  rightFunc={() => {
+                    setModalOpen(true);
+                  }}
+                  rightText="한번 더 연락하기"
+                />
+              ) : (
+                <Button
+                  onClick={() => {
+                    navigate(`/detail/care/${item.caregiverId}?done=true`);
+                  }}
+                >
+                  자세히 보기
+                </Button>
+              )}
+              <Modal
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)}
+                content="해당 기능은 현재 제공되지 않으며,<br/> 추후 업데이트될 예정입니다"
+                left="취소"
+                right="확인"
+                onConfirm={async () => {
+                  setModalOpen(false);
+                }}
+              />
+            </Container>
+          ))}
+        </Wrapper>
+      )}
+    </>
   );
 };
 

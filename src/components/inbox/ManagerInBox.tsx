@@ -10,19 +10,19 @@ import styled from 'styled-components';
 import { deleteApplyDecline, postApplyAccept } from '../../services/contact';
 import { useNavigate } from 'react-router-dom';
 import { BlankPage } from '../BlankPage';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
 
 export const ManagerInBox = () => {
   const navigate = useNavigate();
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const options = ['홍길동 어르신', '이순자 어르신'];
+  const { elderList } = useManagerHomeStore();
+  const options = elderList.map((item) => item.elderName);
   const [person, setPerson] = useState(options[0]);
   const { index, managerData } = useInboxStore();
   const [isModalOpen, setModalOpen] = useState(false);
-
-  if (!managerData) return <BlankPage text={'목록이 비어있어요.'} />;
-
+  if (!managerData) return <BlankPage text={'받은 지원이 없어요'} />;
   return (
-    <Wrapper>
+    <>
       <DropDownWrapper>
         <PersonButton onClick={() => setPopupOpen(true)}>
           <span> {person} </span>
@@ -39,66 +39,75 @@ export const ManagerInBox = () => {
           }}
         />
       </DropDownWrapper>
-      <ContentWrapper>
-        {managerData.map((item) => (
-          <Container>
-            <PeopleInfoContainer
-              elderId={null}
-              contactId={index === 1 ? null : item.applyId} //TODO 처리
-              isCare={false}
-              title={item.title}
-              createdAt={item.createdAt}
-              wage={10000} //TODO 수정
-              negotiable={item.negotiable}
-              center={item.centerName}
-              tags={[]}
-              positions={item.satisfyTasks}
-            />
-            {index === 0 ? (
-              <HomeButtons
-                leftFunc={() => {
-                  setModalOpen(true);
-                }}
-                leftText="거절하기"
-                rightFunc={async () => {
-                  await postApplyAccept(item.applyId); //TODO applyId 넣기
-                }}
-                rightText="수락하기"
-              />
-            ) : (
-              <Button
-                onClick={() => {
-                  navigate(`/detail/care/${item.applyId}?done=true`);
-                }}
-              >
-                자세히 보기
-              </Button>
-            )}
-            <Modal
-              isOpen={isModalOpen}
-              onClose={() => setModalOpen(false)}
-              title={item.title}
-              content="거절할 경우<br/>영구적으로 삭제됩니다. <br/>그래도 거절하시겠습니까?"
-              left="취소"
-              right="확인"
-              onConfirm={async () => {
-                await deleteApplyDecline(item.applyId);
-                setModalOpen(false);
-              }}
-            />
-          </Container>
-        ))}
-      </ContentWrapper>
-    </Wrapper>
+      {managerData.length === 0 ? (
+        <BlankPage text={'받은 지원이 없어요'} />
+      ) : (
+        <Wrapper>
+          {' '}
+          <ContentWrapper>
+            {managerData.map((item) => (
+              <Container>
+                <PeopleInfoContainer
+                  elderId={null}
+                  contactId={index === 1 ? null : item.caregiverId}
+                  isCare={false}
+                  title={item.title}
+                  createdAt={item.createdAt}
+                  wage={item.wage}
+                  negotiable={item.negotiable}
+                  center={item.centerName}
+                  tags={[]}
+                  positions={item.satisfyTasks}
+                />
+                {index === 0 ? (
+                  <HomeButtons
+                    leftFunc={() => {
+                      setModalOpen(true);
+                    }}
+                    leftText="거절하기"
+                    rightFunc={async () => {
+                      await postApplyAccept(item.applyId);
+                    }}
+                    rightText="수락하기"
+                  />
+                ) : (
+                  <Button
+                    onClick={() => {
+                      navigate(`/detail/care/${item.applyId}?done=true`);
+                    }}
+                  >
+                    자세히 보기
+                  </Button>
+                )}
+                <Modal
+                  isOpen={isModalOpen}
+                  onClose={() => setModalOpen(false)}
+                  title={item.title}
+                  content="거절할 경우<br/>영구적으로 삭제됩니다. <br/>그래도 거절하시겠습니까?"
+                  left="취소"
+                  right="확인"
+                  onConfirm={async () => {
+                    await deleteApplyDecline(item.applyId);
+                    setModalOpen(false);
+                  }}
+                />
+              </Container>
+            ))}
+          </ContentWrapper>
+        </Wrapper>
+      )}
+    </>
   );
 };
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100%;
   padding: 2.5rem 3rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 3.5rem;
 `;
 const ContentWrapper = styled.div``;
 const Container = styled.div`
@@ -116,14 +125,17 @@ const Button = styled.button`
   ${({ theme }) => theme.fontStyles.headingB}
   color: #ffffff;
 `;
-const DropDownWrapper = styled.div`
+export const DropDownWrapper = styled.div`
   align-self: flex-end;
   display: flex;
-
+  position: absolute;
   ${(props) => props.theme.fontStyles.head2R};
+  padding-bottom: 1rem;
+  right: 1rem;
+  margin-top: 1rem;
 `;
 
-const PersonButton = styled.button`
+export const PersonButton = styled.button`
   ${(props) => props.theme.fontStyles.head2R};
   text-decoration: underline;
   background-color: transparent;

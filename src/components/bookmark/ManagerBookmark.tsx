@@ -9,6 +9,12 @@ import {
   getBookMarkCareGivers,
   IBookMarkCareWorker,
 } from '../../services/myPage';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
+import { DropDownWrapper, PersonButton } from '../inbox/ManagerInBox';
+import { IoIosArrowDown } from 'react-icons/io';
+import { BottomPopup } from '../BottomPopup';
+import { getElderList } from '../../services/home';
+import { BlankPage } from '../BlankPage';
 
 export const ManagerBookmark = () => {
   const sampleBookMarkCareWorker: IBookMarkCareWorker[] = [
@@ -52,12 +58,30 @@ export const ManagerBookmark = () => {
 
   const [data, setData] = useState<IBookMarkCareWorker[]>();
   const [loading, setLoading] = useState(false);
+  const [elder, setElder] = useState<string>('');
+  const { elderList, setElderList } = useManagerHomeStore();
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    const getHome = async () => {
+      setLoading(true);
+      try {
+        const elders = await getElderList();
+        setElderList(elders);
+        setElder(elders[0].elderName);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getHome();
+  }, []);
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
       try {
-        const res = await getBookMarkCareGivers('어르신 이름');
+        const res = await getBookMarkCareGivers(elderList[0].elderName);
         setData(res);
       } catch (e) {
         setData(sampleBookMarkCareWorker);
@@ -66,30 +90,53 @@ export const ManagerBookmark = () => {
       }
     };
     getData();
-  }, []);
+  }, [elder]);
 
-  if (data === undefined || data === null || loading) return <></>;
+  if (data === undefined || data === null || loading)
+    return <BlankPage text="저장한 요양사 목록이 없어요"></BlankPage>;
   return (
-    <Wrapper>
-      {data?.map((item) => (
-        <Container>
-          <PeopleBookmarkContainer
-            isCare={false}
-            title={item.caregiverName + ' 요양보호사님'}
-            positions={item.caregiverSupport}
-          />
-          {
-            <Button
-              onClick={() => {
-                navigate(`/detail/care/${item.caregiverId}?done=true`);
-              }}
-            >
-              자세히 보기
-            </Button>
-          }
-        </Container>
-      ))}
-    </Wrapper>
+    <div>
+      <DropDownWrapper>
+        <PersonButton onClick={() => setPopupOpen(true)}>
+          <span> {elder} </span>
+          <IoIosArrowDown />
+        </PersonButton>
+        <BottomPopup
+          isOpen={isPopupOpen}
+          onClose={() => setPopupOpen(false)}
+          options={elderList.map((item) => item.elderName)}
+          onSelect={(option) => {
+            setElder(option);
+            setPopupOpen(false);
+            console.log(option);
+          }}
+        />
+      </DropDownWrapper>
+      {data.length === 0 ? (
+        <BlankPage text="저장한 요양사 목록이 없어요"></BlankPage>
+      ) : (
+        <Wrapper>
+          {data?.map((item) => (
+            <Container>
+              <PeopleBookmarkContainer
+                isCare={false}
+                title={item.caregiverName + ' 요양보호사님'}
+                positions={item.caregiverSupport}
+              />
+              {
+                <Button
+                  onClick={() => {
+                    navigate(`/detail/care/${item.caregiverId}?done=true`);
+                  }}
+                >
+                  자세히 보기
+                </Button>
+              }
+            </Container>
+          ))}
+        </Wrapper>
+      )}
+    </div>
   );
 };
 

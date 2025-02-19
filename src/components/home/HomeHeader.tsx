@@ -5,6 +5,7 @@ import { BottomPopup } from '../BottomPopup';
 import { Dropdowns } from '../../pages/Home';
 import { HomeDropdown } from './HomeDropdown';
 import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
 // import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
 
 interface HomeHeaderProps {
@@ -61,7 +62,7 @@ const Wrapper = styled.div`
 
 export const SocialHomeHeader = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const options = ['홍길동 어르신', '이순자 어르신'];
+  const { elderList, setElderId } = useManagerHomeStore();
   //TODO 정보 불러오기
   const { setElderName, elderName } = useHomeOptionStoreStore();
 
@@ -78,11 +79,15 @@ export const SocialHomeHeader = () => {
             <BottomPopup
               isOpen={isPopupOpen}
               onClose={() => setPopupOpen(false)}
-              options={options}
+              options={elderList.map((item) => item.elderName)}
               onSelect={(option) => {
+                setElderId(
+                  elderList[
+                    elderList.map((item) => item.elderName).indexOf(option)
+                  ].elderId
+                );
                 setElderName(option);
                 setPopupOpen(false);
-                console.log(option);
               }}
             />
           </DropDownWrapper>

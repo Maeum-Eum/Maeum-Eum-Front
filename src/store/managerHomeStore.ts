@@ -7,6 +7,8 @@ interface ManagerHomeState {
   toggleBookmark: (caregiverId: number) => void;
   elderList: IElder[];
   setElderList: (data: IElder[]) => void;
+  elderId: number;
+  setElderId: (elderId: number) => void;
 }
 
 export const useManagerHomeStore = create<ManagerHomeState>((set) => ({
@@ -24,4 +26,6 @@ export const useManagerHomeStore = create<ManagerHomeState>((set) => ({
     })),
   elderList: [],
   setElderList: (elderList) => set({ elderList }),
+  elderId: 0,
+  setElderId: (elderId) => set({ elderId }),
 }));
