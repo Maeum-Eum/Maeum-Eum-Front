@@ -9,14 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
-  const {
-    setUsername,
-
-    login,
-    isAuthenticated,
-
-    setRememberId,
-  } = useLoginStore();
+  const { setUsername, login, isAuthenticated, setRememberId } =
+    useLoginStore();
 
   const navigate = useNavigate();
 
