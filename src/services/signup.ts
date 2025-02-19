@@ -56,7 +56,7 @@ export const getCenterList = async ({ centerName }: { centerName: string }) => {
 export const postPhoto = async ({ file, id }: { file: File; id: string }) => {
   const formData = new FormData();
   formData.append('file', file);
-  const response = await axios.post(`/api/caregiver/register/${id}`, formData, {
+  const response = await axios.post(`/caregiver/register/${id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

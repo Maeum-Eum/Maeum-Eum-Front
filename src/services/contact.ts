@@ -22,6 +22,17 @@ export const postElderBookmark = async (elderId: number) => {
     `/caregiver/near/bookmark?elderId=${elderId}`
   );
 };
+
+interface IBookmark {
+  elderId: number;
+  caregiverId: number;
+}
+export const postCareBookmark = async ({ elderId, caregiverId }: IBookmark) => {
+  return await authApiClient.post(`/manager/bookmark`, {
+    elderId,
+    caregiverId,
+  });
+};
 interface IPostApply {
   phone: string;
   message: string;

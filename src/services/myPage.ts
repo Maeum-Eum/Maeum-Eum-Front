@@ -111,9 +111,45 @@ export const patchCenterInfo = async (
   oneLineIntro: string,
   hasCar: boolean
 ) => {
-  return await authApiClient.patch(`/api/manager/${centerId}`, {
+  return await authApiClient.patch(`/manager/${centerId}`, {
     oneLineIntro: oneLineIntro,
     hasCar: hasCar,
     centerId: centerId,
   });
+};
+export interface IManagerMypage {
+  managerId: number;
+  name: string;
+  phoneNumber: string;
+  centerId: number;
+  centerName: string;
+  hasCar: boolean;
+  oneLineIntro: string | null;
+  sentContacts: number;
+  bookmarks: number;
+  applys: number;
+}
+export const getManagerMyPage = async () => {
+  const res = await authApiClient.get('/manager/mypage');
+
+  return res.data as IManagerMypage;
+};
+
+export interface IManagerInBox {
+  applyId: number;
+  approvalStatus: 'PENDING' | 'APPROVED' | 'REJECTED'; // 승인 상태
+  centerId: number;
+  centerName: string;
+  elderId: number;
+  elderName: string;
+  negotiable: boolean;
+  title: string;
+  satisfyTasks: string[]; // 요양보호사가 만족하는 업무 리스트
+  createdAt: string;
+  updateAt: string;
+}
+
+export const getManagerInBox = async (name: string) => {
+  const response = await authApiClient.get(`/manager/apply?name=${name}`);
+  return response.data as IManagerInBox[];
 };

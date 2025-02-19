@@ -69,52 +69,9 @@ export const getRecommendCaregiverList = async ({
   sort: string;
 }) => {
   const response = await authApiClient.get(
-    `/api/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
+    `/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
   );
   return response.data as Elder;
-};
-
-//TODO 백엔드와 상의 후 수정 필요
-export interface ICareGiverDetailInfo {
-  caregiverId: number;
-  resumeId: number;
-  title: string;
-  jobPosition: string[];
-  certificateCode: string;
-  hasDementiaTraining: 'COMPLETE' | 'INCOMPLETE'; // 치매 교육 여부
-  hasVehicle: boolean;
-  workPlace: string[];
-  workDay: string[];
-  workTimeSlot: string[];
-  isNegotiableTime: boolean;
-  wage: number;
-  elderRank: number[];
-  meal: string[];
-  toileting: string[];
-  mobility: string[];
-  daily: string[];
-  preferredGender: 'MALE' | 'FEMALE' | 'EVERY'; // 성별 선호
-  isFamilyPreferred: boolean;
-  experience: ICareGiverExperience[];
-  introduction: string;
-  profileImage: string | null;
-}
-
-export interface ICareGiverExperience {
-  startDate: string;
-  endDate: string;
-  centerId: string;
-  work: string | null;
-  center: string | null;
-}
-
-export const getRecommendCaregiver = async ({
-  caregiverId,
-}: {
-  caregiverId: number;
-}) => {
-  const response = await authApiClient.get(`/api/manager/${caregiverId}`);
-  return response.data as ICareGiverDetailInfo;
 };
 
 export interface IUserRole {
@@ -143,7 +100,7 @@ export interface INearElderList {
 }
 export const getNearElder = async (range: string) => {
   const response = await authApiClient.get(
-    `/api/caregiver/near/list?range=${range}`
+    `/caregiver/near/list?range=${range}`
   );
 
   return response.data as INearElderList;
