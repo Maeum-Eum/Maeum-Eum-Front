@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { authService } from '../api/apiService';
 
-
 type LoginState = {
   id: string;
   password: string;
@@ -25,7 +24,7 @@ type LoginState = {
 export const useLoginStore = create<LoginState>((set) => ({
   id: '',
   password: '',
-  isAuthenticated: true,
+  isAuthenticated: false,
   userRole: null,
   loading: false,
   error: null,
@@ -53,15 +52,27 @@ export const useLoginStore = create<LoginState>((set) => ({
       const { id, password } = useLoginStore.getState();
       const response = await authService.login({ id, password });
 
-      console.log("로그인 응답" , response)
+      console.log('로그인 응답', response);
 
       if (response.status === 200) {
-        const { accessToken, refreshToken } = response;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-      
+        const accessToken = response.accessToken;
+        const refreshToken = response.refreshToken;
+
+        console.log('🔑 받은 Access Token:', accessToken);
+        console.log('🔑 받은 Refresh Token:', refreshToken);
+
+        if (accessToken) {
+          localStorage.setItem(
+            'accessToken',
+            accessToken.replace('Bearer ', '')
+          );
+        }
+        if (refreshToken) {
+          localStorage.setItem('refreshToken', refreshToken);
+        }
+        console.log('accessToken', accessToken);
+        console.log('refreshToken', refreshToken);
         set({ isAuthenticated: true });
-        console.log('🔐 AccessToken:', accessToken);
       }
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || '로그인 실패';
@@ -80,6 +91,8 @@ export const useLoginStore = create<LoginState>((set) => ({
   },
 
   logout: () => {
-    set({ id: '', password: '', isAuthenticated: false, });
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    set({ id: '', password: '', isAuthenticated: false });
   },
 }));

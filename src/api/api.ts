@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useLoginStore } from '../store/loginStore';
 
 export const apiClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
@@ -13,18 +14,14 @@ export const authApiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
 
 authApiClient.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-    if(refreshToken) {
-      config.headers['X-Refresh-Token'] = refreshToken;
     }
 
     return config;
@@ -44,23 +41,44 @@ authApiClient.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken');
-        const refreshResponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/reissue`, {
-          refreshToken,
-        });
+        const refreshResponse = await axios.post(
+          `${import.meta.env.VITE_API_BASE_URL}/api/reissue`,
+          {},
+          {
+            headers: {
+              'X-Refresh-Token': refreshToken,
+            },
+          }
+        );
 
         if (refreshResponse.status === 200) {
-          const newAccessToken = refreshResponse.data.accessToken;
-          localStorage.setItem('accessToken', newAccessToken);
+          const newAccessToken = refreshResponse.headers['Authorization'];
+          const newRefreshToken = refreshResponse.headers['X-refresh-token'];
+
+          if (newAccessToken) {
+            localStorage.setItem(
+              'accessToken',
+              newAccessToken.replace('Bearer ', '')
+            );
+          }
+          if (newRefreshToken) {
+            localStorage.setItem('refreshToken', newRefreshToken);
+          }
+
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return authApiClient(originalRequest);
         }
       } catch (refreshError) {
         console.error('Access Token 재발급 실패:', refreshError);
+        useLoginStore.getState().logout();
         window.location.href = '/login';
       }
     }
 
-    console.error('api error: ', error?.response?.data?.message || error.message);
+    console.error(
+      'api error: ',
+      error?.response?.data?.message || error.message
+    );
     return Promise.reject(error);
   }
-)
+);
