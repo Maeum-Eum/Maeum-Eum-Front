@@ -4,6 +4,8 @@ import {
   getCareGiverInbox,
   getCareGiverOutGoingBox,
   getManagerInBox,
+  getManagerSendApproved,
+  getManagerSendPending,
 } from '../../services/myPage';
 import { useInboxStore } from '../../store/inboxStore';
 import { sampleMainList } from '../home/DynamicHome';
@@ -12,7 +14,11 @@ import { useOutGoingBoxStore } from '../../store/outGoingBox';
 export const InBoxTab = ({ isOut }: { isOut: boolean }) => {
   const [loading, setLoading] = useState(false);
   const { setData, index, setIndex, setManagerData } = useInboxStore();
-  const { setoutGoingData } = useOutGoingBoxStore();
+  const {
+    setoutGoingData,
+    setManagerOutGoingDataApproved,
+    setManagerOutGoingDataPending,
+  } = useOutGoingBoxStore();
   const role = localStorage.getItem('userRole');
 
   useEffect(() => {
@@ -20,12 +26,11 @@ export const InBoxTab = ({ isOut }: { isOut: boolean }) => {
       setLoading(true);
       try {
         if (isOut) {
-          //TODO 수정
-          const response = await getCareGiverOutGoingBox({
-            tab: index === 0 ? 'pending' : 'approved',
-            page: 0,
-          });
-          setoutGoingData(response);
+          //TODO 어르신 이름 넣기
+          const response1 = await getManagerSendApproved('어르신 이름');
+          const response2 = await getManagerSendPending('어르신 이름');
+          setManagerOutGoingDataApproved(response1);
+          setManagerOutGoingDataPending(response2);
         } else {
           const response = await getManagerInBox('어르신 이름');
           setManagerData(response);
