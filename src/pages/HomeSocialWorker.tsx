@@ -32,7 +32,10 @@ export const HomeSocialWorker = () => {
       <ContentWrapper>
         {/* <PeopleInfoContainer isCare={true} /> */}
         <HomeButtons
-          leftFunc={() => {}}
+          leftFunc={async () => {
+            //TODO
+            //await postCareBookmark()
+          }}
           rightFunc={() => {
             navigate('/detail/care/1');
           }}
