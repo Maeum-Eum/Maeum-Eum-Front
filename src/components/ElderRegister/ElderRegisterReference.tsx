@@ -1,16 +1,12 @@
-import { useState } from 'react';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
 import { ElderRegisterLayout } from './ElderRegisterLayout';
 import { ElderRegisterSubLabel } from './ElderRegisterSubLabel';
 import { SelectedButton } from './SelectedButton';
+import { useElderRegisterStore } from '../../store/elderRegisterStore';
 
 export const ElderRegisterReference = () => {
-  const [, setSelectedCare] = useState<string>('');
-  const handleCareSelect = (care: string | string[]) => {
-    if (typeof care === 'string') {
-      setSelectedCare(care);
-    }
-  };
+  const { setElderData} = useElderRegisterStore();
+ 
 
   return (
     <ElderRegisterLayout title="추가 정보 입력" require={false}>
@@ -20,7 +16,11 @@ export const ElderRegisterReference = () => {
       <SelectedButton
         options={['집에 있어요', '집에 없어요']}
         multiSelect={false}
-        onSelect={handleCareSelect}
+        onSelect={(family) => {
+          if (typeof family === 'string') {
+            setElderData('family', family === '집에 있어요' ? '집에 있어요' : '집에 없어요');
+          }
+        }}
         hoverColor={{ '집에 있어요': '#371FF0', '집에 없어요': '#371FF0' }}
       />
 
@@ -28,7 +28,11 @@ export const ElderRegisterReference = () => {
       <SelectedButton
         options={['있어요', '없어요']}
         multiSelect={false}
-        onSelect={handleCareSelect}
+        onSelect={(pet) => {
+          if (typeof pet === 'string') {
+            setElderData('pet', pet === '있어요' ? '있어요' : '없어요');
+          }
+        }}
         hoverColor={{ '있어요': '#371FF0', '없어요': '#371FF0' }}
       />
     </ElderRegisterLayout>
