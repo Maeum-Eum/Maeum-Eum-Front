@@ -73,8 +73,8 @@ export const Dropdowns = styled.div`
   align-items: center;
   height: 3.5rem;
   gap: 0;
-  max-width: 500px;
+  max-width: 440px;
   width: 100%;
   z-index: 1000;
-  border: 0.1rem solid ${(props) => props.theme.colors.black10};
+  border-bottom: 0.1rem solid ${(props) => props.theme.colors.black10};
 `;

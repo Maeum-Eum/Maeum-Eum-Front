@@ -70,7 +70,7 @@ const Overlay = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 500px;
+  max-width: 440px;
   width: 100%;
   height: 100%;
   background: rgba(217, 217, 217, 0.5);

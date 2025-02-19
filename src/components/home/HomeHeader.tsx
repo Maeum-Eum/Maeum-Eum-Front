@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};
   background-color: ${(props) => props.theme.colors.background};
   height: 11.2rem;
-  max-width: 500px;
+  max-width: 440px;
   ${(props) => props.theme.fontStyles.headingSB};
   display: flex;
   align-items: center;
