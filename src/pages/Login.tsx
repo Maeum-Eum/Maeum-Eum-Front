@@ -3,7 +3,7 @@ import { UserInput } from '../components/Login/UserInput';
 import { LoginOption } from '../components/Login/LoginOption';
 import { LoginButton } from '../components/Login/LoginButton';
 import { LoginFooter } from '../components/Login/LoginFooter';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { LoginLogo } from '../components/Login/LoginLogo';
 import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../store/loginStore';
@@ -21,15 +21,20 @@ export const Login = () => {
     }
   }, []);
 
-  const handleLogin = async () => {
+  const handleLogin = useCallback (async () => {
     await login();
+
+    console.log("authenticate", useLoginStore.getState().isAuthenticated)
+    
+    
+
+  },[login]);
+
+  useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
     }
-
-    console.log('asd', login);
-    console.log('asd', isAuthenticated);
-  };
+  },[isAuthenticated, navigate])
 
   useEffect(() => {
     const handleEnterKey = (event: KeyboardEvent) => {

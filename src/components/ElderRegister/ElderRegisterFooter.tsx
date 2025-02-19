@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useElderRegisterStore } from '../../store/elderRegisterStore';
 import { ButtonFooter } from '../ButtonFooter';
+import { submitEider } from '../../api/apiService';
 
 export const ElderRegisterFooter = () => {
   const navigate = useNavigate();
@@ -10,7 +11,14 @@ export const ElderRegisterFooter = () => {
     console.log('저장된 어르신 데이터', elder);
   };
 
-  const handleElderSubmit = () => {};
+  const handleElderSubmit = async () => {
+    try {
+      const response = await submitEider();
+      console.log("어르신 등록 성공", response)
+    } catch (error) {
+
+    }
+  };
 
   return (
     <ButtonFooter
@@ -18,9 +26,9 @@ export const ElderRegisterFooter = () => {
       nextStep={async () => {
         if (step === 5) {
           handleElderSubmit();
+          handleElderData();
           navigate('/complete2', { replace: true });
         } else {
-          handleElderData();
           nextStep();
         }
       }}
