@@ -1,26 +1,27 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const JobTimeSelect = () => {
-  const [selectedTime, setSelectedTime] = useState<string[]>([]);
-  const [isFlexible, setIsFlexible] = useState<boolean>(false);
+  const {resume,setWorkTimeSlot, setIsNegotiableTime} = useResumeStore();
+
 
   const timeOptions = [
-    { label: '오전', time: '9시-12시', icon: '🌤️' },
-    { label: '오후', time: '12시-18시', icon: '🍚' },
-    { label: '저녁', time: '18시-21시', icon: '🌙' },
+    { label: '오전', time: '9시-12시', icon: '🌤️', value: '0' },
+    { label: '오후', time: '12시-18시', icon: '🍚', value: '1'},
+    { label: '저녁', time: '18시-21시', icon: '🌙' , value: '2'},
   ];
 
-  const handleTimeSelect = (label: string) => {
-    if (selectedTime.includes(label)) {
-      setSelectedTime(selectedTime.filter((time) => time !== label));
-    } else {
-      setSelectedTime([...selectedTime, label]);
-    }
+  const handleTimeSelect = (label: string, value: string) => {
+    const updatedTimeSlots = resume.workTimeSlot.includes(value)
+      ? resume.workTimeSlot.filter((time) => time !== value)
+      : [...resume.workTimeSlot, value];
+      console.log("asd", label)
+
+    setWorkTimeSlot(updatedTimeSlots);
   };
 
   const toggleFlexible = () => {
-    setIsFlexible((prev) => !prev);
+    setIsNegotiableTime(!resume.isNegotiableTime);
   };
 
   return (
@@ -29,8 +30,8 @@ export const JobTimeSelect = () => {
         {timeOptions.map((option) => (
           <TimeButton
             key={option.label}
-            isSelected={selectedTime.includes(option.label)}
-            onClick={() => handleTimeSelect(option.label)}
+            isSelected={resume.workTimeSlot.includes(option.value)}
+            onClick={() => handleTimeSelect(option.label, option.value)}
           >
             <Label>{option.label}</Label>
             <Icon>{option.icon}</Icon>
@@ -43,7 +44,7 @@ export const JobTimeSelect = () => {
         <Checkbox
           type="checkbox"
           id="flexible-time"
-          checked={isFlexible}
+          checked={resume.isNegotiableTime}
           onChange={toggleFlexible}
         />
         <CheckboxLabel htmlFor="flexible-time">

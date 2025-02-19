@@ -1,14 +1,30 @@
-import { useState } from 'react';
 import { ElderRegisterLayout } from '../ElderRegister/ElderRegisterLayout';
 import { ElderRegisterSubLabel } from '../ElderRegister/ElderRegisterSubLabel';
 import { SelectedButton } from '../ElderRegister/SelectedButton';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const ResumePreference = () => {
-  const [, setSelectedElder] = useState<string>('');
+  const { setPreferredGender, setIsFamilyPreferred, setIsPetPreferred } =
+    useResumeStore();
+
   const handleElderSelect = (elder: string | string[]) => {
     if (typeof elder === 'string') {
-      setSelectedElder(elder);
+      setPreferredGender(elder);
+    }
+  };
+
+  const handleFamilySelect = (option: string | string[]) => {
+    if (typeof option === 'string') {
+      const isPreferred = option === '가족이 있어도 괜찮아요';
+      setIsFamilyPreferred(isPreferred);
+    }
+  };
+
+  const handlePetSelect = (option: string | string[]) => {
+    if (typeof option === 'string') {
+      const isPreferred = option === '있어도 괜찮아요';
+      setIsPetPreferred(isPreferred);
     }
   };
 
@@ -40,17 +56,17 @@ export const ResumePreference = () => {
       <SelectedButton
         options={['관계 없어요']}
         multiSelect={false}
-        onSelect={handleElderSelect}
+        onSelect={handleFamilySelect}
         hoverColor={{ '관계 없어요': '#371FF0' }}
         maxWidth="100%"
       />
       <SelectedButton
         options={['가족이 있어도 괜찮아요', '마주치고 싶지 않아요']}
         multiSelect={false}
-        onSelect={handleElderSelect}
+        onSelect={handleFamilySelect}
         hoverColor={{
           '가족이 있어도 괜찮아요': '#371FF0',
-          '마주치고 싶지 않아요요': '#371FF0',
+          '마주치고 싶지 않아요': '#371FF0',
         }}
         fontSize="1.4rem"
       />
@@ -59,12 +75,12 @@ export const ResumePreference = () => {
       <SelectedButton
         options={['있어도 괜찮아요', '있으면 힘들어요']}
         multiSelect={false}
-        onSelect={handleElderSelect}
+        onSelect={handlePetSelect}
         hoverColor={{
           '있어도 괜찮아요': '#371FF0',
           '있으면 힘들어요': '#371FF0',
         }}
-        fontSize='1.4rem'
+        fontSize="1.4rem"
       />
     </ElderRegisterLayout>
   );

@@ -1,13 +1,25 @@
-import { useState } from 'react';
 import { ElderRegisterLayout } from '../ElderRegister/ElderRegisterLayout';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
 import { SelectedButton } from '../ElderRegister/SelectedButton';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const ResumeGrade = () => {
-  const [, setSelectedGrade] = useState<string[]>([]);
+  const {setElderRank} =useResumeStore();
+
   const handleGrade = (grade: string | string[]) => {
+    const gradeMapping: Record<string, number> = {
+      '1등급': 1, '2등급': 2, '3등급': 3, '4등급': 4, '5등급': 5, '인지 지원 등급': 6
+    };
+
     if (Array.isArray(grade)) {
-      setSelectedGrade(grade);
+      let mappedGrades = grade.map((g) => gradeMapping[g]); // ✅ 문자열 → 숫자 변환
+      
+     
+      if (grade.includes("모두가능")) {
+        mappedGrades = [1, 2, 3, 4, 5, 6]; 
+      }
+      
+      setElderRank(mappedGrades);
     }
   };
 

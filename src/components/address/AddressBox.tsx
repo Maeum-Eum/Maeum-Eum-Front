@@ -1,23 +1,44 @@
 import styled from 'styled-components';
+import { ICenter } from '../../services/signup';
 import { IAddress } from '../../store/signUpStore';
 
 interface AddressBoxProps {
-  address: IAddress;
-  border?: boolean; // ✅ 선택적 props
+  centerAddress?: ICenter;
+  address?: IAddress;
 }
 
-export const AddressBox = ({ address, border = true }: AddressBoxProps) => {
+export const AddressBox = ({ address }: AddressBoxProps) => {
   return (
-    <Wrapper $border={border}>
+    <Wrapper $border={true}>
       <Row>
         <span>우편번호</span>
-        <PostCode>{address.zonecode}</PostCode>
+        <PostCode>{address!.zonecode}</PostCode>
       </Row>
       <Row>
-        <span>구주소</span> <span>{address.roadAddress} </span>
+        <span>구주소</span> <span>{address!.jibunAddress} </span>
       </Row>
       <Row>
-        <span>도로명</span> <span>{address.jibunAddress} </span>
+        <span>도로명</span>
+        <span>{address!.roadAddress}</span>
+      </Row>
+    </Wrapper>
+  );
+};
+export const CenterAddressBox = ({ centerAddress }: AddressBoxProps) => {
+  return (
+    <Wrapper $border={false}>
+      <Row>
+        <span>우편번호</span>
+        <PostCode>{centerAddress!.zipCode}</PostCode>
+      </Row>
+      <Row>
+        <span>센터명</span> <span>{centerAddress!.centerName} </span>
+      </Row>
+      <Row>
+        <span>상세주소</span>
+        <span>
+          {centerAddress!.address} {centerAddress!.detailAddress}
+        </span>
       </Row>
     </Wrapper>
   );

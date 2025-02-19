@@ -1,20 +1,20 @@
-import { useState } from 'react';
 import { ElderRegisterLayout } from '../ElderRegister/ElderRegisterLayout';
 import { SelectedButton } from '../ElderRegister/SelectedButton';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const ResumeRegionSelect = () => {
-  const [ ,setSelectedRegions] = useState<string[]>([]);
-  const [ ,setSelectedCar] = useState<string>('');
+  const {setHasVehicle, setWorkPlace } = useResumeStore();
+  
   const handleCarSelect = (car: string | string[]) => {
     if (typeof car === 'string') {
-      setSelectedCar(car);
+      setHasVehicle(car);
     }
   };
 
   const handleRegions = (region: string | string[]) => {
     if (Array.isArray(region)) {
-      setSelectedRegions(region);
+      setWorkPlace(region);
     }
   };
   return (

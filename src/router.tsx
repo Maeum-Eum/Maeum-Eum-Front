@@ -15,11 +15,14 @@ import { ProfileUpload } from './pages/ProfileUpload';
 import { NearElder } from './pages/NearElder';
 import { DetailElderInfo } from './pages/DetailElderInfo';
 import { AcceptComplete } from './pages/AcceptComplete';
-import { HomeSocialWorker } from './pages/HomeSocialWorker';
 import { DetailCareInfo } from './pages/DetailCareInfo';
 import { Contact } from './pages/Contact';
 import { MyPage } from './pages/MyPage';
-import { HomeAdminCare } from './pages/HomeAdminCare';
+import { InBox } from './pages/InBox';
+import { OutGoingBox } from './pages/OutGoingBox';
+import { DynamicHome } from './components/home/DynamicHome';
+import { ResumeComplete } from './components/Resume/ResumeComplete';
+import { ElderRegisterComplete } from './components/ElderRegister/ElderRegisterComplete';
 
 export const router = createBrowserRouter([
   {
@@ -32,17 +35,11 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       { path: 'signup/profile-upload', element: <ProfileUpload /> },
-      { path: 'elder-register', element: <ElderRegister /> },
-      { path: 'resume', element: <Resume /> },
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
       { path: 'search-center', element: <SearchCenter /> },
-      { path: 'accept', element: <Accept /> },
-      { path: 'accept/complete', element: <AcceptComplete /> },
-      { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
-      { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
-      { path: 'contact/:careId', element: <Contact /> },
-      {path:'admin', element:<HomeAdminCare/>},
+      { path: 'complete', element: <ResumeComplete /> },
+      { path: 'complete2', element: <ElderRegisterComplete /> },
 
       {
         path: '',
@@ -53,11 +50,20 @@ export const router = createBrowserRouter([
             element: <Home />,
             children: [
               //TODO: 요양보호사/사회복지사 여부에 따라 element 바꾸기
-              { path: '', element: <HomeSocialWorker /> },
+              { path: '', element: <DynamicHome /> },
               { path: '/near', element: <NearElder /> },
               { path: 'mypage', element: <MyPage /> },
             ],
           },
+          { path: 'elder-register', element: <ElderRegister /> },
+          { path: 'resume', element: <Resume /> },
+          { path: 'accept', element: <Accept /> },
+          { path: 'accept/complete', element: <AcceptComplete /> },
+          { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
+          { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
+          { path: 'contact/:careId', element: <Contact /> },
+          { path: 'inbox', element: <InBox /> },
+          { path: 'outgoing-box', element: <OutGoingBox /> },
         ],
       },
     ],

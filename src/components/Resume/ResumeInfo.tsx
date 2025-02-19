@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useSignUpStore } from '../../store/signUpStore';
 import { ElderRegisterLayout } from '../ElderRegister/ElderRegisterLayout';
 import { Input } from '../Input';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const ResumeInfo = () => {
-  const { formData, updateFormData } = useSignUpStore();
+  const {setIntroduction, resume} = useResumeStore();
 
   return (
     <ElderRegisterLayout title="추가 정보 입력" require={false}>
@@ -20,11 +20,11 @@ export const ResumeInfo = () => {
         </Container>
         <Input
           placeholder="*10자 이상 입력해 주세요"
-          value={formData.introduction}
-          onChange={(e) => updateFormData({ introduction: e.target.value })}
+          value={resume.introduction}
+          onChange={(e) => setIntroduction(e.target.value)}
         />
         <span style={{ alignSelf: 'flex-end' }}>
-          ({formData.introduction.length}/50)
+          ({resume.introduction.length}/50)
         </span>
       </Introduction>
       <Profile>

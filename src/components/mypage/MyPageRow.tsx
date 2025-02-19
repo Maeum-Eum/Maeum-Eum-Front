@@ -3,7 +3,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 
 export const MyPageRow = (li: any) => {
   return (
-    <Row>
+    <Row onClick={li.onClick}>
       <Section>
         {li.icon}
         <span>{li.text}</span>

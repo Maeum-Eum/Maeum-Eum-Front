@@ -38,7 +38,7 @@ const Overlay = styled.div`
   max-width: 500px;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(217, 217, 217, 0.5);
   display: flex;
   justify-content: center;
   align-items: flex-end;
