@@ -47,5 +47,8 @@ export const Header = () => {
   if (location.pathname.startsWith('/modify-center')) {
     return <BackButtonHeader title="센터 정보 수정하기" />;
   }
+  if (location.pathname.startsWith('/bookmark')) {
+    return <BackButtonHeader title="저장함" />;
+  }
   return null;
 };
