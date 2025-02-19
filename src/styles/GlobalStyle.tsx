@@ -61,7 +61,13 @@ html {
   #root {
     width: 100%;
     height: 100%;
+
+ @media (min-width: 1024px) {
+    background: url('icons/background.svg') no-repeat center;
+    background-size: cover;
   }
+  }
+  
 `;
 
 export default GlobalStyle;
