@@ -1,4 +1,4 @@
-import { authApiClient } from './api';
+import { authApiClient } from '../api/api';
 
 export interface IDetailCenter {
   centerName: string;

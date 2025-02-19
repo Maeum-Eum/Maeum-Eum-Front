@@ -1,4 +1,4 @@
-import { authApiClient } from './api';
+import { authApiClient } from '../api/api';
 
 interface IContent {
   contactId: number;
@@ -104,4 +104,41 @@ export const getNearElder = async (range: string) => {
   );
 
   return response.data as INearElderList;
+};
+export interface IManagerMain {
+  caregiverId: number;
+  caregiverName: string;
+  resumeId: number;
+  title: string;
+  negotiable: boolean;
+  wage: number;
+  possibleTasks: string[];
+  isBookmarks: boolean;
+  bookmarkId: number | null;
+  createAt: string;
+}
+
+export const getManagerHome = async ({
+  name,
+  distance,
+  sort,
+}: {
+  name: string;
+  sort: string;
+  distance: string;
+}) => {
+  const response = await authApiClient.get(
+    `/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
+  );
+
+  return response.data as IManagerMain[];
+};
+
+export interface IElder {
+  elderId: number;
+  elderName: string;
+}
+export const getElderList = async () => {
+  const res = await authApiClient.get(`/manager/elder`);
+  return res.data as IElder[];
 };

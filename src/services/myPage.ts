@@ -1,4 +1,4 @@
-import { authApiClient } from './api';
+import { authApiClient } from '../api/api';
 import { IGetMainList } from './home';
 
 export interface ICareGiverMyPage {
@@ -153,3 +153,72 @@ export const getManagerInBox = async (name: string) => {
   const response = await authApiClient.get(`/manager/apply?name=${name}`);
   return response.data as IManagerInBox[];
 };
+
+export interface IManagerSend {
+  managerContactId: number;
+  approvalStatus: 'PENDING' | 'APPROVED'; // 승인 상태
+  caregiverId: number;
+  title: string;
+  negotiable: boolean;
+  centerId: number;
+  centerName: string;
+  wage: number;
+  address: string;
+  possibleTasks: string[];
+}
+export const getManagerSendPending = async (name: string) => {
+  const response = await authApiClient.get(
+    `/manager/contact?name=${name}&tab=pending`
+  );
+  return response.data as IManagerSend[];
+};
+
+export const getManagerSendApproved = async (name: string) => {
+  const response = await authApiClient.get(
+    `/manager/contact?name=${name}&tab=approved`
+  );
+  return response.data as IManagerSend[];
+};
+
+export interface IBookMarkElder {
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  content: IBookMarkElderContent[];
+  first: boolean;
+  last: boolean;
+}
+
+export interface IBookMarkElderContent {
+  elderId: number;
+  center: string;
+  title: string;
+  wage: number;
+  negotiable: boolean;
+  meal?: boolean;
+  toileting?: boolean;
+  mobility?: boolean;
+  daily?: boolean;
+}
+export const getBookmarkElders = async (page: number) => {
+  const response = await authApiClient.get(
+    `/api/caregiver/mypage/bookmarks?page=${page}`
+  );
+  return response.data as IBookMarkElder;
+};
+
+export const getBookMarkCareGivers = async (name: string) => {
+  const response = await authApiClient.get(
+    `/api/manager/bookmark?name=${name}`
+  );
+  return response.data as IBookMarkCareWorker[];
+};
+export interface IBookMarkCareWorker {
+  bookmarkId: number;
+  caregiverId: number;
+  caregiverName: string;
+  caregiverSupport: string[];
+  resumeId: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -1,4 +1,4 @@
-import { authApiClient } from './api';
+import { authApiClient } from '../api/api';
 
 export const postApproveMatching = async (contactId: number) => {
   return await authApiClient.post(
@@ -23,15 +23,18 @@ export const postElderBookmark = async (elderId: number) => {
   );
 };
 
-interface IBookmark {
-  elderId: number;
-  caregiverId: number;
-}
-export const postCareBookmark = async ({ elderId, caregiverId }: IBookmark) => {
+export const postCareBookmark = async (
+  elderId: number,
+  caregiverId: number
+) => {
   return await authApiClient.post(`/manager/bookmark`, {
     elderId,
     caregiverId,
   });
+};
+
+export const deleteCareBookmark = async (bookmarkId: number) => {
+  return await authApiClient.delete(`/manager/bookmark/${bookmarkId}`);
 };
 interface IPostApply {
   phone: string;
@@ -66,4 +69,12 @@ export const postAcceptContact = async (
     }
   );
   return response.data as IPostAccept;
+};
+
+export const postApplyAccept = async (applyId: number) => {
+  return await authApiClient.post(`/manager/apply/${applyId}`);
+};
+
+export const deleteApplyDecline = async (applyId: number) => {
+  return await authApiClient.delete(`/manager/apply/${applyId}`);
 };

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { SignUpState } from '../store/signUpStore';
-import { apiClient } from './api';
+
 import { IProfileImage } from './myPage';
+import { apiClient } from '../api/api';
 
 export const postValidateId = async (id: string) => {
   const response = await apiClient.post('/validateID', { id: id });

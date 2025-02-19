@@ -11,8 +11,8 @@ export const authService = {
 
     return {
       status: response.status,
-      accessToken: response.headers['Authorization'],
-      refreshToken: response.headers['X-refresh-token'],
+      accessToken: response.headers['authorization'],
+      refreshToken: response.headers['x-refresh-token'],
     };
   },
 
