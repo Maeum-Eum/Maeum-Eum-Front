@@ -8,6 +8,10 @@ interface IContent {
   wage: number;
   negotiable: boolean;
   bookmarked: boolean;
+  meal: boolean;
+  toileting: boolean;
+  mobility: boolean;
+  daily: boolean;
 }
 export interface IGetMainList {
   totalPages: number;
@@ -28,7 +32,7 @@ export const getMainList = async ({
   page: string;
 }) => {
   const response = await authApiClient.get(
-    `/caregiver/main/list?range=${range}&sort=${sort}&page=${page}`
+    `/caregiver/main/list?range=${range}&order=${sort}&page=${page}`
   );
   return response.data as IGetMainList;
 };
@@ -40,12 +44,6 @@ export const getMatchDetail = async ({ contactId }: { contactId: number }) => {
   return response.data;
 };
 
-export const postBookmark = async ({ contactId }: { contactId: number }) => {
-  const response = await authApiClient.post(
-    `/caregiver/main/bookmark?contact=${contactId} `
-  );
-  return response.status;
-};
 export interface CaregiverSupport {
   resume_id: number;
   caregiver_id: number;
@@ -125,4 +123,28 @@ export interface IUserRole {
 export const getUserRole = async () => {
   const response = await authApiClient.get('/user');
   return response.data as IUserRole;
+};
+export interface INearElder {
+  elderId: number;
+  center: string;
+  title: string;
+  wage: number;
+  negotiable: boolean;
+  meal: boolean;
+  toileting: boolean;
+  mobility: boolean;
+  daily: boolean;
+}
+
+export interface INearElderList {
+  meal?: INearElder;
+  toileting?: INearElder;
+  wage?: INearElder;
+}
+export const getNearElder = async (range: string) => {
+  const response = await authApiClient.get(
+    `/api/caregiver/near/list?range=${range}`
+  );
+
+  return response.data as INearElderList;
 };

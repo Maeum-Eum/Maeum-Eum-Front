@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import { CiBookmark } from 'react-icons/ci';
+import { useState } from 'react';
+import { FaBookmark } from 'react-icons/fa';
 
 interface IButtons {
   leftText: string;
   rightText: string;
   leftFunc: () => void;
   rightFunc: () => void;
+  bookmark?: boolean;
 }
 
 export const HomeButtons = ({
@@ -13,18 +16,35 @@ export const HomeButtons = ({
   rightFunc,
   leftFunc,
   rightText,
+  bookmark,
 }: IButtons) => {
+  const [isBookmarked, setIsBookmarked] = useState(bookmark);
   return (
     <Buttons>
-      <WhiteButton onClick={leftFunc}>
+      <WhiteButton
+        onClick={() => {
+          leftFunc();
+          if (leftText === '저장') setIsBookmarked((prev) => !prev);
+        }}
+      >
         {leftText === '저장' ? (
-          <CiBookmark
-            style={{
-              width: '1.4rem',
-              height: '1.4rem',
-              color: 'rgba(0, 0, 0, 0.8)',
-            }}
-          />
+          isBookmarked ? (
+            <FaBookmark
+              style={{
+                width: '1.4rem',
+                height: '1.4rem',
+                color: '#371FF0',
+              }}
+            />
+          ) : (
+            <CiBookmark
+              style={{
+                width: '1.4rem',
+                height: '1.4rem',
+                color: 'rgba(0, 0, 0, 0.8)',
+              }}
+            />
+          )
         ) : null}
         {leftText}
       </WhiteButton>
@@ -58,11 +78,10 @@ const WhiteButton = styled.button`
 const BlueButton = styled.button`
   width: 100%;
   padding: 1.3rem 3.4rem;
-
   box-sizing: border-box;
   border-radius: 1.3rem;
   border-color: transparent;
   background-color: ${({ theme }) => theme.colors.mainColor};
-  ${({ theme }) => theme.fontStyles.headingB}
+  ${({ theme }) => theme.fontStyles.head2B}
   color: #ffffff;
 `;
