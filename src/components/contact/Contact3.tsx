@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { Input } from '../Input';
 import { ContactTitle } from './Contact1';
+import { useContactStore } from '../../store/contactStore';
+import { formatPhoneNumber } from '../../utils/utils';
 
 export const Contact3 = () => {
+  const { phonenumber, setPhonenumber } = useContactStore();
   return (
     <>
       <ContactTitle>관리자님의 연락처를 알려주세요</ContactTitle>
@@ -11,7 +14,12 @@ export const Contact3 = () => {
         <br />
         서로에게 연락처가 공개됩니다
       </SubText>
-      <Input placeholder="전화번호를 입력해주세요" maxLength={13} />
+      <Input
+        placeholder="전화번호를 입력해주세요"
+        maxLength={13}
+        value={phonenumber}
+        onChange={(e) => setPhonenumber(formatPhoneNumber(e))}
+      />
     </>
   );
 };

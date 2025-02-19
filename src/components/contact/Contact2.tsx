@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { ContactTitle } from './Contact1';
 import { HomeDropdown } from '../home/HomeDropdown';
 import { Input } from '../Input';
-import { useElderRegisterStore } from '../../store/elderRegisterStore';
+import { useContactStore } from '../../store/contactStore';
 
 export const Contact2 = () => {
-  const { elder, setWage } = useElderRegisterStore();
+  const { wage, setWage } = useContactStore();
   return (
     <div>
       <ContactTitle>급여에 대해 알려주세요</ContactTitle>
@@ -16,7 +16,7 @@ export const Contact2 = () => {
         <Wage>
           <Input
             type="number"
-            value={elder.wage}
+            value={wage}
             onChange={(e) => setWage(Number(e.target.value) || 0)}
           />
           <span>*해당 요양 보호사는 13000원을 희망해요</span>

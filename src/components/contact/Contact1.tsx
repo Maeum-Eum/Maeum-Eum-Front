@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useContactStore } from '../../store/contactStore';
 const careWorkOptions = [
   '방문 요양',
   '입주 요양',
@@ -9,12 +10,18 @@ const careWorkOptions = [
   '병원 동행',
 ];
 export const Contact1 = () => {
+  const { workRequirement, setWorkRequirement } = useContactStore();
   return (
     <div>
       <ContactTitle>요양보호사님에게 요청할 업무를 선택해주세요</ContactTitle>
       <ContactContent>
-        {careWorkOptions.map((opt) => (
-          <Select>{opt}</Select>
+        {careWorkOptions.map((opt, index) => (
+          <Select
+            onClick={() => setWorkRequirement(opt)}
+            $selected={careWorkOptions.indexOf(workRequirement) === index}
+          >
+            {opt}
+          </Select>
         ))}
       </ContactContent>
     </div>
@@ -35,12 +42,16 @@ export const ContactContent = styled.div`
   justify-content: flex-start;
 `;
 
-const Select = styled.div`
+const Select = styled.div<{ $selected?: boolean }>`
   border-radius: 1.3rem;
   height: 4.1rem;
   text-align: center;
   display: flex;
   align-items: center;
+  color: ${({ $selected, theme }) =>
+    $selected ? theme.colors.white : theme.colors.black};
+  background-color: ${({ $selected, theme }) =>
+    $selected ? theme.colors.mainColor : theme.colors.white};
   justify-content: center;
   border: 0.08rem solid ${({ theme }) => theme.colors.black40};
   ${({ theme }) => theme.fontStyles.head2M}

@@ -142,7 +142,14 @@ export const Footer = () => {
         <ButtonFooter title="다음으로 넘어가기" nextStep={() => setStep(2)} />
       );
     } else if (step === 4) {
-      return <ButtonFooter title="완료하기" nextStep={() => {}} />;
+      return (
+        <ButtonFooter
+          title="완료하기"
+          nextStep={() => {
+            navigate('/');
+          }}
+        />
+      );
     } else {
       return (
         <Wrapper>
