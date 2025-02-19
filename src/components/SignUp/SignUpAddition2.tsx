@@ -14,6 +14,11 @@ export const SignUpAddition2 = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
+      const allowedTypes = ['image/png', 'image/jpeg']; // 허용할 MIME 타입
+      if (!allowedTypes.includes(selectedFile.type)) {
+        alert('PNG 또는 JPG 파일만 업로드할 수 있습니다.');
+        return;
+      }
       setPreview(URL.createObjectURL(selectedFile));
       setFile(selectedFile);
     }
@@ -56,6 +61,7 @@ export const SignUpAddition2 = () => {
                 <img src="public/icons/profile-light.svg" />
               </Box>
               <HiddenInput
+                accept=".png, .jpg"
                 type="file"
                 ref={fileInputRef}
                 onChange={handleFileChange}
