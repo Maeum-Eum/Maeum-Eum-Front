@@ -10,14 +10,12 @@ import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
   const {
- 
     setUsername,
 
     login,
     isAuthenticated,
- 
+
     setRememberId,
- 
   } = useLoginStore();
 
   const navigate = useNavigate();
@@ -64,4 +62,3 @@ const LoginContent = styled.div`
   margin-top: 10rem;
   padding: 0 3rem;
 `;
-
