@@ -99,22 +99,3 @@ const Button = styled.button`
   ${({ theme }) => theme.fontStyles.headingB}
   color: #ffffff;
 `;
-const DropDownWrapper = styled.div`
-  align-self: flex-end;
-  display: flex;
-
-  ${(props) => props.theme.fontStyles.head2R};
-`;
-
-const PersonButton = styled.button`
-  ${(props) => props.theme.fontStyles.head2R};
-  text-decoration: underline;
-  background-color: transparent;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-  padding-bottom: 1rem;
-  :first-child {
-    white-space: nowrap;
-  }
-`;
