@@ -14,7 +14,7 @@ import { AcceptFooter } from '../accept/AcceptFooter';
 
 import { patchCenterInfo } from '../../services/myPage';
 import { useModifyCenterStore } from '../../store/modifyCenterStore';
-import { SignupFooter } from '../SignUp/SignUpFooter';
+import { SignUpFooter } from '../SignUp/SignUpFooter';
 
 export const Footer = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ export const Footer = () => {
   const { step: elderRegisterStep, nextStep } = useElderRegisterStore();
 
   if (location.pathname === '/signup') {
-    return <SignupFooter />;
+    return <SignUpFooter />;
   }
   if (location.pathname.endsWith('/profile-upload'))
     return <ButtonFooter title="사진 등록하기" nextStep={() => {}} />;
