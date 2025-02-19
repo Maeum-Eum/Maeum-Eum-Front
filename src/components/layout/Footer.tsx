@@ -2,22 +2,15 @@ import { useLocation, useNavigate } from 'react-router';
 import { ButtonFooter } from '../ButtonFooter';
 import { NavigationBar } from '../home/NavigationBar';
 
-import { useSignUpStore } from '../../store/signUpStore';
-import { useAcceptStore } from '../../store/acceptStore';
-import { postManagerSignUp } from '../../services/signup';
 import styled from 'styled-components';
 import { HomeButtons } from '../home/HomeButtons';
 import { useContactStore } from '../../store/contactStore';
 import { ResumeFooter } from '../Resume/ResumeFooter';
 import { ElderRegisterFooter } from '../ElderRegister/ElderRegisterFooter';
-
-import styled from 'styled-components';
-import { HomeButtons } from '../home/HomeButtons';
-import { useContactStore } from '../../store/contactStore';
 import {
   FooterForDetailContactElder,
   FooterForDetailElder,
-} from '../\bdetail/DetailFooter';
+} from '../detail/DetailFooter';
 
 import { AcceptFooter } from '../accept/AcceptFooter';
 
@@ -25,24 +18,11 @@ import { patchCenterInfo } from '../../services/myPage';
 import { useModifyCenterStore } from '../../store/modifyCenterStore';
 import { SignUpFooter } from '../SignUp/SignupFooter';
 
-
-
 export const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const {
-    step: signUpStep,
-    setStep,
-    validateForm,
-    formData,
-  } = useSignUpStore();
-  const { step: acceptStep, setStep: setAcceptStep } = useAcceptStore();
-  
-
   const { centerId, shortPr, hasCar } = useModifyCenterStore();
-
- 
 
   if (location.pathname === '/signup') {
     return <SignUpFooter />;
@@ -51,7 +31,6 @@ export const Footer = () => {
     return <ButtonFooter title="사진 등록하기" nextStep={() => {}} />;
 
   if (location.pathname.startsWith('/resume')) {
-
     return <ResumeFooter />;
   }
 

@@ -60,7 +60,7 @@ const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 440px;
   background-color: ${({ theme }) => theme.colors.background};
   z-index: 1000;
 `;
@@ -70,7 +70,7 @@ const FooterContainer = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 440px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 const OuterWrapper = styled.div`
