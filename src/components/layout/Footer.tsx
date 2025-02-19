@@ -14,7 +14,7 @@ import { AcceptFooter } from '../accept/AcceptFooter';
 
 import { patchCenterInfo } from '../../services/myPage';
 import { useModifyCenterStore } from '../../store/modifyCenterStore';
-import { SignUpFooter } from '../SignUp/SignUpFooter';
+import { SignUpFooter } from '../SignUp/SignupFooter';
 
 export const Footer = () => {
   const location = useLocation();
