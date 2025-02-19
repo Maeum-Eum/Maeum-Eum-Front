@@ -3,9 +3,9 @@ import { useLoginStore } from '../../store/loginStore';
 
 export const UserInput = () => {
   const {
-    username,
+    id,
     password,
-    setUsername,
+    setId,
     setPassword,
     error,
   } = useLoginStore();
@@ -16,8 +16,8 @@ export const UserInput = () => {
       <Input
         type="text"
         placeholder="아이디를 입력해주세요."
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={id}
+        onChange={(e) => setId(e.target.value)}
       ></Input>
       <Label>비밀번호</Label>
       <Input
@@ -60,6 +60,6 @@ const Input = styled.input`
 `;
 
 const ErrorText = styled.p`
-  color: #26b11c;
+  color: #DA2528;
   font-size: 1rem;
 `;

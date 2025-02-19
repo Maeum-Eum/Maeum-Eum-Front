@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://ajou.h4ck.me',
+        target: 'https://ajou.h4ck.me' ,
         changeOrigin: true,
         secure: true,
       },

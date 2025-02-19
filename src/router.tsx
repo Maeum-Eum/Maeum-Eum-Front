@@ -22,6 +22,8 @@ import { InBox } from './pages/InBox';
 import { OutGoingBox } from './pages/OutGoingBox';
 import { DynamicHome } from './components/home/DynamicHome';
 import { ModifyCenter } from './pages/ModifyCenter';
+import { ResumeComplete } from './components/Resume/ResumeComplete';
+import { ElderRegisterComplete } from './components/ElderRegister/ElderRegisterComplete';
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,8 @@ export const router = createBrowserRouter([
       { path: 'welcome', element: <SignUpComplete /> },
       { path: '/login/find-account', element: <FindAccount /> },
       { path: 'search-center', element: <SearchCenter /> },
+      { path: 'complete', element: <ResumeComplete /> },
+      { path: 'complete2', element: <ElderRegisterComplete /> },
 
       {
         path: '',

@@ -21,7 +21,7 @@ export const ElderRegisterInfo = () => {
   };
   return (
     // title  Elder 버전으로 따로 만들기 (필수) 항목 넣어야함
-    <ElderRegisterLayout title="기본 정보 입력">
+    <ElderRegisterLayout title="기본 정보 입력" require={true}>
       <SignUpLabel label="성함" />
       <Input placeholder="성함을 입력해주세요." />
       <SignUpLabel label="성별" />
@@ -47,6 +47,8 @@ export const ElderRegisterInfo = () => {
         multiSelect={true}
         onSelect={handleGrade}
         hoverColor={{ 남성: '#ff6b6b', 여성: '#6bcff6' }}
+        fontSize='1.35rem'
+        gap='1rem'
       />
       <div style={{ marginTop: '1rem' }}></div>
       <SelectedButton
@@ -54,6 +56,8 @@ export const ElderRegisterInfo = () => {
         multiSelect={true}
         onSelect={handleGrade}
         hoverColor={{ 남성: '#ff6b6b', 여성: '#6bcff6' }}
+        fontSize='1.35rem'
+        gap='1rem'
       />
     </ElderRegisterLayout>
   );
