@@ -7,7 +7,8 @@ export const NavigationBar = () => {
   const location = useLocation();
   const menuItems = [
     { path: '/', icon: <HiMiniHome />, label: '홈' },
-    { path: '/near', icon: <FaSearch />, label: '근처 어르신' },
+    //{ path: '/near', icon: <FaSearch />, label: '근처 어르신' },
+    {path : '/elderadmin', icon: < FaSearch/>, label:'어르신 관리'},
     {
       path: '/mypage',
       icon: <img src="public/icons/userProfile.svg" />,

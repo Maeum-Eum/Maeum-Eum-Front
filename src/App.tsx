@@ -17,7 +17,7 @@ function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   useEffect(() => {
     //TODO 예시로 설정한 값
-    localStorage.setItem('userRole', 'ROLE_CAREGIVER');
+    localStorage.setItem('userRole', 'ROLE_MANAGER');
     setPopupOpen(true);
 
     const token = localStorage.getItem('accessToken');

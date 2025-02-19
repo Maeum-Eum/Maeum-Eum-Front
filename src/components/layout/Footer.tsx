@@ -8,6 +8,7 @@ import { postManagerSignUp } from '../../services/signup';
 import styled from 'styled-components';
 import { HomeButtons } from '../home/HomeButtons';
 import { useContactStore } from '../../store/contactStore';
+import { useResumeStore } from '../../store/resumeStore';
 
 export const Footer = () => {
   const location = useLocation();
@@ -20,6 +21,11 @@ export const Footer = () => {
   } = useSignUpStore();
   const { step: elderRegisterStep, nextStep } = useElderRegisterStore();
   const { step: acceptStep, setStep: setAcceptStep } = useAcceptStore();
+  const { step: resumeStep , nextStep: resumeNextStep, resume} = useResumeStore(); 
+
+  const handleResume = () => {
+    console.log("저장된 이력서 데이터", resume)
+  }
 
   if (location.pathname === '/signup') {
     if (signUpStep === 4)
@@ -74,12 +80,16 @@ export const Footer = () => {
   if (location.pathname.startsWith('/resume')) {
     return (
       <ButtonFooter
-        title={elderRegisterStep === 10 ? '이력서 제출' : '다음으로 넘어가기'}
-        nextStep={() =>
-          elderRegisterStep === 10
-            ? navigate('/welcome', { replace: true })
-            : nextStep()
-        }
+        title={resumeStep === 9 ? '이력서 제출' : '다음으로 넘어가기'}
+        nextStep={async () => {
+          if (resumeStep === 9) {
+          
+            navigate('/complete', { replace: true });
+          } else {
+            handleResume();
+          resumeNextStep();
+          }
+        }}
       />
     );
   }
@@ -88,18 +98,18 @@ export const Footer = () => {
     return (
       <ButtonFooter
         title={
-          elderRegisterStep === 4 ? '다음으로 넘어가기' : '다음으로 넘어가기'
+          elderRegisterStep === 5 ? '다음으로 넘어가기' : '다음으로 넘어가기'
         }
         nextStep={() =>
-          elderRegisterStep === 4
-            ? navigate('/welcome', { replace: true })
+          elderRegisterStep === 5
+            ? navigate('/complete2', { replace: true })
             : nextStep()
         }
       />
     );
   }
 
-  if (['/', '/near', '/mypage'].includes(location.pathname))
+  if (['/', '/near', '/mypage', '/admin'].includes(location.pathname))
     return <NavigationBar />;
   if (location.pathname === '/accept') {
     return (
@@ -130,6 +140,26 @@ export const Footer = () => {
       <ButtonFooter
         line={false}
         title="마음이음 시작하기"
+        nextStep={() => navigate('/', { replace: true })}
+      />
+    );
+  }
+
+  if (location.pathname === '/complete') {
+    return (
+      <ButtonFooter
+        line={false}
+        title="확인"
+        nextStep={() => navigate('/', { replace: true })}
+      />
+    );
+  }
+
+  if (location.pathname === '/complete2') {
+    return (
+      <ButtonFooter
+        line={false}
+        title="확인"
         nextStep={() => navigate('/', { replace: true })}
       />
     );

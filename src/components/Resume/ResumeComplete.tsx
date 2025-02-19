@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const ElderRegisterComplete = () => {
+export const ResumeComplete = () => {
     return (
         <Wrapper>
             <Content>
             <Text>
-          <span>김순자 어르신이 등록되었습니다.</span>
+          <span>이력서가 등록되었습니다.</span>
           <span>
-            어르신에 딱 맞는 요양보호사를 찾아드릴게요.
+            요양보호사님께 딱 맞는 일자리를 찾아드릴게요.
           </span>
         </Text>
             </Content>

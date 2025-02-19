@@ -9,23 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
-  const {
- 
-    setUsername,
-
-    login,
-    isAuthenticated,
- 
-    setRememberId,
- 
-  } = useLoginStore();
+  const { setId, login, isAuthenticated, setRememberId, } = useLoginStore();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const storeId = localStorage.getItem('rememberedId');
     if (storeId) {
-      setUsername(storeId);
+      setId(storeId);
       setRememberId(true);
     }
   }, []);
@@ -33,13 +24,24 @@ export const Login = () => {
   const handleLogin = async () => {
     await login();
     if (isAuthenticated) {
-      navigate('/home');
+      navigate('/');
     }
+  
+
+    console.log("asd", login)
+    console.log("asd", isAuthenticated)
   };
 
-  if (isAuthenticated) {
-    return <p>로그인 성공 메인페이지로 이동</p>;
-  }
+  useEffect(() => {
+    const handleEnterKey = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        handleLogin();
+      }
+    };
+
+    window.addEventListener('keydown', handleEnterKey);
+    return () => window.removeEventListener('keydown', handleEnterKey);
+  }, [handleLogin]);
 
   return (
     <LoginContainer>
@@ -64,4 +66,3 @@ const LoginContent = styled.div`
   margin-top: 10rem;
   padding: 0 3rem;
 `;
-

@@ -4,25 +4,30 @@ import styled from 'styled-components';
 interface ElderRegisterProps {
   children: ReactNode;
   title: string;
+  require: boolean;
 }
 
-export const ElderRegisterLayout = ({title, children} : ElderRegisterProps) => {
-    return (
-        <Wrapper>
-            <Title>{title}</Title>
-            <Content>
-                <Line />
-                {children}
-            </Content>
-
-        </Wrapper>
-    )
+export const ElderRegisterLayout = ({
+  title,
+  children,
+  require,
+}: ElderRegisterProps) => {
+  return (
+    <Wrapper>
+      <Title $require={require}>
+        {title} <span>{require ? '(필수)' : '(선택)'}</span>
+      </Title>
+      <Content>
+        <Line />
+        {children}
+      </Content>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
- display: flex;
+  display: flex;
   flex-direction: column;
-  min-height: 100dvh;
   overflow: hidden;
 `;
 
@@ -39,7 +44,11 @@ const Line = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};
   padding-bottom: 2rem;
 `;
-const Title = styled.span`
+const Title = styled.span<{ $require: boolean }>`
   margin-left: 3rem;
   ${({ theme }) => theme.fontStyles.bodyMediumR};
+  span {
+    color: ${({ theme, $require }) =>
+      $require ? theme.colors.sColor4 : theme.colors.sColor3};
+  }
 `;
