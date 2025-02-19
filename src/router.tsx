@@ -24,6 +24,7 @@ import { DynamicHome } from './components/home/DynamicHome';
 import { ModifyCenter } from './pages/ModifyCenter';
 import { ResumeComplete } from './components/Resume/ResumeComplete';
 import { ElderRegisterComplete } from './components/ElderRegister/ElderRegisterComplete';
+import { BookMark } from './pages/BookMark';
 
 export const router = createBrowserRouter([
   {
@@ -50,7 +51,6 @@ export const router = createBrowserRouter([
             path: '/',
             element: <Home />,
             children: [
-              //TODO: 요양보호사/사회복지사 여부에 따라 element 바꾸기
               { path: '', element: <DynamicHome /> },
               { path: 'near', element: <NearElder /> },
               { path: 'mypage', element: <MyPage /> },
@@ -68,10 +68,14 @@ export const router = createBrowserRouter([
             element: <DetailElderInfo />,
           },
           {
+            path: 'bookmark',
+            element: <BookMark />,
+          },
+          {
             path: 'detail/care/contact/:contactId',
             element: <DetailCareInfo />,
           },
-          { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
+          { path: 'detail/care/:careId', element: <DetailCareInfo /> },
           { path: 'contact/:careGiverId', element: <Contact /> },
           { path: 'inbox', element: <InBox /> },
           { path: 'outgoing-box', element: <OutGoingBox /> },
