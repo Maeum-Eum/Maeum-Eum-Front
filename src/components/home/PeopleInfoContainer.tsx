@@ -1,48 +1,93 @@
 import styled from 'styled-components';
+import { formatDate, formatWage } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
-interface IPeopleInfoContainer {
+export interface IPeopleInfoContainer {
   isCare: boolean;
   border?: boolean;
+  title: string;
+  center: string;
+  createdAt?: string;
+  wage: number;
+  negotiable: boolean;
+  tags: boolean[];
+  contactId: number | null;
+  elderId: number | null;
 }
-
+const work = ['일상', '이동', '식사', '배변'];
 export const PeopleInfoContainer = ({
   isCare,
   border = true,
+  title,
+  center,
+  createdAt,
+  wage,
+  negotiable,
+  tags,
+  contactId,
 }: IPeopleInfoContainer) => {
+  const navigate = useNavigate();
   return (
-    <Wrapper $border={border}>
+    <Wrapper
+      $border={border}
+      onClick={() => {
+        if (contactId) {
+          navigate(`/detail/elder/contact/${contactId}`);
+        }
+      }}
+    >
       <SubInfo>
-        {isCare ? '함께해요재가 센터 - 방금' : '2025-02-01 등록'}
+        {isCare
+          ? createdAt
+            ? `${center}-${formatDate(createdAt)}`
+            : `${center}`
+          : createdAt && `${formatDate(createdAt)} 등록`}
         {isCare ? null : <img src="public/icons/certificate.svg" />}
       </SubInfo>
 
-      <Info>[평일/주말] 방문 요양 - 4등급 여자 어르신</Info>
+      <Info>{title}</Info>
       <Wage>
-        <span>시급 13,000원</span>
-        <span>(협의가능)</span>
+        <span>시급 {formatWage(wage)}</span>
+        <span> {negotiable ? '(협의가능)' : ''}</span>
       </Wage>
-      <Tags>
-        <Tag>방문</Tag>
-      </Tags>
+      <Tags>{tags.map((t, index) => t && <Tag>{work[index]}</Tag>)}</Tags>
     </Wrapper>
   );
 };
 
-export const RoundedPeopleInfo = ({ isCare }: IPeopleInfoContainer) => {
+export const RoundedPeopleInfo = ({
+  isCare,
+  title,
+  center,
+  createdAt,
+  wage,
+  negotiable,
+  tags,
+  elderId,
+}: IPeopleInfoContainer) => {
+  const navigate = useNavigate();
   return (
-    <RoundedWrapper>
+    <RoundedWrapper
+      onClick={() => {
+        navigate(`/detail/elder/${elderId}`);
+      }}
+    >
       <SubInfo>
-        {isCare ? '함께해요재가 센터 - 방금' : '2025-02-01 등록'}
+        {isCare
+          ? createdAt
+            ? `${center}-${formatDate(createdAt)}`
+            : `${center}`
+          : createdAt && `${formatDate(createdAt)} 등록`}
         {isCare ? null : <img src="public/icons/certificate.svg" />}
       </SubInfo>
 
-      <Info>[평일/주말] 방문 요양 - 4등급 여자 어르신</Info>
+      <Info>{title}</Info>
       <Wage>
-        <span>시급 13,000원</span>
-        <span>(협의가능)</span>
+        <span>시급 {formatWage(wage)}</span>
+        <span> {negotiable ? '(협의가능)' : ''} </span>
       </Wage>
       <Tags>
-        <Tag>방문</Tag>
+        <Tags>{tags.map((t, index) => t && <Tag>{work[index]}</Tag>)}</Tags>
       </Tags>
     </RoundedWrapper>
   );

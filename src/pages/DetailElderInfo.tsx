@@ -1,36 +1,136 @@
 import styled from 'styled-components';
 import { RoundedPeopleInfo } from '../components/home/PeopleInfoContainer';
+import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import {
+  getDetailContactElder,
+  getDetailNearElder,
+  IDetailContactElder,
+  IDetailNearElder,
+} from '../services/detail';
 
 export const DetailElderInfo = () => {
+  const location = useLocation();
+  const { contactId, elderId } = useParams();
+  const [elderInfo, setElderInfo] = useState<IDetailContactElder>();
+  const [nearElderInfo, setNearElderInfo] = useState<IDetailNearElder>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const getDetail = async () => {
+      if (location.pathname.startsWith('/detail/elder/contact')) {
+        const res = await getDetailContactElder(+contactId!);
+        setElderInfo(res);
+      } else if (location.pathname.startsWith('/detail/elder')) {
+        const res = await getDetailNearElder(+elderId!);
+        setNearElderInfo(res);
+      }
+    };
+    getDetail();
+    setLoading(false);
+  }, []);
+  if (loading) return [];
   return (
     <Wrapper>
-      <RoundedPeopleInfo isCare={true} />
+      <RoundedPeopleInfo
+        contactId={0}
+        elderId={0}
+        tags={[false, true, true]}
+        isCare={true}
+        title={elderInfo?.title ?? nearElderInfo?.title ?? '기본 제목'}
+        center={
+          elderInfo?.center?.centerName ??
+          nearElderInfo?.center?.centerName ??
+          '알 수 없음'
+        }
+        createdAt={
+          elderInfo?.createdAt ?? nearElderInfo?.createdAt ?? '날짜 없음'
+        }
+        wage={elderInfo?.wage ?? nearElderInfo?.wage ?? 0}
+        negotiable={elderInfo?.negotiable ?? nearElderInfo?.negotiable ?? false}
+      />
       <Content>
-        <Title>(함께해요재가센터) 관리자 메시지</Title>
-        <Message>
-          돌봄 시간 중 가족이 있지만, 다른 조건이 마음에 들어서 연락드립니다.
-        </Message>
+        {contactId && (
+          <>
+            <Title>{elderInfo?.center?.centerName} 관리자 메시지</Title>
+            <Message>{elderInfo?.message}</Message>
+          </>
+        )}
         <InfoTitle>어르신 정보</InfoTitle>
         <Info>
           <span>성별</span>
-          <span>생년월일</span>
+          <span>
+            {elderInfo?.elder.gender ??
+              nearElderInfo?.elder.gender ??
+              '정보 없음'}
+          </span>
+
           <span>거주지</span>
+          <span>
+            {elderInfo?.elder.address ??
+              nearElderInfo?.elder.address ??
+              '정보 없음'}
+          </span>
+
           <span>등급</span>
+          <span>
+            {elderInfo?.elder.rank ?? nearElderInfo?.elder.rank ?? '정보 없음'}
+          </span>
+
           <span>필요 일정</span>
+          <span>{elderInfo?.elder.daily?.join(', ') ?? '정보 없음'}</span>
         </Info>
+
         <InfoTitle>필요한 서비스</InfoTitle>
         <Info>
           <span>식사 보조</span>
+          <InlineInfo>
+            {elderInfo?.elder.meal?.map((e) => <span>{e}</span>) ?? '정보 없음'}
+          </InlineInfo>
+
           <span>배변 보조</span>
-          <span>아동 보조</span>
+          <InlineInfo>
+            {elderInfo?.elder.toileting?.map((e) => <span>{e}</span>) ??
+              '정보 없음'}
+          </InlineInfo>
+
+          <span>이동 보조</span>
+          <InlineInfo>
+            {elderInfo?.elder.mobility?.map((e) => <span>{e}</span>) ??
+              '정보 없음'}
+          </InlineInfo>
         </Info>
+
         <InfoTitle>센터 정보</InfoTitle>
         <Info>
           <span>센터명</span>
+          <span>
+            {elderInfo?.center.centerName ??
+              nearElderInfo?.center.centerName ??
+              '정보 없음'}
+          </span>
+
           <span>차량보유</span>
+          <span>
+            {elderInfo?.center.hasCar ?? nearElderInfo?.center.hasCar
+              ? '보유'
+              : '없음'}
+          </span>
+
           <span>센터 등급</span>
+          <span>
+            {elderInfo?.center.finalGrade ??
+              nearElderInfo?.center.finalGrade ??
+              '정보 없음'}
+          </span>
+
           <span>센터 설립 기간</span>
-          <span>한줄 소개</span>
+          <span>
+            {elderInfo?.center.installationTime ??
+              nearElderInfo?.center.installationTime ??
+              '정보 없음'}
+          </span>
         </Info>
       </Content>
     </Wrapper>
@@ -59,13 +159,21 @@ const Message = styled.div`
 `;
 
 const Info = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 2.5fr;
   gap: 1.5rem;
+
   ${({ theme }) => theme.fontStyles.head2R};
 `;
 const InfoTitle = styled.span`
   margin-top: 3.5rem;
   margin-bottom: 2rem;
   ${({ theme }) => theme.fontStyles.large2SB};
+`;
+const InlineInfo = styled.span`
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+
+  row-gap: 0.5rem;
 `;

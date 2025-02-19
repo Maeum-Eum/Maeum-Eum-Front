@@ -1,10 +1,26 @@
 import styled from 'styled-components';
 import { RoundedPeopleInfo } from '../components/home/PeopleInfoContainer';
+import { useEffect, useState } from 'react';
+import { sampleMainList } from '../components/home/DynamicHome';
+import { IGetMainList } from '../services/home';
 
 export const DetailCareInfo = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<IGetMainList>();
+  useEffect(() => {
+    setLoading(true);
+    // getCareGiverInbox(index === 0 ? 'pending' : 'approved')
+    //   .then((response) => {
+    //     setData(response);
+    //   })
+    //   .catch(() => {});
+    setData(sampleMainList);
+    setLoading(false);
+  }, []);
+  if (loading) return <></>;
+
   return (
     <Wrapper>
-      <RoundedPeopleInfo isCare={true} />
       <Content>
         <InfoTitle>근무 일정</InfoTitle>
         <Info></Info>
