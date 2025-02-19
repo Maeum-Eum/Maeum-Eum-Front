@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginStore } from '../store/loginStore';
 
 export const Login = () => {
-  const { setId, login, isAuthenticated, setRememberId, } = useLoginStore();
+  const { setId, login, isAuthenticated, setRememberId } = useLoginStore();
 
   const navigate = useNavigate();
 
@@ -26,10 +26,9 @@ export const Login = () => {
     if (isAuthenticated) {
       navigate('/');
     }
-  
 
-    console.log("asd", login)
-    console.log("asd", isAuthenticated)
+    console.log('asd', login);
+    console.log('asd', isAuthenticated);
   };
 
   useEffect(() => {
@@ -59,7 +58,7 @@ export const Login = () => {
 const LoginContainer = styled.div`
   width: 100%;
   margin: 5rem auto;
-  padding-top: 10rem;
+  padding-top: 8rem;
 `;
 
 const LoginContent = styled.div`

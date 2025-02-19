@@ -12,17 +12,15 @@ export const LoginFooter = () => {
 };
 
 const FooterContainer = styled.div`
-  border-top: 0.5rem solid ${({theme}) => theme.colors.black5};
+  border-top: 0.5rem solid ${({ theme }) => theme.colors.black5};
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
   justify-content: center;
   padding-top: 3.3rem;
-  position: sticky;
-  bottom: 0;
-  z-index: 1000;
-  background-color: ${({theme}) => theme.colors.background}
+
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const Text = styled.p`

@@ -20,7 +20,8 @@ export const SignUpCareWorker = () => {
       address: {
         zonecode: data.zonecode,
         roadAddress: data.roadAddress,
-        jibunAddress: data.jibunAddress,
+        jibunAddress:
+          data.jibunAddress === '' ? data.autoJibunAddress : data.jibunAddress,
       },
     });
   };

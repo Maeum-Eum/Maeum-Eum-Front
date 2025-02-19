@@ -4,25 +4,41 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { BottomPopup } from '../BottomPopup';
 import { Dropdowns } from '../../pages/Home';
 import { HomeDropdown } from './HomeDropdown';
+import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
 
 interface HomeHeaderProps {
   child: ReactNode;
 }
 
 export const HomeHeader = ({ child }: HomeHeaderProps) => {
+  const { setModal } = useHomeOptionStoreStore();
   return (
     <div>
       <Wrapper>
         {child}
         <Icons>
-          <img src="public/icons/setting.svg"></img>
+          <Icon onClick={() => setModal(true)}>
+            <img src="public/icons/setting.svg"></img>
+          </Icon>
+          <Icon onClick={() => setModal(true)}>
+            <img src="public/icons/bell.svg"></img>
+          </Icon>
         </Icons>
       </Wrapper>
     </div>
   );
 };
+const Icon = styled.div`
+  img {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+`;
 const Icons = styled.div`
   position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
 
   right: 1.5rem;
 `;
@@ -44,7 +60,7 @@ const Wrapper = styled.div`
 
 export const SocialHomeHeader = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const options = ['홍길동 어르신', '홍길동 어르신 2'];
+  const options = ['홍길동 어르신', '이순자 어르신'];
   const [person, setPerson] = useState(options[0]);
   return (
     <div>
@@ -78,7 +94,6 @@ const CareHomeHeader = () => {
   return (
     <div>
       <HomeHeader child={<span>서울 특별시 영등포구 문래동</span>}></HomeHeader>
-
       <HomeOption />
     </div>
   );
@@ -114,8 +129,14 @@ const HomeOption = () => {
     <Dropdowns>
       <HomeDropdown
         items={['도보 15분 이내', '도보 20분 이내', '3km', '5km']}
+        home={true}
+        range={true}
       />
-      <HomeDropdown items={['업무정확도순', '시간일치순', '높은급여순']} />
+      <HomeDropdown
+        items={['최신순', '업무정확도순', '높은급여순']}
+        home={true}
+        range={false}
+      />
     </Dropdowns>
   );
 };

@@ -1,21 +1,63 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-export const UserContainer = () => {
+export interface IUserContainer {
+  name: string;
+  address: string;
+  profileImage: string;
+  isResumeRegistered?: boolean;
+  centerId?: number;
+}
+
+export const UserContainer = ({
+  name,
+  address,
+  profileImage,
+  isResumeRegistered,
+  centerId,
+}: IUserContainer) => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Profile>
         <Photo>
-          <img
-            src="public/icons/userProfile.svg"
-            style={{ width: '60%', height: '60%', filter: 'white' }}
-          ></img>
+          {profileImage != '' ? (
+            <img
+              src={profileImage}
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            ></img>
+          ) : (
+            <img
+              src="public/icons/userProfile.svg"
+              style={{
+                width: '60%',
+                height: '60%',
+                filter: 'invert(1) brightness(1000%)',
+              }}
+            ></img>
+          )}
         </Photo>
         <Detail>
-          <span>김철수</span>
-          <span>주소</span>
+          <span>{name}</span>
+          <span>{address}</span>
         </Detail>
       </Profile>
-      <Button>1분 이력서 등록하기</Button>
+      {isResumeRegistered === undefined ? (
+        <Button
+          onClick={() => {
+            navigate(`/modify-center/${centerId}`);
+          }}
+        >
+          센터 정보 수정하기
+        </Button>
+      ) : isResumeRegistered ? (
+        <Button>대표 이력서 수정</Button>
+      ) : (
+        <Button>1분 이력서 등록하기</Button>
+      )}
     </Wrapper>
   );
 };
@@ -33,12 +75,13 @@ const Profile = styled.div`
   margin-bottom: 2rem;
 `;
 const Photo = styled.div`
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 6.6rem;
   height: 6.6rem;
-  background-color: grey;
+  background-color: ${({ theme }) => theme.colors.black20};
   border-radius: 6.6rem;
 `;
 const Detail = styled.div`

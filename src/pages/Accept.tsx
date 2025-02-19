@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 import { Input } from '../components/Input';
 import { useAcceptStore } from '../store/acceptStore';
+import { formatPhoneNumber } from '../utils/utils';
+import { useEffect } from 'react';
 
 export const Accept = () => {
-  const { step } = useAcceptStore();
+  const { step, phone, message, setMessage, setPhone, setStep } =
+    useAcceptStore();
+
+  useEffect(() => {
+    setMessage('');
+    setPhone('');
+    setStep(1);
+  }, []);
 
   return (
     <Wrapper>
@@ -21,12 +30,22 @@ export const Accept = () => {
         <span></span>
       )}
       {step === 1 ? (
-        <Input placeholder="ex)010-1234-6671" maxLength={13}></Input>
+        <Input
+          placeholder="*휴대전화 번호를 입력해주세요."
+          maxLength={13}
+          value={phone}
+          onChange={(e) => setPhone(formatPhoneNumber(e))}
+        ></Input>
       ) : (
-        <Input placeholder="*10자 이상 입력해 주세요" maxLength={50}></Input>
+        <Input
+          placeholder="*10자 이상 입력해 주세요"
+          maxLength={50}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        ></Input>
       )}
       {step === 1 ? null : (
-        <span style={{ alignSelf: 'flex-end' }}>(0/50)</span>
+        <span style={{ alignSelf: 'flex-end' }}>({message.length}/50)</span>
       )}
     </Wrapper>
   );

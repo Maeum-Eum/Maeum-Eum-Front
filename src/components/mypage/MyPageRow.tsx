@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 import { IoIosArrowForward } from 'react-icons/io';
 
-export const MyPageRow = (li: any) => {
+export interface IMyPageRow {
+  icon: any;
+  text: string;
+  onClick: () => void;
+}
+
+export const MyPageRow = (li: IMyPageRow, num: number) => {
   return (
-    <Row onClick={li.onClick}>
+    <Row key={li.text} onClick={li.onClick}>
       <Section>
         {li.icon}
         <span>{li.text}</span>
       </Section>
       <div>
-        <span>{li.num}</span>
+        <span>{num}</span>
         <IoIosArrowForward
           style={{
             width: '1.4rem',

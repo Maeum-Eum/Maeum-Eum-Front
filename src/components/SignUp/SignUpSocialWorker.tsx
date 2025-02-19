@@ -35,7 +35,11 @@ export const SignUpSocialWorker = () => {
       )}
       <SignUpLabel label="소속" />
       <InputWrapper>
-        <Input placeholder="소속을 입력해주세요" disabled={true} />
+        <Input
+          placeholder="소속을 입력해주세요"
+          disabled={true}
+          value={formData.centerAddress.jibunAddress}
+        />
         <RoundedButton
           text={'검색하기'}
           func={() => {
@@ -72,7 +76,7 @@ export const SignUpSocialWorker = () => {
 
 const Options = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 `;
 
 const RadioButton = styled.div<{ $isSelected: boolean }>`
@@ -95,6 +99,6 @@ const RadioCircle = styled.div<{ $isSelected: boolean }>`
 `;
 
 const Text = styled.span<{ isSelected: boolean }>`
-  font-size: 1rem;
+  ${({ theme }) => theme.fontStyles.head2M};
   color: ${({ isSelected }) => (isSelected ? '#000' : '#00000066')};
 `;

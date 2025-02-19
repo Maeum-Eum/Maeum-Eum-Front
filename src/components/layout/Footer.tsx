@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { ButtonFooter } from '../ButtonFooter';
 import { NavigationBar } from '../home/NavigationBar';
+
 import { useSignUpStore } from '../../store/signUpStore';
 import { useAcceptStore } from '../../store/acceptStore';
 import { postManagerSignUp } from '../../services/signup';
@@ -10,9 +11,26 @@ import { useContactStore } from '../../store/contactStore';
 import { ResumeFooter } from '../Resume/ResumeFooter';
 import { ElderRegisterFooter } from '../ElderRegister/ElderRegisterFooter';
 
+import styled from 'styled-components';
+import { HomeButtons } from '../home/HomeButtons';
+import { useContactStore } from '../../store/contactStore';
+import {
+  FooterForDetailContactElder,
+  FooterForDetailElder,
+} from '../\bdetail/DetailFooter';
+
+import { AcceptFooter } from '../accept/AcceptFooter';
+
+import { patchCenterInfo } from '../../services/myPage';
+import { useModifyCenterStore } from '../../store/modifyCenterStore';
+import { SignUpFooter } from '../SignUp/SignupFooter';
+
+
+
 export const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const {
     step: signUpStep,
     setStep,
@@ -21,57 +39,19 @@ export const Footer = () => {
   } = useSignUpStore();
   const { step: acceptStep, setStep: setAcceptStep } = useAcceptStore();
   
-  if (location.pathname === '/signup') {
-    if (signUpStep === 4)
-      return (
-        <ButtonFooter
-          title="다음으로 넘어가기"
-          nextStep={() => {
-            if (validateForm()) navigate('/welcome');
-          }}
-          skip={true}
-        />
-      );
 
-    return (
-      <ButtonFooter
-        title={signUpStep === 5 ? '회원가입 완료하기' : '다음으로 넘어가기'}
-        nextStep={() => {
-          switch (signUpStep) {
-            case 1:
-              if (validateForm(['id', 'password', 'passwordCheck', 'type'])) {
-                formData.type === '사회복지사' ? setStep(2) : setStep(3);
-              }
-              break;
-            case 2:
-              if (validateForm(['name', 'phone', 'centerAddress'])) setStep(4);
-              break;
-            case 3:
-              if (validateForm(['name', 'address', 'phone'])) setStep(4);
-              break;
-            case 4:
-              setStep(5);
-              break;
-            case 5:
-              if (formData.type === '사회복지사') {
-                postManagerSignUp(formData)
-                  .then(() => {
-                    navigate('/welcome', { replace: true });
-                  })
-                  .catch((error) => {
-                    console.error('회원가입 실패:', error);
-                  });
-              }
-          }
-        }}
-        skip={signUpStep === 4}
-      />
-    );
+  const { centerId, shortPr, hasCar } = useModifyCenterStore();
+
+ 
+
+  if (location.pathname === '/signup') {
+    return <SignUpFooter />;
   }
   if (location.pathname.endsWith('/profile-upload'))
     return <ButtonFooter title="사진 등록하기" nextStep={() => {}} />;
 
   if (location.pathname.startsWith('/resume')) {
+
     return <ResumeFooter />;
   }
 
@@ -81,20 +61,6 @@ export const Footer = () => {
 
   if (['/', '/near', '/mypage', '/admin'].includes(location.pathname))
     return <NavigationBar />;
-  if (location.pathname === '/accept') {
-    return (
-      <ButtonFooter
-        nextStep={() => {
-          if (acceptStep === 2) {
-            navigate('/accept/complete');
-          } else {
-            setAcceptStep(2);
-          }
-        }}
-        title={acceptStep === 1 ? '다음으로 넘어가기' : '완료하기'}
-      />
-    );
-  }
   if (location.pathname === '/accept/complete') {
     return (
       <ButtonFooter
@@ -105,16 +71,38 @@ export const Footer = () => {
       />
     );
   }
+  if (location.pathname === '/apply/complete') {
+    return (
+      <ButtonFooter
+        nextStep={() => {
+          navigate('/', { replace: true });
+        }}
+        title="확인"
+      />
+    );
+  }
+
+  if (location.pathname.startsWith('/accept')) {
+    return <AcceptFooter />;
+  }
+
+  if (location.pathname.startsWith('/apply')) {
+    return <AcceptFooter />;
+  }
+
   if (location.pathname === '/welcome') {
     return (
       <ButtonFooter
         line={false}
         title="마음이음 시작하기"
-        nextStep={() => navigate('/', { replace: true })}
+        nextStep={() => navigate('/login', { replace: true })}
       />
     );
   }
 
+  if (location.pathname.startsWith('/detail/elder/contact')) {
+    return <FooterForDetailContactElder />;
+  }
   if (location.pathname === '/complete') {
     return (
       <ButtonFooter
@@ -136,18 +124,7 @@ export const Footer = () => {
   }
 
   if (location.pathname.startsWith('/detail/elder')) {
-    return (
-      <Wrapper>
-        <HomeButtons
-          leftFunc={() => {}}
-          rightFunc={() => {
-            navigate('/accept');
-          }}
-          leftText="저장"
-          rightText="수락하기"
-        />
-      </Wrapper>
-    );
+    return <FooterForDetailElder />;
   }
 
   if (location.pathname.startsWith('/detail/care')) {
@@ -162,6 +139,16 @@ export const Footer = () => {
           rightText="연락하기"
         />
       </Wrapper>
+    );
+  }
+  if (location.pathname.startsWith('/modify-center')) {
+    return (
+      <ButtonFooter
+        title="수정하기"
+        nextStep={async () => {
+          await patchCenterInfo(centerId, shortPr, hasCar);
+        }}
+      />
     );
   }
   if (location.pathname.startsWith('/contact')) {

@@ -2,13 +2,17 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { HiMiniHome } from 'react-icons/hi2';
 import { FaSearch } from 'react-icons/fa';
+import { BiSolidPencil } from 'react-icons/bi';
 
 export const NavigationBar = () => {
   const location = useLocation();
+  const role = localStorage.getItem('userRole');
   const menuItems = [
     { path: '/', icon: <HiMiniHome />, label: '홈' },
-    //{ path: '/near', icon: <FaSearch />, label: '근처 어르신' },
-    {path : '/elderadmin', icon: < FaSearch/>, label:'어르신 관리'},
+    role === 'ROLE_MANAGER'
+      ? { path: '/elderadmin', icon: <BiSolidPencil />, label: '어르신 관리' }
+      : { path: '/near', icon: <FaSearch />, label: '근처 어르신' },
+
     {
       path: '/mypage',
       icon: <img src="public/icons/userProfile.svg" />,
@@ -51,8 +55,8 @@ const Item = styled(Link)<{ isActive: boolean }>`
   justify-content: center;
   ${(props) => props.theme.fontStyles.head2SB};
   :first-child {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     margin-bottom: 1rem;
   }
   img {

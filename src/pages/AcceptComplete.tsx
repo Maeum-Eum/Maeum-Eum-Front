@@ -1,17 +1,20 @@
 import styled from 'styled-components';
+import { useAcceptStore } from '../store/acceptStore';
 
 export const AcceptComplete = () => {
+  const { phone, title } = useAcceptStore();
+
   return (
     <Wrapper>
       <Content>
         <Text>
-          <span>[평일/주말] 방문 요양 - 4등급 여자 어르신</span>
+          <span>{title}</span>
           <span>
             관리자가 곧 전화할 예정입니다.
             <br />
             기다려 주세요!
           </span>
-          <span>관리자 전화번호: (010-0000-0000)</span>
+          {phone !== '' && <span>관리자 전화번호: {phone}</span>}
         </Text>
       </Content>
     </Wrapper>

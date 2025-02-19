@@ -8,18 +8,15 @@ import { Footer } from './components/layout/Footer';
 import { Header } from './components/layout/Header';
 import { useEffect, useState } from 'react';
 import { getUserRole } from './services/home';
-import { BottomPopup } from './components/BottomPopup';
 
 function App() {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.mobile})`);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [isPopupOpen, setPopupOpen] = useState(false);
+
   useEffect(() => {
     //TODO 예시로 설정한 값
     localStorage.setItem('userRole', 'ROLE_MANAGER');
-    setPopupOpen(true);
-
     const token = localStorage.getItem('accessToken');
     if (!token) {
       return;
@@ -39,27 +36,15 @@ function App() {
         setIsLoading(false);
       }
     };
-
     fetchUserRole();
   }, []);
 
   if (isLoading) return <div></div>;
-
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle isMobile={isMobile} />
       <Layout isMobile={isMobile} header={<Header />} footer={<Footer />}>
         <Outlet />
-        <BottomPopup
-          isOpen={isPopupOpen}
-          onClose={() => setPopupOpen(false)}
-          options={['카메라 및 저장공간 접근', '위치 접근']}
-          onSelect={(option) => {
-            setPopupOpen(false);
-            console.log(option);
-          }}
-        />
-        ;
       </Layout>
     </ThemeProvider>
   );
