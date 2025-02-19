@@ -5,7 +5,7 @@ import { BottomPopup } from '../BottomPopup';
 import { Dropdowns } from '../../pages/Home';
 import { HomeDropdown } from './HomeDropdown';
 import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
-import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
+// import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
 
 interface HomeHeaderProps {
   child: ReactNode;
