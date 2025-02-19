@@ -7,7 +7,6 @@ import {
 } from '../services/detail';
 import { useParams } from 'react-router-dom';
 import { RoundedPeopleInfo } from '../components/home/PeopleInfoContainer';
-import { SelectedButton } from '../components/ElderRegister/SelectedButton';
 
 const sampleData: ICareGiverDetailInfo = {
   caregiverId: 2,

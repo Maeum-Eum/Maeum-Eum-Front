@@ -94,7 +94,7 @@ export const SocialHomeHeader = () => {
 };
 
 const CareHomeHeader = () => {
-  const { data } = useCareGiverHomeStore();
+  // const { data } = useCareGiverHomeStore();
   //TODO 주소 넣기
   return (
     <div>

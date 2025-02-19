@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import { Layout } from './components/layout/Layout';
 import { Outlet, useNavigate } from 'react-router-dom';
