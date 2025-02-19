@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { ICenter } from '../../services/signup';
-import { IAddress } from '../../store/signUpStore';
+import { IAddress, useSignUpStore } from '../../store/signUpStore';
 
 interface AddressBoxProps {
   centerAddress?: ICenter;
   address?: IAddress;
+  onClick?: (arr: string[]) => void;
+  border?: boolean;
 }
 
 export const AddressBox = ({ address }: AddressBoxProps) => {
@@ -24,9 +26,22 @@ export const AddressBox = ({ address }: AddressBoxProps) => {
     </Wrapper>
   );
 };
-export const CenterAddressBox = ({ centerAddress }: AddressBoxProps) => {
+export const CenterAddressBox = ({
+  centerAddress,
+
+  onClick,
+}: AddressBoxProps) => {
   return (
-    <Wrapper $border={false}>
+    <Wrapper
+      $border={false}
+      onClick={() =>
+        onClick!([
+          centerAddress?.zipCode ?? '',
+          centerAddress?.detailAddress ?? '',
+          centerAddress?.centerName ?? '',
+        ])
+      }
+    >
       <Row>
         <span>우편번호</span>
         <PostCode>{centerAddress!.zipCode}</PostCode>
@@ -36,9 +51,7 @@ export const CenterAddressBox = ({ centerAddress }: AddressBoxProps) => {
       </Row>
       <Row>
         <span>상세주소</span>
-        <span>
-          {centerAddress!.address} {centerAddress!.detailAddress}
-        </span>
+        <span>{centerAddress!.detailAddress}</span>
       </Row>
     </Wrapper>
   );

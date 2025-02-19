@@ -2,19 +2,53 @@ import styled from 'styled-components';
 import { CenterAddressBox } from '../components/address/AddressBox';
 
 import { useCenterStore } from '../store/centerStore';
+import { useSignUpStore } from '../store/signUpStore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const SearchCenter = () => {
-  const { centers } = useCenterStore();
+  const { centers, setCenter } = useCenterStore();
+  const { updateFormData, step, updateExperienceField, experienceIndex } =
+    useSignUpStore();
+  const navigate = useNavigate();
+  const onClick = (e: string[]) => {
+    if (step === 2) {
+      updateFormData({
+        centerAddress: {
+          zonecode: e[0],
+          roadAddress: e[1],
+          jibunAddress: e[2],
+        },
+      });
+    }
+    if (step === 4) {
+      updateExperienceField(experienceIndex, 'center', e[1]);
+      updateFormData({
+        centerAddress: {
+          zonecode: e[0],
+          roadAddress: e[1],
+          jibunAddress: e[2],
+        },
+      });
+    }
+    navigate(-1);
+  };
+  useEffect(() => {
+    setCenter([]);
+  }, []);
   return (
     <Wrapper>
-      <CenterList>
-        {centers.map((i, index) => (
-          <div>
-            <CenterAddressBox key={index} centerAddress={i} />
-            <Line />
-          </div>
-        ))}
-      </CenterList>
+      {centers.map((i, index) => (
+        <div>
+          <CenterAddressBox
+            key={index}
+            centerAddress={i}
+            border={false}
+            onClick={onClick}
+          />
+          <Line />
+        </div>
+      ))}
     </Wrapper>
   );
 };
@@ -23,7 +57,6 @@ const Wrapper = styled.div`
   padding: 0 3rem;
 `;
 
-const CenterList = styled.div``;
 const Line = styled.div`
   width: 100%;
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};

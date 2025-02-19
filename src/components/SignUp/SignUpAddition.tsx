@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { Experience } from './Experience';
 import { SignUpLabel } from './SignUpLabel';
-import { ErrorText, SignUpLayout } from './SignUpLayout';
+import { SignUpLayout } from './SignUpLayout';
 
 import { useState } from 'react';
 import { useSignUpStore } from '../../store/signUpStore';
 
 export const SignUpAddition = () => {
-  const { updateExperienceField, formData, errors } = useSignUpStore();
+  const { updateExperienceField, formData, setExperienceIndex } =
+    useSignUpStore();
   const [cnt, setCnt] = useState(formData.experience.length || 1);
   return (
     <SignUpLayout title="추가 정보 입력" require={false}>
@@ -19,24 +20,35 @@ export const SignUpAddition = () => {
           work: '',
         };
         return (
-          <Experience
-            key={index}
-            start={experience.startDate}
-            end={experience.endDate}
-            work={experience.work}
-            setStart={(i) => updateExperienceField(index, 'startDate', i)}
-            setEnd={(i) => updateExperienceField(index, 'endDate', i)}
-            setWork={(i) => updateExperienceField(index, 'work', i)}
-          />
+          <div
+            onClick={() => {
+              setExperienceIndex(index);
+            }}
+          >
+            <Experience
+              key={index}
+              start={experience.startDate}
+              end={experience.endDate}
+              work={experience.work}
+              setStart={(i) => updateExperienceField(index, 'startDate', i)}
+              setEnd={(i) => updateExperienceField(index, 'endDate', i)}
+              setWork={(i) => updateExperienceField(index, 'work', i)}
+              index={index}
+            />
+          </div>
         );
       })}
-      {errors.experience && (
-        <ErrorText error={errors.experience !== null}>
-          {errors.experience}
-        </ErrorText>
-      )}
+
       {cnt === 3 ? null : (
-        <Add onClick={() => setCnt((cnt) => cnt + 1)}>추가 하기</Add>
+        <Add
+          onClick={() => {
+            setCnt((cnt) => cnt + 1);
+
+            updateExperienceField(cnt, 'startDate', '');
+          }}
+        >
+          추가하기
+        </Add>
       )}
     </SignUpLayout>
   );

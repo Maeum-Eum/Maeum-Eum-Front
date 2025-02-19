@@ -32,6 +32,7 @@ export const postCareGiverSignUp = async (
     experience: formData.experience,
     introduction: formData.introduction,
   });
+
   return response.data;
 };
 
@@ -47,19 +48,16 @@ export interface ICenter {
 }
 
 export const getCenterList = async ({ centerName }: { centerName: string }) => {
-  const response = await apiClient.get(`/center?name=${centerName}`);
+  const response = await apiClient.get(`/center?keyword=${centerName}`);
   return response.data as ICenter[];
 };
 
 export const postPhoto = async ({ file, id }: { file: File; id: string }) => {
   const formData = new FormData();
   formData.append('file', file);
-  const token = localStorage.getItem('accessToken');
-
   const response = await axios.post(`/api/caregiver/register/${id}`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${token}`,
     },
   });
   console.log('업로드 성공:', response.data);
