@@ -5,7 +5,7 @@ import { SignUpLabel } from '../SignUp/SignUpLabel';
 import { useResumeStore } from '../../store/resumeStore';
 
 export const ResumeInfo = () => {
-  const {setIntroduction, resume} = useResumeStore();
+  const { setIntroduction, resume } = useResumeStore();
 
   return (
     <ElderRegisterLayout title="추가 정보 입력" require={false}>
