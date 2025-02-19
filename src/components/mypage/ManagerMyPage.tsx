@@ -7,13 +7,8 @@ import { IoSend } from 'react-icons/io5';
 
 import { useNavigate } from 'react-router';
 import { IMyPageRow, MyPageRow } from './MyPageRow';
-import {
-  getSocialWorkerMyPage,
-  ISocialWorkerMyPage,
-} from '../../services/myPage';
+import { getManagerMyPage, IManagerMypage } from '../../services/myPage';
 import { UserContainer } from './UserContainer';
-
-//TODO: API 호출 결과를 대체하기 위한 샘플 데이터
 
 const RotatedSendIcon = styled(IoSend)`
   transform: rotate(180deg);
@@ -47,29 +42,34 @@ export const ManagerMyPage = () => {
   ];
   const [loading, setLoading] = useState(false);
 
-  const [myPageInfo, setMyPageInfo] = useState<ISocialWorkerMyPage>();
-  const sampleManagerProfile: ISocialWorkerMyPage = {
+  const [myPageInfo, setMyPageInfo] = useState<IManagerMypage>();
+  //TODO: API 호출 결과를 대체하기 위한 샘플 데이터
+  const sampleManagerProfile: IManagerMypage = {
     managerId: 1,
     name: '사회복지사테스트02',
     phoneNumber: '010-2222-2222',
     centerId: 1,
     centerName: '테스트센터01',
     hasCar: true,
-    oneLineIntro: '환영합니다',
-    sentContacts: 2,
+    oneLineIntro: null,
+    sentContacts: 0,
     bookmarks: 0,
+    applys: 3,
   };
   useEffect(() => {
-    setLoading(true);
-    setMyPageInfo(sampleManagerProfile);
-    getSocialWorkerMyPage()
-      .then((response) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await getManagerMyPage();
         setMyPageInfo(response);
-      })
-      .catch(() => {
+      } catch (error) {
         setMyPageInfo(sampleManagerProfile);
-      })
-      .finally(() => setLoading(false));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   if (loading) return <></>;
@@ -85,18 +85,15 @@ export const ManagerMyPage = () => {
         />
 
         <>
-          {' '}
-          {socialList.map(
-            (li, index) =>
-              MyPageRow(
-                li,
-                index === 0
-                  ? myPageInfo.bookmarks
-                  : index === 1
-                  ? myPageInfo.sentContacts
-                  : myPageInfo.sentContacts
-              )
-            //TODO: 숫자 삽입 수정
+          {socialList.map((li, index) =>
+            MyPageRow(
+              li,
+              index === 0
+                ? myPageInfo.bookmarks
+                : index === 1
+                ? myPageInfo.applys
+                : myPageInfo.sentContacts
+            )
           )}
         </>
       </Wrapper>

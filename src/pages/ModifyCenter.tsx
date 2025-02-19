@@ -23,15 +23,22 @@ export const ModifyCenter = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    getSocialWorkerMyPage()
-      .then((res) => {
+    const fetchSocialWorkerMyPage = async () => {
+      try {
+        setLoading(true);
+        const res = await getSocialWorkerMyPage();
         setShortPr(res.oneLineIntro);
         setHasCar(res.hasCar);
         setCenter(res.centerName);
         setCenterId(res.centerId);
-      })
-      .finally(() => setLoading(false));
+      } catch (error) {
+        console.error('Error fetching social worker info:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSocialWorkerMyPage();
   }, []);
   if (loading) return <></>;
   return (

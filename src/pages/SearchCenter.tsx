@@ -5,13 +5,16 @@ import { useCenterStore } from '../store/centerStore';
 import { useSignUpStore } from '../store/signUpStore';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useModifyCenterStore } from '../store/modifyCenterStore';
 
 export const SearchCenter = () => {
   const { centers, setCenter } = useCenterStore();
+  const { setCenterId } = useModifyCenterStore();
   const { updateFormData, step, updateExperienceField, experienceIndex } =
     useSignUpStore();
   const navigate = useNavigate();
   const onClick = (e: string[]) => {
+    setCenterId(+e[3]);
     if (step === 2) {
       updateFormData({
         centerAddress: {
