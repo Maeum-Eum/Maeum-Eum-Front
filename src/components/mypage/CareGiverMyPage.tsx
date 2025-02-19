@@ -77,7 +77,9 @@ export const CareGiverMyPage = () => {
     {
       icon: <FaBookmark />,
       text: '저장함',
-      onClick: () => {},
+      onClick: () => {
+        navigate('/bookmark');
+      },
     },
     {
       icon: <IoSend />,
