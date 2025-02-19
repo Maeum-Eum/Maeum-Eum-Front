@@ -7,15 +7,19 @@ import { PeopleInfoContainer } from '../home/PeopleInfoContainer';
 import { HomeButtons } from '../home/HomeButtons';
 import { Modal } from '../Modal';
 import styled from 'styled-components';
+import { deleteApplyDecline, postApplyAccept } from '../../services/contact';
+import { useNavigate } from 'react-router-dom';
+import { BlankPage } from '../BlankPage';
 
 export const ManagerInBox = () => {
+  const navigate = useNavigate();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const options = ['홍길동 어르신', '이순자 어르신'];
   const [person, setPerson] = useState(options[0]);
   const { index, managerData } = useInboxStore();
   const [isModalOpen, setModalOpen] = useState(false);
 
-  if (!managerData) return;
+  if (!managerData) return <BlankPage text={'목록이 비어있어요.'} />;
 
   return (
     <Wrapper>
@@ -56,19 +60,15 @@ export const ManagerInBox = () => {
                   setModalOpen(true);
                 }}
                 leftText="거절하기"
-                rightFunc={() => {
-                  //   navigate(`/accept/${item.contactId}`); //TODO 수락하기
+                rightFunc={async () => {
+                  await postApplyAccept(item.applyId); //TODO applyId 넣기
                 }}
                 rightText="수락하기"
               />
             ) : (
               <Button
                 onClick={() => {
-                  if (localStorage.getItem('userRole') === 'ROLE_MANAGER') {
-                    // navigate(`/detail/care/${managerData.}?done=true`);
-                  } else {
-                    // navigate(`/detail/elder/contact/${item.contactId}?done=true`); //TODO 수정
-                  }
+                  navigate(`/detail/care/${item.applyId}?done=true`);
                 }}
               >
                 자세히 보기
@@ -82,7 +82,7 @@ export const ManagerInBox = () => {
               left="취소"
               right="확인"
               onConfirm={async () => {
-                //TODO 거절 함수 넣기
+                await deleteApplyDecline(item.applyId);
                 setModalOpen(false);
               }}
             />
