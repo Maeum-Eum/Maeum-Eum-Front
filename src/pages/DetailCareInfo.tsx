@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RoundedPeopleInfo } from '../components/home/PeopleInfoContainer';
+
 import { useEffect, useState } from 'react';
 import { sampleMainList } from '../components/home/DynamicHome';
 import { IGetMainList } from '../services/home';
@@ -23,7 +23,7 @@ export const DetailCareInfo = () => {
     <Wrapper>
       <Content>
         <InfoTitle>근무 일정</InfoTitle>
-        <Info></Info>
+        <Info>{data?.first}</Info>
         <InfoTitle>요양보호사 정보</InfoTitle>
         <Info>
           <span>치매교육 이수</span>

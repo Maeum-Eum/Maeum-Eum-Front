@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Outlet } from 'react-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getMainList } from '../services/home';
 import { useCareGiverHomeStore } from '../store/careGiverHomeStore';
 import { useHomeOptionStoreStore } from '../store/homeOptionStore';

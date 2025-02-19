@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { IGetMainList } from '../services/home';
 
 interface HomeOptionStoreState {
   range: string;

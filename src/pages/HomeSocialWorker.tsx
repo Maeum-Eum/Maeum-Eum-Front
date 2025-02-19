@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PeopleInfoContainer } from '../components/home/PeopleInfoContainer';
 import { HomeButtons } from '../components/home/HomeButtons';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';

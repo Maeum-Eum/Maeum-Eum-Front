@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ICenter } from '../../services/signup';
-import { IAddress, useSignUpStore } from '../../store/signUpStore';
+import { IAddress } from '../../store/signUpStore';
 
 interface AddressBoxProps {
   centerAddress?: ICenter;

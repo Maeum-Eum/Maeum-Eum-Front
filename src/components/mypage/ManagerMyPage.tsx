@@ -75,30 +75,32 @@ export const ManagerMyPage = () => {
   if (loading) return <></>;
 
   return (
-    <Wrapper>
-      <UserContainer
-        name={sampleManagerProfile!.name}
-        address={sampleManagerProfile!.centerName}
-        profileImage={''} //TODO 프로필 이미지
-        centerId={sampleManagerProfile.centerId}
-      />
+    myPageInfo && (
+      <Wrapper>
+        <UserContainer
+          name={myPageInfo.name}
+          address={myPageInfo.centerName}
+          profileImage={''} //TODO 프로필 이미지
+          centerId={sampleManagerProfile.centerId}
+        />
 
-      <>
-        {' '}
-        {socialList.map(
-          (li, index) =>
-            MyPageRow(
-              li,
-              index === 0
-                ? sampleManagerProfile!.bookmarks
-                : index === 1
-                ? sampleManagerProfile!.sentContacts
-                : sampleManagerProfile!.sentContacts
-            )
-          //TODO: 숫자 삽입 수정
-        )}
-      </>
-    </Wrapper>
+        <>
+          {' '}
+          {socialList.map(
+            (li, index) =>
+              MyPageRow(
+                li,
+                index === 0
+                  ? myPageInfo.bookmarks
+                  : index === 1
+                  ? myPageInfo.sentContacts
+                  : myPageInfo.sentContacts
+              )
+            //TODO: 숫자 삽입 수정
+          )}
+        </>
+      </Wrapper>
+    )
   );
 };
 

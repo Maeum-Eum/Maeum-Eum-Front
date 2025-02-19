@@ -11,9 +11,10 @@ import {
 } from '../\bdetail/DetailFooter';
 
 import { AcceptFooter } from '../accept/AcceptFooter';
-import { SignupFooter } from '../SignUp/SignUpFooter';
+
 import { patchCenterInfo } from '../../services/myPage';
 import { useModifyCenterStore } from '../../store/modifyCenterStore';
+import { SignupFooter } from '../SignUp/SignUpFooter';
 
 export const Footer = () => {
   const location = useLocation();
