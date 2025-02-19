@@ -2,20 +2,19 @@ import styled from 'styled-components';
 import { useResumeStore } from '../../store/resumeStore';
 
 export const JobTimeSelect = () => {
-  const {resume,setWorkTimeSlot, setIsNegotiableTime} = useResumeStore();
-
+  const { resume, setWorkTimeSlot, setIsNegotiableTime } = useResumeStore();
 
   const timeOptions = [
     { label: '오전', time: '9시-12시', icon: '🌤️', value: '0' },
-    { label: '오후', time: '12시-18시', icon: '🍚', value: '1'},
-    { label: '저녁', time: '18시-21시', icon: '🌙' , value: '2'},
+    { label: '오후', time: '12시-18시', icon: '🍚', value: '1' },
+    { label: '저녁', time: '18시-21시', icon: '🌙', value: '2' },
   ];
 
   const handleTimeSelect = (label: string, value: string) => {
     const updatedTimeSlots = resume.workTimeSlot.includes(value)
       ? resume.workTimeSlot.filter((time) => time !== value)
       : [...resume.workTimeSlot, value];
-      console.log("asd", label)
+    console.log('asd', label);
 
     setWorkTimeSlot(updatedTimeSlots);
   };
@@ -97,8 +96,6 @@ const TimeButton = styled.button<{ isSelected: boolean }>`
 const Icon = styled.div`
   font-size: 3rem;
   margin-bottom: 0.5rem;
-
- 
 `;
 
 const Label = styled.div`

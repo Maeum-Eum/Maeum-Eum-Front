@@ -58,13 +58,13 @@ const timeOptions = [
 const weekdays = ['월', '화', '수', '목', '금', '토', '일'];
 export const DetailCareInfo = () => {
   const [loading, setLoading] = useState(false);
-  const { careGiverId } = useParams();
+  const { careId } = useParams();
   const [data, setData] = useState<ICareGiverDetailInfo>();
   useEffect(() => {
     const getDetail = async () => {
       setLoading(true);
       try {
-        const res = await getDetailRecommendCaregiver(careGiverId ?? '');
+        const res = await getDetailRecommendCaregiver(careId ?? '');
         setData(res);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
