@@ -47,10 +47,14 @@ export const PeopleInfoContainer = ({
       </SubInfo>
 
       <Info>{title}</Info>
-      <Wage>
-        <span>시급 {formatWage(wage)}</span>
-        <span> {negotiable ? '(협의가능)' : ''}</span>
-      </Wage>
+      {wage === 0 ? (
+        <></>
+      ) : (
+        <Wage>
+          <span>시급 {formatWage(wage)}</span>
+          <span> {negotiable ? '(협의가능)' : ''}</span>
+        </Wage>
+      )}
       <Tags>{tags.map((t, index) => t && <Tag>{work[index]}</Tag>)}</Tags>
     </Wrapper>
   );
@@ -153,4 +157,38 @@ const Tag = styled.div`
   text-align: center;
   ${({ theme }) => theme.fontStyles.bodyMediumR}
   color:${({ theme }) => theme.colors.black80};
+`;
+
+export const PeopleBookmarkContainer = ({
+  isCare,
+  title,
+
+  positions,
+}: Partial<IPeopleInfoContainer>) => {
+  return (
+    <Wrapper $border={false}>
+      <SubInfo>
+        {isCare ? null : <img src="public/icons/certificate.svg" />}
+      </SubInfo>
+
+      <BookmarkInfo>{title}</BookmarkInfo>
+      <BookmarkTags>
+        {positions!.map((p) => (
+          <Tag>{p}</Tag>
+        ))}
+      </BookmarkTags>
+    </Wrapper>
+  );
+};
+const BookmarkInfo = styled.div`
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};
+  ${({ theme }) => theme.fontStyles.head2B}
+`;
+const BookmarkTags = styled.div`
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
 `;
