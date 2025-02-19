@@ -1,4 +1,4 @@
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 import { Layout } from './components/layout/Layout';
 import { Outlet, useNavigate } from 'react-router-dom';
@@ -15,8 +15,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //TODO 예시로 설정한 값
-    localStorage.setItem('userRole', 'ROLE_MANAGER');
     const token = localStorage.getItem('accessToken');
     if (!token) {
       return;
@@ -24,11 +22,8 @@ function App() {
     const fetchUserRole = async () => {
       try {
         setIsLoading(true);
-        const storedRole = localStorage.getItem('userRole');
-        if (!storedRole) {
-          const response = await getUserRole();
-          localStorage.setItem('userRole', response.role);
-        }
+        const response = await getUserRole();
+        localStorage.setItem('userRole', response.role);
       } catch (error) {
         console.error('사용자 역할을 가져오는 데 실패:', error);
         navigate('/login', { replace: true });
@@ -43,6 +38,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle isMobile={isMobile} />
+
       <Layout isMobile={isMobile} header={<Header />} footer={<Footer />}>
         <Outlet />
       </Layout>
