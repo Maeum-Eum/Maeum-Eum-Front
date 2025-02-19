@@ -147,6 +147,8 @@ export interface IManagerInBox {
   satisfyTasks: string[]; // 요양보호사가 만족하는 업무 리스트
   createdAt: string;
   updateAt: string;
+  wage: number;
+  caregiverId: number;
 }
 
 export const getManagerInBox = async (name: string) => {
@@ -202,15 +204,13 @@ export interface IBookMarkElderContent {
 }
 export const getBookmarkElders = async (page: number) => {
   const response = await authApiClient.get(
-    `/api/caregiver/mypage/bookmarks?page=${page}`
+    `/caregiver/mypage/bookmarks?page=${page}`
   );
   return response.data as IBookMarkElder;
 };
 
 export const getBookMarkCareGivers = async (name: string) => {
-  const response = await authApiClient.get(
-    `/api/manager/bookmark?name=${name}`
-  );
+  const response = await authApiClient.get(`/manager/bookmark?name=${name}`);
   return response.data as IBookMarkCareWorker[];
 };
 export interface IBookMarkCareWorker {

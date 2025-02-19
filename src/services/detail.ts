@@ -29,6 +29,10 @@ export interface IDetailContactElder {
   negotiable: boolean;
   bookmarked: boolean;
   elder: IElder;
+  meal: boolean;
+  toileting: boolean;
+  mobility: boolean;
+  daily: boolean;
 }
 
 export const getDetailContactElder = async (contactId: number) => {
@@ -47,6 +51,10 @@ export interface IDetailNearElder {
   bookmarked: boolean;
   elder: IElder;
   createdAt: string;
+  meal: boolean;
+  toileting: boolean;
+  mobility: boolean;
+  daily: boolean;
 }
 export const getDetailNearElder = async (elderId: number) => {
   const response = await authApiClient.get(
