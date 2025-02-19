@@ -17,26 +17,36 @@ export const DetailElderInfo = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const getDetail = async () => {
-      if (location.pathname.startsWith('/detail/elder/contact')) {
-        const res = await getDetailContactElder(+contactId!);
-        setElderInfo(res);
-      } else if (location.pathname.startsWith('/detail/elder')) {
-        const res = await getDetailNearElder(+elderId!);
-        setNearElderInfo(res);
+      setLoading(true);
+
+      try {
+        if (
+          location.pathname.startsWith('/detail/elder/contact') &&
+          contactId
+        ) {
+          const res = await getDetailContactElder(Number(contactId));
+          setElderInfo(res);
+        } else if (location.pathname.startsWith('/detail/elder') && elderId) {
+          const res = await getDetailNearElder(Number(elderId));
+          setNearElderInfo(res);
+        }
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      } finally {
+        setLoading(false);
       }
     };
+
     getDetail();
-    setLoading(false);
-  }, []);
+  }, [contactId, elderId]);
   if (loading) return [];
   return (
     <Wrapper>
       <RoundedPeopleInfo
-        contactId={0}
-        elderId={0}
-        tags={[false, true, true]}
+        contactId={null}
+        elderId={null}
+        tags={[true, true, true]} //TODO 수정
         isCare={true}
         title={elderInfo?.title ?? nearElderInfo?.title ?? '기본 제목'}
         center={
