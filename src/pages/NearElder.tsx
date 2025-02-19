@@ -5,13 +5,15 @@ import { sampleMainList } from '../components/home/DynamicHome';
 import { postElderBookmark } from '../services/contact';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { INearElderList } from '../services/home';
+import { getNearElder, INearElderList } from '../services/home';
+import { useHomeOptionStoreStore } from '../store/homeOptionStore';
 
 export const NearElder = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState<INearElderList>();
+  const { range } = useHomeOptionStoreStore();
   //TODO 샘플데이터
   const sampleNearElderList: INearElderList = {
     meal: {
@@ -49,17 +51,21 @@ export const NearElder = () => {
     },
   };
   useEffect(() => {
-    setLoading(true);
-    // getNearElder(range)
-    //   .then((response) => {
-    //     setData(response);
-    //   })
-    //   .catch(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await getNearElder(range);
+        setData(response);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+        setData(sampleNearElderList); // 에러 발생 시 샘플 데이터 사용
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    //   });
-    setData(sampleNearElderList);
-    setLoading(false);
-  }, []);
+    fetchData();
+  }, [range]);
   if (loading) return <></>;
 
   return (
@@ -82,7 +88,7 @@ export const NearElder = () => {
               data.meal.toileting,
             ]}
             elderId={data.meal.elderId}
-            contactId={0} //TODO 삭제
+            contactId={null}
           />
           <HomeButtons
             leftFunc={async () => {
@@ -116,7 +122,7 @@ export const NearElder = () => {
               data.toileting.toileting,
             ]}
             elderId={data.toileting.elderId}
-            contactId={0} //TODO 삭제
+            contactId={null}
           />
           <HomeButtons
             leftFunc={async () => {
@@ -144,7 +150,7 @@ export const NearElder = () => {
               data.wage.toileting,
             ]}
             elderId={data.wage.elderId}
-            contactId={0} //TODO 삭제
+            contactId={null}
           />
           <HomeButtons
             leftFunc={async () => {

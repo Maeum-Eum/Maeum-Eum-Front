@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from '../Modal';
 import { HomeButtons } from '../home/HomeButtons';
 import { useOutGoingBoxStore } from '../../store/outGoingBox';
+import { BlankPage } from '../BlankPage';
 
 export const CareGiverOutGoingBox = () => {
   const { outGoingData, index } = useOutGoingBoxStore();
@@ -15,6 +16,8 @@ export const CareGiverOutGoingBox = () => {
   const navigate = useNavigate();
 
   if (outGoingData === null) return <></>;
+  if (outGoingData.content.length === 0)
+    return <BlankPage text={'아직 지원하지 않았어요'} />;
   return (
     <Wrapper>
       {outGoingData.content.map((item) => (
