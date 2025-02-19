@@ -1,46 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { useInboxStore } from '../../store/inboxStore';
 import { useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
-import { BottomPopup } from '../BottomPopup';
 import { PeopleInfoContainer } from '../home/PeopleInfoContainer';
 import { HomeButtons } from '../home/HomeButtons';
 import { Modal } from '../Modal';
 import { postRejectMatching } from '../../services/contact';
 import styled from 'styled-components';
+import { BlankPage } from '../BlankPage';
 
 export const CareGiverInBox = () => {
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const options = ['홍길동 어르신', '이순자 어르신'];
-  const [person, setPerson] = useState(options[0]);
   const { data, index } = useInboxStore();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
-  const role = localStorage.getItem('userRole');
 
   if (data === null) return <></>;
+  if (data.content.length === 0)
+    return <BlankPage text={'아직 연락이 없어요'} />;
 
   return (
     <Wrapper>
-      {role === 'ROLE_MANAGER' && (
-        <DropDownWrapper>
-          <PersonButton onClick={() => setPopupOpen(true)}>
-            <span> {person} </span>
-            <IoIosArrowDown />
-          </PersonButton>
-          <BottomPopup
-            isOpen={isPopupOpen}
-            onClose={() => setPopupOpen(false)}
-            options={options}
-            onSelect={(option) => {
-              setPerson(option);
-              setPopupOpen(false);
-              console.log(option);
-            }}
-          />
-        </DropDownWrapper>
-      )}
       {data.content.map((item) => (
         <Container>
           <PeopleInfoContainer
