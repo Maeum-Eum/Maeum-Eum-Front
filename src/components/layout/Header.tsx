@@ -17,14 +17,14 @@ export const Header = () => {
     return (
       <div>
         <BackButtonHeader title="받은 편지함" />
-        <InBoxTab index={0} />
+        <InBoxTab isOut={false} />
       </div>
     );
   if (location.pathname.startsWith('/outgoing-box'))
     return (
       <div>
         <BackButtonHeader title="보낸 지원함" />
-        <InBoxTab index={0} />
+        <InBoxTab isOut={true} />
       </div>
     );
   if (['/', '/near'].includes(location.pathname)) return <DynamicHomeHeader />;
@@ -32,6 +32,8 @@ export const Header = () => {
     return <HomeHeader child={<span>내정보</span>} />;
   if (location.pathname.startsWith('/accept'))
     return <BackButtonHeader title="수락하기" />;
+  if (location.pathname.startsWith('/apply'))
+    return <BackButtonHeader title="지원하기" />;
   if (location.pathname === '/search-center') {
     return <FindCenterHeader />;
   }
@@ -42,6 +44,8 @@ export const Header = () => {
     return <BackButtonHeader title="자세히 보기" />;
   if (location.pathname.startsWith('/contact'))
     return <BackButtonHeader title="연락하기" />;
-
+  if (location.pathname.startsWith('/modify-center')) {
+    return <BackButtonHeader title="센터 정보 수정하기" />;
+  }
   return null;
 };

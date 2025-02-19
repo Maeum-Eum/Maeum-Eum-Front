@@ -6,16 +6,20 @@ export const ButtonFooter = ({
   line = true,
   title,
   skip = false,
+  isValid = true,
 }: {
   nextStep: () => void;
   line?: boolean;
   title: string;
   skip?: boolean;
+  isValid?: boolean;
 }) => {
   const { setStep } = useSignUpStore();
   return (
     <Wrapper $line={line}>
-      <Button onClick={nextStep}>{title}</Button>
+      <Button onClick={isValid ? nextStep : () => {}} $isValid={isValid}>
+        {title}
+      </Button>
       {skip ? <Skip onClick={() => setStep(5)}>나중에 등록하기</Skip> : null}
     </Wrapper>
   );
@@ -32,14 +36,15 @@ const Wrapper = styled.div<{ $line: boolean }>`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ $isValid: boolean }>`
   bottom: 5.5rem;
   width: 20.7rem;
   padding: 1.3rem 0rem;
   box-sizing: border-box;
   border-radius: 1.3rem;
   border-color: transparent;
-  background-color: ${({ theme }) => theme.colors.mainColor};
+  background-color: ${({ theme, $isValid }) =>
+    $isValid ? theme.colors.mainColor : '#A9A9F5'};
   ${({ theme }) => theme.fontStyles.headingB}
   color: #ffffff;
 `;

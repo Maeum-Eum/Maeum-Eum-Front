@@ -38,7 +38,7 @@ export const FooterForDetailElder = () => {
         leftFunc={async () => {
           await postElderBookmark(+elderId!);
         }}
-        rightFunc={() => navigate('/accept')}
+        rightFunc={() => navigate(`/apply/${elderId}`)}
         leftText="저장"
         rightText="지원하기"
       />
