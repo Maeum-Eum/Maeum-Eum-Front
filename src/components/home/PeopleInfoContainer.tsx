@@ -28,12 +28,17 @@ export const PeopleInfoContainer = ({
   contactId,
 }: IPeopleInfoContainer) => {
   const navigate = useNavigate();
+  const role = localStorage.getItem('userRole');
   return (
     <Wrapper
       $border={border}
       onClick={() => {
         if (contactId) {
-          navigate(`/detail/elder/contact/${contactId}`);
+          if (role == 'ROLE_MANAGER') {
+            navigate(`/detail/care/${contactId}`);
+          } else {
+            navigate(`/detail/elder/contact/${contactId}`);
+          }
         }
       }}
     >
@@ -170,7 +175,6 @@ export const PeopleBookmarkContainer = ({
       <SubInfo>
         {isCare ? null : <img src="public/icons/certificate.svg" />}
       </SubInfo>
-
       <BookmarkInfo>{title}</BookmarkInfo>
       <BookmarkTags>
         {positions!.map((p) => (
