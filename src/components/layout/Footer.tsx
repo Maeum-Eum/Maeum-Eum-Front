@@ -2,13 +2,13 @@ import { useLocation, useNavigate } from 'react-router';
 import { ButtonFooter } from '../ButtonFooter';
 import { NavigationBar } from '../home/NavigationBar';
 import { useSignUpStore } from '../../store/signUpStore';
-import { useElderRegisterStore } from '../../store/elderRegisterStore';
 import { useAcceptStore } from '../../store/acceptStore';
 import { postManagerSignUp } from '../../services/signup';
 import styled from 'styled-components';
 import { HomeButtons } from '../home/HomeButtons';
 import { useContactStore } from '../../store/contactStore';
-import { useResumeStore } from '../../store/resumeStore';
+import { ResumeFooter } from '../Resume/ResumeFooter';
+import { ElderRegisterFooter } from '../ElderRegister/ElderRegisterFooter';
 
 export const Footer = () => {
   const location = useLocation();
@@ -19,14 +19,8 @@ export const Footer = () => {
     validateForm,
     formData,
   } = useSignUpStore();
-  const { step: elderRegisterStep, nextStep } = useElderRegisterStore();
   const { step: acceptStep, setStep: setAcceptStep } = useAcceptStore();
-  const { step: resumeStep , nextStep: resumeNextStep, resume} = useResumeStore(); 
-
-  const handleResume = () => {
-    console.log("저장된 이력서 데이터", resume)
-  }
-
+  
   if (location.pathname === '/signup') {
     if (signUpStep === 4)
       return (
@@ -78,35 +72,11 @@ export const Footer = () => {
     return <ButtonFooter title="사진 등록하기" nextStep={() => {}} />;
 
   if (location.pathname.startsWith('/resume')) {
-    return (
-      <ButtonFooter
-        title={resumeStep === 9 ? '이력서 제출' : '다음으로 넘어가기'}
-        nextStep={async () => {
-          if (resumeStep === 9) {
-          
-            navigate('/complete', { replace: true });
-          } else {
-            handleResume();
-          resumeNextStep();
-          }
-        }}
-      />
-    );
+    return <ResumeFooter />;
   }
 
   if (location.pathname.startsWith('/elder-register')) {
-    return (
-      <ButtonFooter
-        title={
-          elderRegisterStep === 5 ? '다음으로 넘어가기' : '다음으로 넘어가기'
-        }
-        nextStep={() =>
-          elderRegisterStep === 5
-            ? navigate('/complete2', { replace: true })
-            : nextStep()
-        }
-      />
-    );
+    return <ElderRegisterFooter />;
   }
 
   if (['/', '/near', '/mypage', '/admin'].includes(location.pathname))

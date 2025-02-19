@@ -1,7 +1,14 @@
 import styled from "styled-components"
+import { useElderRegisterStore } from "../../store/elderRegisterStore";
 
-export const CheckboxButton = ({label} : {label: string}) => {
-    return <CheckboxContainer><input type="checkbox" />{label}</CheckboxContainer>
+export const CheckboxButton = ({label, checked} : {label: string; checked:boolean}) => {
+    const { setElderData, elder} = useElderRegisterStore();
+
+    const handleNegotiable = () => {
+        setElderData('negotiable', !elder.negotiable);
+      };
+
+    return <CheckboxContainer onClick={handleNegotiable}>{checked} {label}</CheckboxContainer>
 }
 
 const CheckboxContainer = styled.div`

@@ -1,16 +1,22 @@
-import { useState } from 'react';
 import { ElderRegisterLayout } from './ElderRegisterLayout';
 import { SignUpLabel } from '../SignUp/SignUpLabel';
 import { ElderRegisterSubLabel } from './ElderRegisterSubLabel';
 import { SelectedButton } from './SelectedButton';
+import { useElderRegisterStore } from '../../store/elderRegisterStore';
 
 export const ElderRegisterService = () => {
-  const [, setSelectedRegions] = useState<string[]>([]);
+  const { setMeal, setToileting, setMobility, setDaily } = useElderRegisterStore();
 
-  const handleService = (service: string | string[]) => {
-    if (Array.isArray(service)) {
-      setSelectedRegions(service);
-    }
+  const handleService = (category: "meal" | "toileting" | "mobility" | "daily") => {
+    return (option: string | string[]) => {
+      const selectedOptions = Array.isArray(option) ? option : [option];
+      switch (category) {
+        case "meal": setMeal(selectedOptions); break;
+        case "toileting": setToileting(selectedOptions); break;
+        case "mobility": setMobility(selectedOptions); break;
+        case "daily": setDaily(selectedOptions); break;
+      }
+    };
   };
 
   return (
@@ -21,7 +27,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['스스로 식사 가능', '식사 차림 필요']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('meal')}
         hoverColor={{
           '스스로 식사 가능': '#371FF0',
           '식사 차림 필요': '#371FF0',
@@ -30,7 +36,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['죽, 반찬 등 요리 필요', '콧줄 식사']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('meal')}
         hoverColor={{
           '죽, 반찬 등 요리 필요': '#371FF0',
           '콧줄 식사': '#371FF0',
@@ -41,7 +47,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['스스로 배변 가능', '배변 실수시 도움필요']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('toileting')}
         hoverColor={{
           '스스로 배변 가능': '#371FF0',
           '배변 실수시 도움필요': '#371FF0',
@@ -50,7 +56,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['기저기 케어 필요', '유치도뇨, 방관루, 장루 관리']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('toileting')}
         hoverColor={{
           '기저기 케어 필요': '#371FF0',
           '유치도뇨, 방관루, 장루 관리': '#371FF0',
@@ -61,7 +67,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['스스로 거동 가능', '이동식 부족 도움']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('mobility')}
         hoverColor={{
           '스스로 거동 가능': '#371FF0',
           '이동식 부족 도움': '#371FF0',
@@ -70,7 +76,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['휠체어 이동 보조', '거동 불가']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('mobility')}
         hoverColor={{
           '휠체어 이동 보조': '#371FF0',
           '거동 불가': '#371FF0',
@@ -81,7 +87,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['청소, 빨래 보조', '목욕 보조(목씻기)']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('daily')}
         hoverColor={{
           '청소, 빨래 보조': '#371FF0',
           '목욕 보조(목씻기)': '#371FF0',
@@ -90,7 +96,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['병원 동행', '산책, 간단한 운동지원']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('daily')}
         hoverColor={{
           '병원 동행': '#371FF0',
           '산책, 간단한 운동지원': '#371FF0',
@@ -99,7 +105,7 @@ export const ElderRegisterService = () => {
       <SelectedButton
         options={['말벗 등 정서 지원', '인지 자극 활동']}
         multiSelect={true}
-        onSelect={handleService}
+        onSelect={handleService('daily')}
         hoverColor={{
           '말벗 등 정서 지원': '#371FF0',
           '인지 자극 활동': '#371FF0',
