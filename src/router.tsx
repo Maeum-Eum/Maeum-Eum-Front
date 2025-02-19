@@ -21,6 +21,7 @@ import { MyPage } from './pages/MyPage';
 import { InBox } from './pages/InBox';
 import { OutGoingBox } from './pages/OutGoingBox';
 import { DynamicHome } from './components/home/DynamicHome';
+import { ModifyCenter } from './pages/ModifyCenter';
 
 export const router = createBrowserRouter([
   {
@@ -47,19 +48,29 @@ export const router = createBrowserRouter([
             children: [
               //TODO: 요양보호사/사회복지사 여부에 따라 element 바꾸기
               { path: '', element: <DynamicHome /> },
-              { path: '/near', element: <NearElder /> },
+              { path: 'near', element: <NearElder /> },
               { path: 'mypage', element: <MyPage /> },
             ],
           },
           { path: 'elder-register', element: <ElderRegister /> },
           { path: 'resume', element: <Resume /> },
-          { path: 'accept', element: <Accept /> },
+          { path: 'accept/:contactId', element: <Accept /> },
           { path: 'accept/complete', element: <AcceptComplete /> },
-          { path: 'detail/elder/:contactId', element: <DetailElderInfo /> },
+          { path: 'apply/:elderId', element: <Accept /> },
+          { path: 'apply/complete', element: <AcceptComplete /> },
+          { path: 'detail/elder/:elderId', element: <DetailElderInfo /> },
+          {
+            path: 'detail/elder/contact/:contactId',
+            element: <DetailElderInfo />,
+          },
           { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
           { path: 'contact/:careId', element: <Contact /> },
           { path: 'inbox', element: <InBox /> },
           { path: 'outgoing-box', element: <OutGoingBox /> },
+          {
+            path: 'modify-center/:centerId',
+            element: <ModifyCenter />,
+          },
         ],
       },
     ],
