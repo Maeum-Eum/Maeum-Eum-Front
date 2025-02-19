@@ -13,6 +13,7 @@ export interface IPeopleInfoContainer {
   tags: boolean[];
   contactId: number | null;
   elderId: number | null;
+  positions?: string[];
 }
 const work = ['일상', '이동', '식사', '배변'];
 export const PeopleInfoContainer = ({
@@ -64,12 +65,13 @@ export const RoundedPeopleInfo = ({
   negotiable,
   tags,
   elderId,
+  positions,
 }: IPeopleInfoContainer) => {
   const navigate = useNavigate();
   return (
     <RoundedWrapper
       onClick={() => {
-        navigate(`/detail/elder/${elderId}`);
+        if (elderId) navigate(`/detail/elder/${elderId}`);
       }}
     >
       <SubInfo>
@@ -86,8 +88,11 @@ export const RoundedPeopleInfo = ({
         <span>시급 {formatWage(wage)}</span>
         <span> {negotiable ? '(협의가능)' : ''} </span>
       </Wage>
+
       <Tags>
-        <Tags>{tags.map((t, index) => t && <Tag>{work[index]}</Tag>)}</Tags>
+        {positions
+          ? positions.map((p) => <Tag>{p}</Tag>)
+          : tags.map((t, index) => t && <Tag>{work[index]}</Tag>)}
       </Tags>
     </RoundedWrapper>
   );

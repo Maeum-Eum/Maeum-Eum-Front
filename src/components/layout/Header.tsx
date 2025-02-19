@@ -16,7 +16,7 @@ export const Header = () => {
   if (location.pathname.startsWith('/inbox'))
     return (
       <div>
-        <BackButtonHeader title="받은 편지함" />
+        <BackButtonHeader title="받은 지원함" />
         <InBoxTab isOut={false} />
       </div>
     );
