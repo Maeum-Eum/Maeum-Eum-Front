@@ -58,7 +58,7 @@ export const Login = () => {
 const LoginContainer = styled.div`
   width: 100%;
   margin: 5rem auto;
-  padding-top: 10rem;
+  padding-top: 8rem;
 `;
 
 const LoginContent = styled.div`
