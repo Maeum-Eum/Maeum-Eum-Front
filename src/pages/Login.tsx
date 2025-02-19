@@ -24,7 +24,7 @@ export const Login = () => {
   const handleLogin = useCallback (async () => {
     await login();
 
-    console.log("authenticate", useLoginStore.getState().isAuthenticated)
+    console.log("authenticate-plz", useLoginStore.getState().isAuthenticated)
     
     
 
