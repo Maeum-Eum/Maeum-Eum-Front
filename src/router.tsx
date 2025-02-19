@@ -67,8 +67,12 @@ export const router = createBrowserRouter([
             path: 'detail/elder/contact/:contactId',
             element: <DetailElderInfo />,
           },
+          {
+            path: 'detail/care/contact/:contactId',
+            element: <DetailCareInfo />,
+          },
           { path: 'detail/care/:contactId', element: <DetailCareInfo /> },
-          { path: 'contact/:careId', element: <Contact /> },
+          { path: 'contact/:careGiverId', element: <Contact /> },
           { path: 'inbox', element: <InBox /> },
           { path: 'outgoing-box', element: <OutGoingBox /> },
           {
