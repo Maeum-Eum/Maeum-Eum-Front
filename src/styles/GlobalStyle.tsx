@@ -49,11 +49,14 @@ html {
     -webkit-tap-highlight-color: transparent;
     outline: none;
 
-  color: inherit !important;
-  text-decoration: none !important;
   }
  
   button, a, input, textarea, select {
+    -webkit-tap-highlight-color: transparent;
+
+
+  color: inherit !important;
+  text-decoration: none !important;
     
     outline: none;
   }
@@ -65,6 +68,7 @@ html {
   #root {
     width: 100%;
     height: 100%;
+    color-scheme:light only; 
 
  @media (min-width: 1024px) {
     background: url('icons/background.svg') no-repeat center;
