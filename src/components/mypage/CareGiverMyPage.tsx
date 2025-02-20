@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router';
 import { IMyPageRow, MyPageRow } from './MyPageRow';
 import {
   GetCareGiverMyPage,
-  GetProfilePhoto,
   ICareGiverMyPage,
   PostJobOpen,
 } from '../../services/myPage';

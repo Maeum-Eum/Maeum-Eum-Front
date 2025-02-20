@@ -3,10 +3,7 @@ import { BlankPage } from '../BlankPage';
 import { getBookmarkElders, IBookMarkElder } from '../../services/myPage';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import {
-  PeopleBookmarkContainer,
-  PeopleInfoContainer,
-} from '../home/PeopleInfoContainer';
+import { PeopleInfoContainer } from '../home/PeopleInfoContainer';
 
 export const CareGiverBookmark = () => {
   const [data, setData] = useState<IBookMarkElder>();
