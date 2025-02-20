@@ -27,6 +27,7 @@ export const HomeCareWorker = () => {
       try {
         const res = await getMainList({ range: range, sort: order, page: '1' });
         setData(res);
+        localStorage.setItem('address', res.address);
       } catch (error) {
         setData(sampleMainList);
         console.error('데이터 로드 실패:', error);

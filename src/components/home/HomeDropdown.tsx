@@ -46,6 +46,7 @@ export const HomeDropdown = ({
         setRangeText(
           index === 0 ? 'accuracy' : index === 1 ? 'time_match' : 'high_salary'
         );
+
         setOrder(index + 1 + '');
       }
     }
@@ -70,6 +71,7 @@ export const HomeDropdown = ({
   );
 };
 const DropdownWrapper = styled.div`
+  color: ${(props) => props.theme.colors.black};
   position: relative;
   display: inline-block;
   height: 100%;
