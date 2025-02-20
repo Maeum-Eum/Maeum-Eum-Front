@@ -89,8 +89,10 @@ const BottomPopupContainer = styled.div`
   box-shadow: 0px -4px 15px 0px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   max-width: 440px;
+  max-height: 70vh;
+  overflow-y: auto;
 `;
 
 const Bar = styled.div`
@@ -98,11 +100,14 @@ const Bar = styled.div`
   max-width: 6rem;
   height: 0.7rem;
   background-color: ${(props) => props.theme.colors.black10};
-  align-self: center;
+
   margin-bottom: 1rem;
   border-radius: 0.3rem;
 `;
 const Option = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
   padding: 1.5rem 0;
   font-size: 1rem;
   ${({ theme }) => theme.fontStyles.head2SB}
@@ -119,6 +124,7 @@ const Option = styled.div`
 `;
 
 const Content = styled.div`
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
 
