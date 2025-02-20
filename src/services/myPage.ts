@@ -12,7 +12,7 @@ export interface ICareGiverMyPage {
   applyCount: number;
 }
 export const GetCareGiverMyPage = async () => {
-  const response = await authApiClient.get('/caregiver/mypage');
+  const response = await authApiClient.get('/api/caregiver/mypage');
 
   return response.data as ICareGiverMyPage;
 };
@@ -29,7 +29,7 @@ export interface ISocialWorkerMyPage {
 }
 
 export const getSocialWorkerMyPage = async () => {
-  const response = await authApiClient.get('/manager/mypage');
+  const response = await authApiClient.get('/api/manager/mypage');
 
   return response.data as ISocialWorkerMyPage;
 };
@@ -37,19 +37,19 @@ export interface IJobOpen {
   isJobOpen: boolean;
 }
 export const PostJobOpen = async () => {
-  const response = await authApiClient.post('/caregiver/mypage/job-open');
+  const response = await authApiClient.post('/api/caregiver/mypage/job-open');
   return response.data as IJobOpen;
 };
 export interface IProfileImage {
   isProfileImage: string;
 }
 export const GetProfilePhoto = async () => {
-  const response = await authApiClient.get('/caregiver/mypage/profile');
+  const response = await authApiClient.get('/api/caregiver/mypage/profile');
   return response.data as IProfileImage;
 };
 
 export const deleteProfilePhoto = async () => {
-  const response = await authApiClient.delete('/caregiver/mypage/profile');
+  const response = await authApiClient.delete('/api/caregiver/mypage/profile');
   return response.data as IProfileImage;
 };
 
@@ -70,7 +70,7 @@ export const deleteProfilePhoto = async () => {
 
 export const getCareGiverInbox = async ({ tab, page }: IBoxRequest) => {
   const response = await authApiClient.get(
-    `/caregiver/mypage/contacts?tab=${tab}&page=${page}`
+    `/api/caregiver/mypage/contacts?tab=${tab}&page=${page}`
   );
   return response.data as IGetMainList;
 };
@@ -101,7 +101,7 @@ export interface IBoxRequest {
 }
 export const getCareGiverOutGoingBox = async ({ tab, page }: IBoxRequest) => {
   const response = await authApiClient.get(
-    `/caregiver/mypage/applies?tab=${tab}&page=${page}`
+    `/api/caregiver/mypage/applies?tab=${tab}&page=${page}`
   );
   return response.data as IOutgoingBox;
 };
@@ -111,7 +111,7 @@ export const patchCenterInfo = async (
   oneLineIntro: string,
   hasCar: boolean
 ) => {
-  return await authApiClient.patch(`/manager/${centerId}`, {
+  return await authApiClient.patch(`/api/manager/${centerId}`, {
     oneLineIntro: oneLineIntro,
     hasCar: hasCar,
     centerId: centerId,
@@ -130,7 +130,7 @@ export interface IManagerMypage {
   applys: number;
 }
 export const getManagerMyPage = async () => {
-  const res = await authApiClient.get('/manager/mypage');
+  const res = await authApiClient.get('/api/manager/mypage');
 
   return res.data as IManagerMypage;
 };
@@ -152,7 +152,7 @@ export interface IManagerInBox {
 }
 
 export const getManagerInBox = async (name: string) => {
-  const response = await authApiClient.get(`/manager/apply?name=${name}`);
+  const response = await authApiClient.get(`/api/manager/apply?name=${name}`);
   return response.data as IManagerInBox[];
 };
 
@@ -170,14 +170,14 @@ export interface IManagerSend {
 }
 export const getManagerSendPending = async (name: string) => {
   const response = await authApiClient.get(
-    `/manager/contact?name=${name}&tab=pending`
+    `/api/manager/contact?name=${name}&tab=pending`
   );
   return response.data as IManagerSend[];
 };
 
 export const getManagerSendApproved = async (name: string) => {
   const response = await authApiClient.get(
-    `/manager/contact?name=${name}&tab=approved`
+    `/api/manager/contact?name=${name}&tab=approved`
   );
   return response.data as IManagerSend[];
 };
@@ -204,13 +204,15 @@ export interface IBookMarkElderContent {
 }
 export const getBookmarkElders = async (page: number) => {
   const response = await authApiClient.get(
-    `/caregiver/mypage/bookmarks?page=${page}`
+    `/api/caregiver/mypage/bookmarks?page=${page}`
   );
   return response.data as IBookMarkElder;
 };
 
 export const getBookMarkCareGivers = async (name: string) => {
-  const response = await authApiClient.get(`/manager/bookmark?name=${name}`);
+  const response = await authApiClient.get(
+    `/api/manager/bookmark?name=${name}`
+  );
   return response.data as IBookMarkCareWorker[];
 };
 export interface IBookMarkCareWorker {

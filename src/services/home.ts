@@ -32,14 +32,14 @@ export const getMainList = async ({
   page: string;
 }) => {
   const response = await authApiClient.get(
-    `/caregiver/main/list?range=${range}&order=${sort}&page=${page}`
+    `/api/caregiver/main/list?range=${range}&order=${sort}&page=${page}`
   );
   return response.data as IGetMainList;
 };
 
 export const getMatchDetail = async ({ contactId }: { contactId: number }) => {
   const response = await authApiClient.get(
-    `/caregiver/main?contact=${contactId}`
+    `/api/caregiver/main?contact=${contactId}`
   );
   return response.data;
 };
@@ -69,7 +69,7 @@ export const getRecommendCaregiverList = async ({
   sort: string;
 }) => {
   const response = await authApiClient.get(
-    `/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
+    `/api/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
   );
   return response.data as Elder;
 };
@@ -100,7 +100,7 @@ export interface INearElderList {
 }
 export const getNearElder = async (range: string) => {
   const response = await authApiClient.get(
-    `/caregiver/near/list?range=${range}`
+    `/api/caregiver/near/list?range=${range}`
   );
 
   return response.data as INearElderList;
@@ -128,7 +128,7 @@ export const getManagerHome = async ({
   distance: string;
 }) => {
   const response = await authApiClient.get(
-    `/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
+    `/api/manager/elder/individual?name=${name}&distance=${distance}&sort=${sort}`
   );
 
   return response.data as IManagerMain[];
@@ -139,6 +139,6 @@ export interface IElder {
   elderName: string;
 }
 export const getElderList = async () => {
-  const res = await authApiClient.get(`/manager/elder`);
+  const res = await authApiClient.get(`/api/manager/elder`);
   return res.data as IElder[];
 };

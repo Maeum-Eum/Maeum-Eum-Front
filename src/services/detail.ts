@@ -37,7 +37,7 @@ export interface IDetailContactElder {
 
 export const getDetailContactElder = async (contactId: number) => {
   const response = await authApiClient.get(
-    `/caregiver/main?contact=${contactId}`
+    `/api/caregiver/main?contact=${contactId}`
   );
   return response.data as IDetailContactElder;
 };
@@ -58,7 +58,7 @@ export interface IDetailNearElder {
 }
 export const getDetailNearElder = async (elderId: number) => {
   const response = await authApiClient.get(
-    `/caregiver/near?elderId=${elderId}`
+    `/api/caregiver/near?elderId=${elderId}`
   );
   return response.data as IDetailNearElder;
 };
@@ -98,6 +98,6 @@ export interface ICareGiverExperience {
 }
 
 export const getDetailRecommendCaregiver = async (caregiverId: string) => {
-  const response = await authApiClient.get(`/manager/${caregiverId}`);
+  const response = await authApiClient.get(`/api/manager/${caregiverId}`);
   return response.data as ICareGiverDetailInfo;
 };
