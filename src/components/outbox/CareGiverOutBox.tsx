@@ -17,7 +17,11 @@ export const CareGiverOutGoingBox = () => {
 
   if (outGoingData === null) return <></>;
   if (outGoingData.content.length === 0)
-    return <BlankPage text={'아직 지원하지 않았어요'} />;
+    return (
+      <BlankPage
+        text={index === 0 ? '대기 중인 지원이 없어요' : '수락된 지원이 없어요'}
+      />
+    );
   return (
     <Wrapper>
       {outGoingData.content.map((item) => (

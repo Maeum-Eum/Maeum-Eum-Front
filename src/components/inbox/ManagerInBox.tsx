@@ -20,7 +20,8 @@ export const ManagerInBox = () => {
   const [person, setPerson] = useState(options[0]);
   const { index, managerData } = useInboxStore();
   const [isModalOpen, setModalOpen] = useState(false);
-  if (!managerData) return <BlankPage text={'받은 지원이 없어요'} />;
+  if (!managerData)
+    return <BlankPage text={'해당 어르신은 받은 지원이 없어요'} />;
   return (
     <>
       <DropDownWrapper>
@@ -40,7 +41,7 @@ export const ManagerInBox = () => {
         />
       </DropDownWrapper>
       {managerData.length === 0 ? (
-        <BlankPage text={'받은 지원이 없어요'} />
+        <BlankPage text={'해당 어르신은 받은 지원이 없어요'} />
       ) : (
         <Wrapper>
           {' '}
