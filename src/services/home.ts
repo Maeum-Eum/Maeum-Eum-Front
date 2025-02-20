@@ -78,7 +78,7 @@ export interface IUserRole {
   role: 'ROLE_CAREGIVER' | 'ROLE_MANAGER';
 }
 export const getUserRole = async () => {
-  const response = await authApiClient.get('/user');
+  const response = await authApiClient.get('/api/user');
   return response.data as IUserRole;
 };
 export interface INearElder {
