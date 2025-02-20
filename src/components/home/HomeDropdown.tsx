@@ -85,6 +85,7 @@ const DropdownWrapper = styled.div`
 `;
 
 const DropdownButton = styled.button`
+  color: ${(props) => props.theme.colors.black};
   background-color: transparent;
   cursor: pointer;
   ${(props) => props.theme.fontStyles.head2SB};
