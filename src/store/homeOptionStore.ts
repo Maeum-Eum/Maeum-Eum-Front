@@ -11,6 +11,8 @@ interface HomeOptionStoreState {
   setDistance: (distance: string) => void;
   elderName: string;
   setElderName: (name: string) => void;
+  rangeText: string;
+  setRangeText: (rangeText: string) => void;
 }
 
 export const useHomeOptionStoreStore = create<HomeOptionStoreState>((set) => ({
@@ -18,10 +20,11 @@ export const useHomeOptionStoreStore = create<HomeOptionStoreState>((set) => ({
   order: '1',
   modal: false,
   distance: '도보15분이내',
+  rangeText: '업무정확도순',
+  setRangeText: (rangeText) => set({ rangeText }),
   setDistance: (distance) => set({ distance }),
   elderName: '',
   setElderName: (elderName) => set({ elderName }),
-
   setModal: (modal) => set({ modal }),
 
   setRange: (range) => set({ range }),

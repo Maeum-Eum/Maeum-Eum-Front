@@ -14,7 +14,7 @@ export const HomeSocialWorker = () => {
   const [loading, setLoading] = useState(false);
   const { setData, data, toggleBookmark, setElderList, elderId } =
     useManagerHomeStore();
-  const { order, distance, elderName, setElderName } =
+  const { order, distance, elderName, setElderName, rangeText } =
     useHomeOptionStoreStore();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const HomeSocialWorker = () => {
       try {
         const res = await getManagerHome({
           distance: distance,
-          sort: order,
+          sort: rangeText,
           name: elderName,
         });
         setData(res);
