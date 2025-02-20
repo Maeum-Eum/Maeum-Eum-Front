@@ -34,6 +34,8 @@ export const HomeDropdown = ({
     if (!range) {
       if (location.pathname.includes('/near')) {
         setItemList(['최신순']);
+      } else {
+        setItemList(items);
       }
     }
 
