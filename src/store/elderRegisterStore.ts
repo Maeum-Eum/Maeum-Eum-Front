@@ -10,7 +10,7 @@ export interface ElderData {
   gender: 'male' | 'female';
   birth: string;
   address: string;
-  rank: number[];
+  rank: number;
   mon?: WorkTime;
   tue?: WorkTime;
   wed?: WorkTime;
@@ -48,7 +48,7 @@ interface ElderRegisterState {
   setDaily: (daily: string[]) => void;
 
   setWageType: (wageType: string) => void;
-  setWage: (wage: number) =>void;
+  setWage: (wage: number) => void;
 }
 
 export const useElderRegisterStore = create<ElderRegisterState>((set) => ({
@@ -58,7 +58,7 @@ export const useElderRegisterStore = create<ElderRegisterState>((set) => ({
     gender: 'male',
     birth: '',
     address: '',
-    rank: [],
+    rank: 0,
     meal: [],
     toileting: [],
     mobility: [],
@@ -83,26 +83,32 @@ export const useElderRegisterStore = create<ElderRegisterState>((set) => ({
       elder: { ...state.elder, [day]: workTime },
     })),
 
-    setMeal: (meal) => set((state) => ({
-        elder: {...state.elder, meal},
+  setMeal: (meal) =>
+    set((state) => ({
+      elder: { ...state.elder, meal },
     })),
-    setToileting: (toileting) => set((state) => ({
-        elder: { ...state.elder, toileting },
-    })),
-
-    setMobility: (mobility) => set((state) => ({
-        elder: { ...state.elder, mobility },
+  setToileting: (toileting) =>
+    set((state) => ({
+      elder: { ...state.elder, toileting },
     })),
 
-    setDaily: (daily) => set((state) => ({
-        elder: { ...state.elder, daily },
+  setMobility: (mobility) =>
+    set((state) => ({
+      elder: { ...state.elder, mobility },
     })),
 
-    setWageType :(wageType) => set((state) => ({
-        elder: {...state.elder, wageType},
+  setDaily: (daily) =>
+    set((state) => ({
+      elder: { ...state.elder, daily },
     })),
-    
-    setWage : (wage) => set((state) => ({
-        elder: {...state.elder, wage}
-    }))
+
+  setWageType: (wageType) =>
+    set((state) => ({
+      elder: { ...state.elder, wageType },
+    })),
+
+  setWage: (wage) =>
+    set((state) => ({
+      elder: { ...state.elder, wage },
+    })),
 }));

@@ -49,33 +49,33 @@ export const ElderRegisterInfo = () => {
       <SignUpLabel label="등급" />
 
       <SelectedButton
-        options={['1등급', '2등급', '3등급']}
-        multiSelect={true}
+        options={[
+          '1등급',
+          '2등급',
+          '3등급',
+          '4등급',
+          '5등급',
+          '인지 지원 등급',
+        ]}
+        multiSelect={false}
         onSelect={(selectedRanks) => {
-          if (Array.isArray(selectedRanks)) {
-            const mappedRanks = selectedRanks.map((rank) =>
-              rank === '인지 지원 등급' ? 6 : parseInt(rank[0], 10)
+          if (typeof selectedRanks === 'string') {
+            setElderData(
+              'rank',
+              selectedRanks === '인지 지원 등급'
+                ? 6
+                : parseInt(selectedRanks, 10)
             );
-            setElderData('rank', mappedRanks); // ✅ 배열로 저장
           }
         }}
-        hoverColor={{ '1등급': '#371FF0', '2등급': '#371FF0', '3등급': '#371FF0' }}
-        fontSize="1.35rem"
-        gap="1rem"
-      />
-      <div style={{ marginTop: '1rem' }}></div>
-      <SelectedButton
-        options={['4등급', '5등급', '인지 지원 등급']}
-        multiSelect={true}
-        onSelect={(selectedRanks) => {
-          if (Array.isArray(selectedRanks)) {
-            const mappedRanks = selectedRanks.map((rank) =>
-              rank === '인지 지원 등급' ? 6 : parseInt(rank[0], 10)
-            );
-            setElderData('rank', mappedRanks); // ✅ 배열로 저장
-          }
+        hoverColor={{
+          '1등급': '#371FF0',
+          '2등급': '#371FF0',
+          '3등급': '#371FF0',
+          '4등급': '#371FF0',
+          '5등급': '#371FF0',
+          '인지 지원 등급': '#371FF0',
         }}
-        hoverColor={{ '4등급': '#371FF0', '5등급': '#371FF0','인지 지원 등급': '#371FF0' }}
         fontSize="1.35rem"
         gap="1rem"
       />
