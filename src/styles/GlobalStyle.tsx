@@ -50,13 +50,16 @@ html {
     outline: none;
 
   }
- 
+ button,a {
+  -webkit-tap-highlight-color: transparent;
+  color: inherit !important;
+  text-decoration: none !important;
+
+ }
   button, a, input, textarea, select {
     -webkit-tap-highlight-color: transparent;
 
 
-  color: inherit !important;
-  text-decoration: none !important;
     
     outline: none;
   }
