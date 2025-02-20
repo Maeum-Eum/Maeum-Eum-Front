@@ -20,7 +20,7 @@ export const useHomeOptionStoreStore = create<HomeOptionStoreState>((set) => ({
   order: '1',
   modal: false,
   distance: '도보15분이내',
-  rangeText: '업무정확도순',
+  rangeText: 'accuracy',
   setRangeText: (rangeText) => set({ rangeText }),
   setDistance: (distance) => set({ distance }),
   elderName: '',
