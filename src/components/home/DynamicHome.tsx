@@ -55,4 +55,5 @@ export const sampleMainList: IGetMainList = {
   ],
   first: true,
   last: false,
+  address: '서울 중구 마른내로 79',
 };

@@ -6,6 +6,7 @@ import { Dropdowns } from '../../pages/Home';
 import { HomeDropdown } from './HomeDropdown';
 import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
 import { useManagerHomeStore } from '../../store/managerHomeStore';
+import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
 // import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
 
 interface HomeHeaderProps {
@@ -63,7 +64,6 @@ const Wrapper = styled.div`
 export const SocialHomeHeader = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { elderList, setElderId } = useManagerHomeStore();
-  //TODO 정보 불러오기
   const { setElderName, elderName } = useHomeOptionStoreStore();
 
   return (
@@ -99,11 +99,11 @@ export const SocialHomeHeader = () => {
 };
 
 const CareHomeHeader = () => {
-  // const { data } = useCareGiverHomeStore();
-  //TODO 주소 넣기
+  const { data } = useCareGiverHomeStore();
+
   return (
     <div>
-      <HomeHeader child={<span>{}</span>}></HomeHeader>
+      <HomeHeader child={<span>{data?.address}</span>}></HomeHeader>
       <HomeOption />
     </div>
   );

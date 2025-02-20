@@ -20,6 +20,7 @@ export interface IGetMainList {
   content: IContent[];
   first: boolean;
   last: boolean;
+  address: string;
 }
 
 export const getMainList = async ({
