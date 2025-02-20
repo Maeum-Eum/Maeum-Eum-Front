@@ -90,6 +90,7 @@ const BottomPopupContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 440px;
 `;
 
 const Bar = styled.div`

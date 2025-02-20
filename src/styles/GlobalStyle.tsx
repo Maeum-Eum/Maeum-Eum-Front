@@ -49,7 +49,9 @@ html {
     -webkit-tap-highlight-color: transparent;
     outline: none;
   }
-
+  -webkit-tap-highlight-color: transparent; 
+  color: inherit !important;
+  text-decoration: none !important;
   button, a, input, textarea, select {
     outline: none;
   }
