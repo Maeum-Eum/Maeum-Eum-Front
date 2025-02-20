@@ -1,32 +1,49 @@
 import styled from 'styled-components';
 import { ButtonElderRegister } from '../components/ButtonElderRegister';
+import { useEffect, useState } from 'react';
+import { useManagerHomeStore } from '../store/managerHomeStore';
+import { getElderList } from '../services/home';
 
 export const ElderAdmin = () => {
+  const [loading, setLoading] = useState(false);
+  const { setElderList, elderList } = useManagerHomeStore();
+  useEffect(() => {
+    const getElder = async () => {
+      setLoading(true);
+      try {
+        const elders = await getElderList();
+        setElderList(elders);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getElder();
+  }, []);
+  if (loading) return <></>;
   return (
     <Wrapper>
-        <ButtonElderRegister />
-      <ContentWrapper>
-        <ElderContainer>
-          <Text>홍길동 어르신</Text>
-          <IconContainer>
-            <ElderRevise><img src='/icons/revise.svg'/></ElderRevise>
-            <ElderSee><img src='/icons/see.svg'/></ElderSee>
-          </IconContainer>
-        </ElderContainer>
-      </ContentWrapper>
+      <ButtonElderRegister />
+      {elderList.map((item) => (
+        <>
+          <ContentWrapper>
+            <ElderContainer>
+              <Text>{item.elderName}</Text>
+              <IconContainer>
+                <ElderRevise>
+                  <img src="/icons/revise.svg" />
+                </ElderRevise>
+                <ElderSee>
+                  <img src="/icons/see.svg" />
+                </ElderSee>
+              </IconContainer>
+            </ElderContainer>
+          </ContentWrapper>
 
-        <Line />
-      <ContentWrapper>
-        <ElderContainer>
-          <Text>이순자 어르신</Text>
-          <IconContainer>
-            <ElderRevise><img src='/icons/revise.svg'/></ElderRevise>
-            <ElderSee><img src='/icons/see.svg'/></ElderSee>
-          </IconContainer>
-        </ElderContainer>
-      </ContentWrapper>
-
-      <Line />
+          <Line />
+        </>
+      ))}
     </Wrapper>
   );
 };
@@ -53,23 +70,23 @@ const ElderContainer = styled.div`
 `;
 
 const Text = styled.div`
-  ${({theme}) => theme.fontStyles.large2B}
-`
+  ${({ theme }) => theme.fontStyles.large2B}
+`;
 
 const IconContainer = styled.div`
   display: flex;
   gap: 3rem;
-`
+`;
 
 const ElderRevise = styled.div`
- cursor: pointer;
-`
+  cursor: pointer;
+`;
 
 const ElderSee = styled.div`
- cursor: pointer;
-`
+  cursor: pointer;
+`;
 
 const Line = styled.div`
-width: 100%;
-border: 0.1rem solid ${({ theme }) => theme.colors.black10};
-`
+  width: 100%;
+  border: 0.1rem solid ${({ theme }) => theme.colors.black10};
+`;
