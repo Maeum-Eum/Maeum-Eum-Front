@@ -31,6 +31,7 @@ export const HomeDropdown = ({
         setIsOpen(false);
       }
     };
+
     if (!range) {
       if (location.pathname.includes('/near')) {
         setItemList(['최신순']);
@@ -43,7 +44,7 @@ export const HomeDropdown = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [location]);
 
   const clickItem = (index: number) => {
     if (home) {
