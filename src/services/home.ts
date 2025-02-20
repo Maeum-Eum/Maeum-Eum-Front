@@ -92,6 +92,7 @@ export interface INearElder {
   toileting: boolean;
   mobility: boolean;
   daily: boolean;
+  bookmarked: boolean;
 }
 
 export interface INearElderList {

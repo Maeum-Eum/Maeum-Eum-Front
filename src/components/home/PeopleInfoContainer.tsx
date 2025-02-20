@@ -167,24 +167,35 @@ const Tag = styled.div`
 export const PeopleBookmarkContainer = ({
   isCare,
   title,
-
+  tags,
   positions,
+  wage,
+  negotiable,
 }: Partial<IPeopleInfoContainer>) => {
   return (
     <Wrapper $border={false}>
       <SubInfo>{isCare ? null : <img src="icons/certificate.svg" />}</SubInfo>
-      <BookmarkInfo>{title}</BookmarkInfo>
+      <BookmarkInfo border={wage ? false : true}>{title}</BookmarkInfo>
+      {wage && (
+        <Wage>
+          <span>시급 {formatWage(wage)}</span>
+          <span> {negotiable ? '(협의가능)' : ''} </span>
+        </Wage>
+      )}
       <BookmarkTags>
-        {positions!.map((p) => (
-          <Tag>{p}</Tag>
-        ))}
+        <Tags>
+          {positions
+            ? positions.map((p) => <Tag>{p}</Tag>)
+            : tags!.map((t, index) => t && <Tag>{work[index]}</Tag>)}
+        </Tags>
       </BookmarkTags>
     </Wrapper>
   );
 };
-const BookmarkInfo = styled.div`
+const BookmarkInfo = styled.div<{ border: boolean }>`
   padding-bottom: 1rem;
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.black10};
+  border-bottom: ${({ border, theme }) =>
+    border ? `0.1rem solid ${theme.colors.black10}` : 'none'};
   ${({ theme }) => theme.fontStyles.head2B}
 `;
 const BookmarkTags = styled.div`

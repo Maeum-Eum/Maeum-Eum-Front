@@ -76,9 +76,13 @@ export const DetailElderInfo = () => {
         <Info>
           <span>성별</span>
           <span>
-            {elderInfo?.elder.gender ??
-              nearElderInfo?.elder.gender ??
-              '정보 없음'}
+            {elderInfo?.elder.gender === 'female' ||
+            nearElderInfo?.elder.gender === 'female'
+              ? '여성'
+              : elderInfo?.elder.gender === 'male' ||
+                nearElderInfo?.elder.gender === 'male'
+              ? '남성'
+              : '정보 없음'}
           </span>
 
           <span>거주지</span>
@@ -91,6 +95,8 @@ export const DetailElderInfo = () => {
           <span>등급</span>
           <span>
             {elderInfo?.elder.rank ?? nearElderInfo?.elder.rank ?? '정보 없음'}
+
+            {'등급'}
           </span>
 
           <span>필요 일정</span>
@@ -101,18 +107,22 @@ export const DetailElderInfo = () => {
         <Info>
           <span>식사 보조</span>
           <InlineInfo>
-            {elderInfo?.elder.meal?.map((e) => <span>{e}</span>) ?? '정보 없음'}
+            {elderInfo?.elder.meal?.map((e) => <span>{e}</span>) ??
+              nearElderInfo?.elder.meal?.map((e) => <span>{e}</span>) ??
+              '정보 없음'}
           </InlineInfo>
 
           <span>배변 보조</span>
           <InlineInfo>
             {elderInfo?.elder.toileting?.map((e) => <span>{e}</span>) ??
+              nearElderInfo?.elder.toileting?.map((e) => <span>{e}</span>) ??
               '정보 없음'}
           </InlineInfo>
 
           <span>이동 보조</span>
           <InlineInfo>
             {elderInfo?.elder.mobility?.map((e) => <span>{e}</span>) ??
+              nearElderInfo?.elder.mobility?.map((e) => <span>{e}</span>) ??
               '정보 없음'}
           </InlineInfo>
         </Info>

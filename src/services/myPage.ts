@@ -4,7 +4,7 @@ import { IGetMainList } from './home';
 export interface ICareGiverMyPage {
   name: string;
   address: string;
-  profileImage: string;
+  profileImage: string | null;
   resumeRegistered: boolean;
   jobOpen: boolean;
   savedEldersCount: number;

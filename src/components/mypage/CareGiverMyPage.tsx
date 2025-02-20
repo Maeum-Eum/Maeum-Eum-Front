@@ -98,7 +98,6 @@ export const CareGiverMyPage = () => {
   ];
 
   const [loading, setLoading] = useState(false);
-  const [photo, setPhoto] = useState('');
 
   const [myPageInfo, setMyPageInfo] = useState<ICareGiverMyPage>();
   const [isOn, setIsOn] = useState(true);
@@ -109,9 +108,8 @@ export const CareGiverMyPage = () => {
       try {
         setLoading(true);
         const response = await GetCareGiverMyPage();
-        const file = await GetProfilePhoto();
+
         setMyPageInfo(response);
-        setPhoto(file.isProfileImage);
       } catch (error) {
         setMyPageInfo(sampleCareGiverList[4]);
       } finally {
@@ -136,7 +134,7 @@ export const CareGiverMyPage = () => {
           <UserContainer
             name={myPageInfo.name}
             address={myPageInfo.address}
-            profileImage={photo}
+            profileImage={myPageInfo.profileImage ?? ''}
             isResumeRegistered={myPageInfo.resumeRegistered}
           />
           <JopOpen>
