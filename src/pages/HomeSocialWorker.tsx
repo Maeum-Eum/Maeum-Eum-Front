@@ -12,7 +12,7 @@ import { BlankPage } from '../components/BlankPage';
 export const HomeSocialWorker = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setData, data, toggleBookmark, setElderList, elderId } =
+  const { setData, data, toggleBookmark, setElderList, elderId, setElderId } =
     useManagerHomeStore();
   const { order, distance, elderName, setElderName, rangeText, role } =
     useHomeOptionStoreStore();
@@ -25,6 +25,7 @@ export const HomeSocialWorker = () => {
         const elders = await getElderList();
         setElderList(elders);
         setElderName(elders[0].elderName);
+        setElderId(elders[0].elderId);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       } finally {
@@ -65,7 +66,7 @@ export const HomeSocialWorker = () => {
               contactId={null}
               isCare={false}
               title={item.title}
-              createdAt={item.createAt}
+              createdAt={item.createdAt}
               wage={item.wage}
               negotiable={item.negotiable}
               center=""
@@ -89,6 +90,7 @@ export const HomeSocialWorker = () => {
             }}
             leftText="저장"
             rightText="자세히 보기"
+            bookmark={item.isBookmarks}
           />
         </ContentWrapper>
       ))}

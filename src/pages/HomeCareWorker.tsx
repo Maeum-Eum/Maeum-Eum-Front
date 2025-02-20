@@ -49,7 +49,7 @@ export const HomeCareWorker = () => {
             <ContentWrapper>
               <PeopleInfoContainer
                 contactId={item.contactId}
-                isCare={true}
+                isCare={false}
                 title={item.title}
                 createdAt={item.createdAt}
                 wage={item.wage}

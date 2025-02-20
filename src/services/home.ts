@@ -117,7 +117,7 @@ export interface IManagerMain {
   possibleTasks: string[];
   isBookmarks: boolean;
   bookmarkId: number | null;
-  createAt: string;
+  createdAt: string;
 }
 
 export const getManagerHome = async ({
