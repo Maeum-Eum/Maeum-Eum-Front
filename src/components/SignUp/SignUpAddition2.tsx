@@ -58,7 +58,7 @@ export const SignUpAddition2 = () => {
           ) : (
             <>
               <Box>
-                <img src="public/icons/profile-light.svg" />
+                <img src="icons/profile-light.svg" />
               </Box>
               <HiddenInput
                 accept=".png, .jpg"

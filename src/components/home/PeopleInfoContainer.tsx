@@ -48,7 +48,7 @@ export const PeopleInfoContainer = ({
             ? `${center}-${formatDate(createdAt)}`
             : `${center}`
           : createdAt && `${formatDate(createdAt)} 등록`}
-        {isCare ? null : <img src="public/icons/certificate.svg" />}
+        {isCare ? null : <img src="icons/certificate.svg" />}
       </SubInfo>
 
       <Info>{title}</Info>
@@ -89,7 +89,7 @@ export const RoundedPeopleInfo = ({
             ? `${center}-${formatDate(createdAt)}`
             : `${center}`
           : createdAt && `${formatDate(createdAt)} 등록`}
-        {isCare ? null : <img src="public/icons/certificate.svg" />}
+        {isCare ? null : <img src="icons/certificate.svg" />}
       </SubInfo>
 
       <Info>{title}</Info>
@@ -172,9 +172,7 @@ export const PeopleBookmarkContainer = ({
 }: Partial<IPeopleInfoContainer>) => {
   return (
     <Wrapper $border={false}>
-      <SubInfo>
-        {isCare ? null : <img src="public/icons/certificate.svg" />}
-      </SubInfo>
+      <SubInfo>{isCare ? null : <img src="icons/certificate.svg" />}</SubInfo>
       <BookmarkInfo>{title}</BookmarkInfo>
       <BookmarkTags>
         {positions!.map((p) => (

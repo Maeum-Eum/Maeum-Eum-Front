@@ -31,7 +31,7 @@ export const ResumeInfo = () => {
         <SignUpLabel label="프로필 사진을 추가해보세요" />
         <InfoText>사진이 있으면 더 많은 관리자가 확인해요.</InfoText>
         <Box>
-          <img src="public/icons/profile-light.svg" />
+          <img src="icons/profile-light.svg" />
         </Box>
       </Profile>
     </ElderRegisterLayout>
