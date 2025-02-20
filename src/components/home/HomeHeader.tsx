@@ -144,7 +144,7 @@ const HomeOption = () => {
       <HomeDropdown
         items={
           role === 'ROLE_CAREGIVER'
-            ? ['최신순']
+            ? ['최신순', '업무정확도순', '높은급여순']
             : ['업무정확도순', '시간일치순', '높은급여순']
         }
         home={true}

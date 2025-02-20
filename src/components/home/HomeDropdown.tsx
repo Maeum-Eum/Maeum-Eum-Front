@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
+import { useLocation } from 'react-router-dom';
 interface HomeDropdownProps {
   items: string[];
   home?: boolean;
@@ -15,9 +16,11 @@ export const HomeDropdown = ({
 }: HomeDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [item, setItem] = useState(0);
+  const [itemList, setItemList] = useState(items);
   const { setRange, setOrder, setDistance, setRangeText } =
     useHomeOptionStoreStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,6 +31,11 @@ export const HomeDropdown = ({
         setIsOpen(false);
       }
     };
+    if (!range) {
+      if (location.pathname.includes('/near')) {
+        setItemList(['최신순']);
+      }
+    }
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -38,7 +46,7 @@ export const HomeDropdown = ({
   const clickItem = (index: number) => {
     if (home) {
       if (range) {
-        setDistance(items[index].replace(' ', ''));
+        setDistance(itemList[index].replace(' ', ''));
         setRange(
           index === 0 ? '1.25' : index === 1 ? '1.65' : index === 2 ? '3' : '5'
         );
@@ -56,11 +64,11 @@ export const HomeDropdown = ({
   return (
     <DropdownWrapper ref={dropdownRef}>
       <DropdownButton onClick={() => setIsOpen((pre) => !pre)}>
-        {items[item]} <IoIosArrowDown />
+        {itemList[item]} <IoIosArrowDown />
       </DropdownButton>
       {isOpen && (
         <DropdownContent>
-          {items.map((i, index) => (
+          {itemList.map((i, index) => (
             <DropdownItem key={i} onClick={() => clickItem(index)}>
               {i}
             </DropdownItem>
