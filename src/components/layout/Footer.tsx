@@ -43,7 +43,7 @@ export const Footer = () => {
     return <ElderRegisterFooter />;
   }
 
-  if (['/', '/near', '/mypage', '/admin'].includes(location.pathname))
+  if (['/', '/near', '/mypage', '/admin', '/elder-admin'].includes(location.pathname))
     return <NavigationBar />;
   if (location.pathname === '/accept/complete') {
     return (

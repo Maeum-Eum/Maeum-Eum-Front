@@ -10,7 +10,7 @@ export const NavigationBar = () => {
   const menuItems = [
     { path: '/', icon: <HiMiniHome />, label: '홈' },
     role === 'ROLE_MANAGER'
-      ? { path: '/elderadmin', icon: <BiSolidPencil />, label: '어르신 관리' }
+      ? { path: '/elder-admin', icon: <BiSolidPencil />, label: '어르신 관리' }
       : { path: '/near', icon: <FaSearch />, label: '근처 어르신' },
 
     {

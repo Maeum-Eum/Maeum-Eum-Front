@@ -9,10 +9,12 @@ export const authService = {
 
     console.log('🛠️ API 응답 헤더:', response.headers);
 
+
     return {
       status: response.status,
       accessToken: response.headers['authorization'],
       refreshToken: response.headers['x-refresh-token'],
+
     };
   },
 
@@ -26,7 +28,18 @@ export const authService = {
 // 이력서 등록
 export const submitResume = async () => {
   try {
-    const response = await apiClient.post(API_ROUTES.CAREGIVER.RESUME_CREATE);
+
+    const response = await apiClient.post(
+      API_ROUTES.CAREGIVER.RESUME_CREATE,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }
+    );
+
+
     return response.data;
   } catch (error) {
     console.error('Failed to submit resume', error);
@@ -48,7 +61,14 @@ export const getResume = async () => {
 // 어르신 등록
 export const submitEider = async () => {
   try {
-    const response = await apiClient.post(API_ROUTES.MANAGER.ELDER_CREATE);
+
+    const response = await apiClient.post(API_ROUTES.MANAGER.ELDER_CREATE,  {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
     return response.data;
   } catch (error) {
     console.error('Fail to fetch submit', error);

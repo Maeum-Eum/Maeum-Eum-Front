@@ -24,7 +24,11 @@ import { DynamicHome } from './components/home/DynamicHome';
 import { ModifyCenter } from './pages/ModifyCenter';
 import { ResumeComplete } from './components/Resume/ResumeComplete';
 import { ElderRegisterComplete } from './components/ElderRegister/ElderRegisterComplete';
+
+import { ElderAdmin } from './pages/ElderAdmin';
+
 import { BookMark } from './pages/BookMark';
+
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +57,7 @@ export const router = createBrowserRouter([
             children: [
               { path: '', element: <DynamicHome /> },
               { path: 'near', element: <NearElder /> },
+              {path:'elder-admin', element:<ElderAdmin/>},
               { path: 'mypage', element: <MyPage /> },
             ],
           },
