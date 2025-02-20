@@ -9,7 +9,7 @@ import { AccessPermissionPopup } from '../components/BottomPopup';
 export const Home = () => {
   const [loading, setLoading] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const { range, order, modal, setModal } = useHomeOptionStoreStore();
+  const { range, order, modal, setModal, setRole } = useHomeOptionStoreStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ export const Home = () => {
         setLoading(true);
         const response = await getUserRole();
         localStorage.setItem('userRole', response.role);
+        setRole(true);
       } catch (error) {
         console.error('사용자 역할을 가져오는 데 실패:', error);
         navigate('/login', { replace: true });

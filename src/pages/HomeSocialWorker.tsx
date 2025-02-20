@@ -14,10 +14,11 @@ export const HomeSocialWorker = () => {
   const [loading, setLoading] = useState(false);
   const { setData, data, toggleBookmark, setElderList, elderId } =
     useManagerHomeStore();
-  const { order, distance, elderName, setElderName, rangeText } =
+  const { order, distance, elderName, setElderName, rangeText, role } =
     useHomeOptionStoreStore();
 
   useEffect(() => {
+    if (!role) return;
     const getHome = async () => {
       setLoading(true);
       try {
@@ -31,9 +32,10 @@ export const HomeSocialWorker = () => {
       }
     };
     getHome();
-  }, []);
+  }, [role]);
 
   useEffect(() => {
+    if (!role) return;
     if (!elderName) return;
 
     const fetchData = async () => {
@@ -50,7 +52,7 @@ export const HomeSocialWorker = () => {
     };
 
     fetchData();
-  }, [elderName, distance, order]);
+  }, [elderName, distance, order, role]);
   if (loading) return <></>;
   if (data === undefined || data === null)
     return <BlankPage text="조건에 맞는 요양보호사가 없어요"></BlankPage>;

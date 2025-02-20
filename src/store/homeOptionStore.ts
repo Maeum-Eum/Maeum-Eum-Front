@@ -13,6 +13,8 @@ interface HomeOptionStoreState {
   setElderName: (name: string) => void;
   rangeText: string;
   setRangeText: (rangeText: string) => void;
+  role: boolean;
+  setRole: (role: boolean) => void;
 }
 
 export const useHomeOptionStoreStore = create<HomeOptionStoreState>((set) => ({
@@ -29,4 +31,6 @@ export const useHomeOptionStoreStore = create<HomeOptionStoreState>((set) => ({
 
   setRange: (range) => set({ range }),
   setOrder: (order) => set({ order }),
+  role: false,
+  setRole: (role) => set({ role }),
 }));

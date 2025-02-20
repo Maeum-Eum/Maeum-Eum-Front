@@ -17,9 +17,10 @@ export const HomeCareWorker = () => {
 
   const [loading, setLoading] = useState(false);
   const { data, setData } = useCareGiverHomeStore();
-  const { range, order } = useHomeOptionStoreStore();
+  const { range, order, role } = useHomeOptionStoreStore();
 
   useEffect(() => {
+    if (!role) return;
     const getHome = async () => {
       setLoading(true);
       try {
@@ -33,7 +34,7 @@ export const HomeCareWorker = () => {
       }
     };
     getHome();
-  }, [range, order]);
+  }, [range, order, role]);
   if (loading) return <></>;
 
   return data ? (
