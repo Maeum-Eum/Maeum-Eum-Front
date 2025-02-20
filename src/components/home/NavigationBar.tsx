@@ -15,7 +15,7 @@ export const NavigationBar = () => {
 
     {
       path: '/mypage',
-      icon: <img src="public/icons/userProfile.svg" />,
+      icon: <img src="icons/userProfile.svg" />,
       label: '내 정보',
     },
   ];

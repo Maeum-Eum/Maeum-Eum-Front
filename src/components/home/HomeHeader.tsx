@@ -20,10 +20,10 @@ export const HomeHeader = ({ child }: HomeHeaderProps) => {
         {child}
         <Icons>
           <Icon onClick={() => setModal(true)}>
-            <img src="public/icons/setting.svg"></img>
+            <img src="icons/setting.svg"></img>
           </Icon>
           <Icon onClick={() => setModal(true)}>
-            <img src="public/icons/bell.svg"></img>
+            <img src="icons/bell.svg"></img>
           </Icon>
         </Icons>
       </Wrapper>
