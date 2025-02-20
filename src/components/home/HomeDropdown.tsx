@@ -15,7 +15,8 @@ export const HomeDropdown = ({
 }: HomeDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [item, setItem] = useState(0);
-  const { setRange, setOrder, setDistance } = useHomeOptionStoreStore();
+  const { setRange, setOrder, setDistance, setRangeText } =
+    useHomeOptionStoreStore();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,11 +38,14 @@ export const HomeDropdown = ({
   const clickItem = (index: number) => {
     if (home) {
       if (range) {
-        setDistance(items[index]);
+        setDistance(items[index].replace(' ', ''));
         setRange(
           index === 0 ? '1.25' : index === 1 ? '1.65' : index === 2 ? '3' : '5'
         );
       } else {
+        setRangeText(
+          index === 0 ? 'accuracy' : index === 1 ? 'time_match' : 'high_salary'
+        );
         setOrder(index + 1 + '');
       }
     }
