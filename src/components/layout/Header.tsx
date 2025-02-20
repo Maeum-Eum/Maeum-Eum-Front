@@ -4,6 +4,7 @@ import { SignUpHeader } from '../SignUp/SignUpHeader';
 import { useLocation } from 'react-router';
 import { InBoxTab } from '../inbox/InBoxTab';
 import { FindCenterHeader } from '../address/FindCenterHeader';
+import { BackButtonHomeHeader } from '../BackButtonHomeHeader';
 
 export const Header = () => {
   const location = useLocation();
@@ -30,6 +31,8 @@ export const Header = () => {
   if (['/', '/near'].includes(location.pathname)) return <DynamicHomeHeader />;
   if (location.pathname.startsWith('/mypage'))
     return <HomeHeader child={<span>내정보</span>} />;
+  if (location.pathname.startsWith('/elder-admin'))
+    return <BackButtonHomeHeader title='등록한 어르신' />;
   if (location.pathname.startsWith('/accept'))
     return <BackButtonHeader title="수락하기" />;
   if (location.pathname.startsWith('/apply'))
