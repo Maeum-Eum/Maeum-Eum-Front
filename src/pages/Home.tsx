@@ -1,30 +1,38 @@
 import styled from 'styled-components';
-import { Outlet } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { getMainList } from '../services/home';
-import { useCareGiverHomeStore } from '../store/careGiverHomeStore';
+import { getUserRole } from '../services/home';
 import { useHomeOptionStoreStore } from '../store/homeOptionStore';
 import { Modal } from '../components/Modal';
 import { AccessPermissionPopup } from '../components/BottomPopup';
 
 export const Home = () => {
   const [loading, setLoading] = useState(false);
-  const { setData } = useCareGiverHomeStore();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { range, order, modal, setModal } = useHomeOptionStoreStore();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const role = localStorage.getItem('userRole');
-    if (localStorage.getItem('permission') !== 'true') setPopupOpen(true);
-    if (role === 'ROLE_CAREGIVER') {
-      setLoading(true);
-      getMainList({ range: range, sort: order, page: '1' })
-        .then((response) => {
-          setData(response);
-        })
-        .catch(() => {});
-      setLoading(false);
+    const fetchUserRole = async () => {
+      try {
+        setLoading(true);
+        const response = await getUserRole();
+        localStorage.setItem('userRole', response.role);
+      } catch (error) {
+        console.error('사용자 역할을 가져오는 데 실패:', error);
+        navigate('/login', { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (localStorage.getItem('permission') !== 'true') {
+      setPopupOpen(true);
     }
-  }, []);
+
+    fetchUserRole();
+  }, [range, order]);
+
   if (loading) return <></>;
   return (
     <Wrapper>
