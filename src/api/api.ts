@@ -21,7 +21,7 @@ authApiClient.interceptors.request.use(
     const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
+      config.headers['authorization'] = `Bearer ${accessToken}`;
     }
 
     return config;
@@ -52,8 +52,8 @@ authApiClient.interceptors.response.use(
         );
 
         if (refreshResponse.status === 200) {
-          const newAccessToken = refreshResponse.headers['Authorization'];
-          const newRefreshToken = refreshResponse.headers['X-refresh-token'];
+          const newAccessToken = refreshResponse.headers['authorization'];
+          const newRefreshToken = refreshResponse.headers['x-refresh-token'];
 
           if (newAccessToken) {
             localStorage.setItem(
@@ -65,7 +65,7 @@ authApiClient.interceptors.response.use(
             localStorage.setItem('refreshToken', newRefreshToken);
           }
 
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          originalRequest.headers['authorization'] = `Bearer ${newAccessToken}`;
           return authApiClient(originalRequest);
         }
       } catch (refreshError) {

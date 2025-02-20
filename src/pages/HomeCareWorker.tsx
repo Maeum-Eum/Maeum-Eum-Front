@@ -53,7 +53,7 @@ export const HomeCareWorker = () => {
                 negotiable={item.negotiable}
                 center={item.center}
                 tags={[item.daily, item.mobility, item.meal, item.toileting]}
-                elderId={0} //TODO 삭제
+                elderId={null}
               />
               <HomeButtons
                 leftFunc={() => {

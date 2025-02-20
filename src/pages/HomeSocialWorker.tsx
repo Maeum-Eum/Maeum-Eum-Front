@@ -2,22 +2,28 @@ import styled from 'styled-components';
 import { HomeButtons } from '../components/home/HomeButtons';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { getMainList } from '../services/home';
-import { useCareGiverHomeStore } from '../store/careGiverHomeStore';
+import { getElderList, getManagerHome } from '../services/home';
 import { useHomeOptionStoreStore } from '../store/homeOptionStore';
+import { useManagerHomeStore } from '../store/managerHomeStore';
+import { PeopleInfoContainer } from '../components/home/PeopleInfoContainer';
+import { deleteCareBookmark, postCareBookmark } from '../services/contact';
+import { BlankPage } from '../components/BlankPage';
 
 export const HomeSocialWorker = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { setData } = useCareGiverHomeStore();
-  const { range, order } = useHomeOptionStoreStore();
-  //TODO 함수 바꾸기
+  const { setData, data, toggleBookmark, setElderList, elderId } =
+    useManagerHomeStore();
+  const { order, distance, elderName, setElderName } =
+    useHomeOptionStoreStore();
+
   useEffect(() => {
     const getHome = async () => {
       setLoading(true);
       try {
-        const res = await getMainList({ range: range, sort: order, page: '1' });
-        setData(res);
+        const elders = await getElderList();
+        setElderList(elders);
+        setElderName(elders[0].elderName);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
       } finally {
@@ -26,32 +32,64 @@ export const HomeSocialWorker = () => {
     };
     getHome();
   }, []);
+
+  useEffect(() => {
+    if (!elderName) return;
+
+    const fetchData = async () => {
+      try {
+        const res = await getManagerHome({
+          distance: distance,
+          sort: order,
+          name: elderName,
+        });
+        setData(res);
+      } catch (error) {
+        console.error('데이터 로드 실패:', error);
+      }
+    };
+
+    fetchData();
+  }, [elderName, distance, order]);
   if (loading) return <></>;
+  if (data === undefined || data === null)
+    return <BlankPage text="조건에 맞는 요양보호사가 없어요"></BlankPage>;
   return (
     <Wrapper>
-      <ContentWrapper>
-        {/* <PeopleInfoContainer isCare={true} /> */}
-        <HomeButtons
-          leftFunc={async () => {
-            //TODO
-            //await postCareBookmark()
-          }}
-          rightFunc={() => {
-            navigate('/detail/care/1');
-          }}
-          leftText="저장"
-          rightText="자세히 보기"
-        />
-      </ContentWrapper>
-      <ContentWrapper>
-        {/* <PeopleInfoContainer isCare={false} /> */}
-        <HomeButtons
-          leftFunc={() => {}}
-          rightFunc={() => {}}
-          leftText="저장"
-          rightText="자세히 보기"
-        />
-      </ContentWrapper>
+      {data?.map((item) => (
+        <ContentWrapper>
+          {
+            <PeopleInfoContainer
+              contactId={null}
+              isCare={false}
+              title={item.title}
+              createdAt={item.createAt}
+              wage={item.wage}
+              negotiable={item.negotiable}
+              center=""
+              tags={[]}
+              elderId={null}
+              positions={item.possibleTasks}
+            />
+          }
+          <HomeButtons
+            leftFunc={async () => {
+              toggleBookmark(item.caregiverId);
+
+              if (item.bookmarkId) {
+                await deleteCareBookmark(item.bookmarkId);
+              } else {
+                await postCareBookmark(elderId, item.caregiverId);
+              }
+            }}
+            rightFunc={() => {
+              navigate(`/detail/care/${item.caregiverId}`);
+            }}
+            leftText="저장"
+            rightText="자세히 보기"
+          />
+        </ContentWrapper>
+      ))}
     </Wrapper>
   );
 };

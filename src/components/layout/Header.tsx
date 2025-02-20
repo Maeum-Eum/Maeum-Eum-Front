@@ -4,11 +4,15 @@ import { SignUpHeader } from '../SignUp/SignUpHeader';
 import { useLocation } from 'react-router';
 import { InBoxTab } from '../inbox/InBoxTab';
 import { FindCenterHeader } from '../address/FindCenterHeader';
+
 import { BackButtonHomeHeader } from '../BackButtonHomeHeader';
+
+import { useMemo } from 'react';
+
 
 export const Header = () => {
   const location = useLocation();
-
+  const role = useMemo(() => localStorage.getItem('userRole'), []);
   if (location.pathname === '/signup') return <SignUpHeader />;
   if (location.pathname.startsWith('/elder-register'))
     return <BackButtonHeader title="어르신 등록" />;
@@ -24,7 +28,9 @@ export const Header = () => {
   if (location.pathname.startsWith('/outgoing-box'))
     return (
       <div>
-        <BackButtonHeader title="보낸 지원함" />
+        <BackButtonHeader
+          title={role === 'ROLE_MANAGER' ? '보낸 연락함' : '보낸 지원함'}
+        />
         <InBoxTab isOut={true} />
       </div>
     );
@@ -49,6 +55,9 @@ export const Header = () => {
     return <BackButtonHeader title="연락하기" />;
   if (location.pathname.startsWith('/modify-center')) {
     return <BackButtonHeader title="센터 정보 수정하기" />;
+  }
+  if (location.pathname.startsWith('/bookmark')) {
+    return <BackButtonHeader title="저장함" />;
   }
   return null;
 };

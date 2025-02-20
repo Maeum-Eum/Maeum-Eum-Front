@@ -46,7 +46,12 @@ export const DetailElderInfo = () => {
       <RoundedPeopleInfo
         contactId={null}
         elderId={null}
-        tags={[true, true, true]} //TODO 수정
+        tags={[
+          elderInfo?.daily ?? nearElderInfo?.daily ?? true,
+          elderInfo?.mobility ?? nearElderInfo?.mobility ?? true,
+          elderInfo?.meal ?? nearElderInfo?.meal ?? true,
+          elderInfo?.toileting ?? nearElderInfo?.toileting ?? true,
+        ]}
         isCare={true}
         title={elderInfo?.title ?? nearElderInfo?.title ?? '기본 제목'}
         center={

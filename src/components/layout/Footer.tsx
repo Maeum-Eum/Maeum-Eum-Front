@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 import { ButtonFooter } from '../ButtonFooter';
 import { NavigationBar } from '../home/NavigationBar';
 
@@ -17,10 +17,15 @@ import { AcceptFooter } from '../accept/AcceptFooter';
 import { patchCenterInfo } from '../../services/myPage';
 import { useModifyCenterStore } from '../../store/modifyCenterStore';
 import { SignUpFooter } from '../SignUp/SignupFooter';
+import { useParams } from 'react-router';
 
 export const Footer = () => {
+  const { step, setStep } = useContactStore();
   const location = useLocation();
   const navigate = useNavigate();
+  const { careId } = useParams();
+  const [searchParams] = useSearchParams();
+  const done = searchParams.get('done');
 
   const { centerId, shortPr, hasCar } = useModifyCenterStore();
 
@@ -107,12 +112,13 @@ export const Footer = () => {
   }
 
   if (location.pathname.startsWith('/detail/care')) {
+    if (done === 'true') return null;
     return (
       <Wrapper>
         <HomeButtons
           leftFunc={() => {}}
           rightFunc={() => {
-            navigate('/contact/1');
+            navigate(`/contact/${careId}`);
           }}
           leftText="저장"
           rightText="연락하기"
@@ -131,14 +137,19 @@ export const Footer = () => {
     );
   }
   if (location.pathname.startsWith('/contact')) {
-    const { step, setStep } = useContactStore();
-
     if (step === 1) {
       return (
         <ButtonFooter title="다음으로 넘어가기" nextStep={() => setStep(2)} />
       );
     } else if (step === 4) {
-      return <ButtonFooter title="완료하기" nextStep={() => {}} />;
+      return (
+        <ButtonFooter
+          title="완료하기"
+          nextStep={() => {
+            navigate('/');
+          }}
+        />
+      );
     } else {
       return (
         <Wrapper>

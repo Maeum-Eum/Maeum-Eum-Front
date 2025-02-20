@@ -31,7 +31,7 @@ export const UserContainer = ({
             ></img>
           ) : (
             <img
-              src="public/icons/userProfile.svg"
+              src="icons/userProfile.svg"
               style={{
                 width: '60%',
                 height: '60%',

@@ -77,7 +77,9 @@ export const CareGiverMyPage = () => {
     {
       icon: <FaBookmark />,
       text: '저장함',
-      onClick: () => {},
+      onClick: () => {
+        navigate('/bookmark');
+      },
     },
     {
       icon: <IoSend />,
@@ -149,17 +151,15 @@ export const CareGiverMyPage = () => {
               <ToggleSlider isOn={isOn} />
             </ToggleWrapper>
           </JopOpen>
-          {careWorkerList.map(
-            (li, index) =>
-              MyPageRow(
-                li,
-                index === 0
-                  ? myPageInfo.savedEldersCount
-                  : index === 1
-                  ? myPageInfo.managerContactCount
-                  : myPageInfo.applyCount
-              )
-            //TODO: 숫자 삽입 수정
+          {careWorkerList.map((li, index) =>
+            MyPageRow(
+              li,
+              index === 0
+                ? myPageInfo.savedEldersCount
+                : index === 1
+                ? myPageInfo.managerContactCount
+                : myPageInfo.applyCount
+            )
           )}
         </Wrapper>
       )}

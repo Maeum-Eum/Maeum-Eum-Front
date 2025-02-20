@@ -22,7 +22,7 @@ export const ManagerMyPage = () => {
       icon: <FaBookmark />,
       text: '저장함',
       onClick: () => {
-        navigate('/inbox');
+        navigate('/bookmark');
       },
     },
     {

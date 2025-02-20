@@ -46,10 +46,11 @@ export const SignUpFooter = () => {
             break;
           case 5:
             try {
-              await postCareGiverSignUp(formData);
-              if (file) {
-                await postPhoto({ file, id: formData.id });
-              }
+              await postCareGiverSignUp(formData).then(async () => {
+                if (file) {
+                  await postPhoto({ file, id: formData.id });
+                }
+              });
 
               navigate('/welcome', { replace: true });
             } catch (error) {

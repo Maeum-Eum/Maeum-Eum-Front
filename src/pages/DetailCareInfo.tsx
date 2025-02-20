@@ -17,8 +17,8 @@ const sampleData: ICareGiverDetailInfo = {
   hasDementiaTraining: 'COMPLETE',
   hasVehicle: false,
   workPlace: ['WALK_20_MIN', 'WITHIN_3KM'],
-  workDay: ['월', '수', '금'],
-  workTimeSlot: ['MORNING', 'EVENING'],
+  workDay: [0, 1, 2],
+  workTimeSlot: [0],
   isNegotiableTime: false,
 
   wage: 14000,
@@ -50,15 +50,21 @@ const sampleData: ICareGiverDetailInfo = {
   profileImage:
     'https://mvp-imagebucket.s3.ap-northeast-2.amazonaws.com/sample-profile-2.jpg',
 };
+const timeOptions = [
+  { label: '오전', time: '9시-12시', icon: '🌤️', value: '0' },
+  { label: '오후', time: '12시-18시', icon: '🍚', value: '1' },
+  { label: '저녁', time: '18시-21시', icon: '🌙', value: '2' },
+];
+const weekdays = ['월', '화', '수', '목', '금', '토', '일'];
 export const DetailCareInfo = () => {
   const [loading, setLoading] = useState(false);
-  const { careGiverId } = useParams();
+  const { careId } = useParams();
   const [data, setData] = useState<ICareGiverDetailInfo>();
   useEffect(() => {
     const getDetail = async () => {
       setLoading(true);
       try {
-        const res = await getDetailRecommendCaregiver(careGiverId ?? '');
+        const res = await getDetailRecommendCaregiver(careId ?? '');
         setData(res);
       } catch (error) {
         console.error('데이터 로드 실패:', error);
@@ -87,10 +93,25 @@ export const DetailCareInfo = () => {
         />
         <Content>
           <InfoTitle>근무 일정</InfoTitle>
-          <Info>
-            {data.workDay}
-            {data.workTimeSlot}
-          </Info>
+
+          <WeekDays>
+            {weekdays.map((day, index) => (
+              <WeekDay isSelected={data.workDay.includes(index)}>{day}</WeekDay>
+            ))}
+          </WeekDays>
+          <TimeSlots>
+            {timeOptions.map((option, index) => (
+              <TimeSlot
+                key={option.label}
+                isSelected={data.workTimeSlot.includes(index)}
+              >
+                <Label>{option.label}</Label>
+                <Icon>{option.icon}</Icon>
+                <Time>{option.time}</Time>
+              </TimeSlot>
+            ))}
+          </TimeSlots>
+
           <InfoTitle>요양보호사 정보</InfoTitle>
           <Info>
             <span>치매교육 이수</span>
@@ -199,4 +220,58 @@ const InlineInfo = styled.span`
   column-gap: 1.5rem;
 
   row-gap: 0.5rem;
+`;
+const WeekDays = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding-bottom: 1rem;
+`;
+
+const WeekDay = styled.div<{ isSelected: boolean }>`
+  border-radius: 1.3rem;
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0.4rem solid ${(props) => (props.isSelected ? '#371FF0' : '#ccc')};
+`;
+
+const TimeSlots = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  gap: 0.5rem;
+`;
+
+const TimeSlot = styled.div<{ isSelected: boolean }>`
+  border-radius: 1.3rem;
+  padding: 1.5rem;
+  border: 0.4rem solid ${(props) => (props.isSelected ? '#371FF0' : '#ccc')};
+  border-radius: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+`;
+const Icon = styled.div`
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Label = styled.div`
+  margin-bottom: 0.5rem;
+  ${({ theme }) => theme.fontStyles.bodyMediumSB}
+  font-weight: 600;
+`;
+
+const Time = styled.div`
+  font-size: 1.5rem;
+  font-weight: 600;
 `;

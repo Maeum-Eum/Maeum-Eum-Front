@@ -5,6 +5,8 @@ import { BottomPopup } from '../BottomPopup';
 import { Dropdowns } from '../../pages/Home';
 import { HomeDropdown } from './HomeDropdown';
 import { useHomeOptionStoreStore } from '../../store/homeOptionStore';
+import { useManagerHomeStore } from '../../store/managerHomeStore';
+// import { useCareGiverHomeStore } from '../../store/careGiverHomeStore';
 
 interface HomeHeaderProps {
   child: ReactNode;
@@ -18,10 +20,10 @@ export const HomeHeader = ({ child }: HomeHeaderProps) => {
         {child}
         <Icons>
           <Icon onClick={() => setModal(true)}>
-            <img src="public/icons/setting.svg"></img>
+            <img src="icons/setting.svg"></img>
           </Icon>
           <Icon onClick={() => setModal(true)}>
-            <img src="public/icons/bell.svg"></img>
+            <img src="icons/bell.svg"></img>
           </Icon>
         </Icons>
       </Wrapper>
@@ -60,26 +62,32 @@ const Wrapper = styled.div`
 
 export const SocialHomeHeader = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const options = ['홍길동 어르신', '이순자 어르신'];
-  const [person, setPerson] = useState(options[0]);
+  const { elderList, setElderId } = useManagerHomeStore();
+  //TODO 정보 불러오기
+  const { setElderName, elderName } = useHomeOptionStoreStore();
+
   return (
     <div>
       <HomeHeader
         child={
           <DropDownWrapper>
             <PersonButton onClick={() => setPopupOpen(true)}>
-              <span> {person} </span>
+              <span> {elderName} </span>
               <IoIosArrowDown />
             </PersonButton>
             <span>맞춤 요양 보호사</span>
             <BottomPopup
               isOpen={isPopupOpen}
               onClose={() => setPopupOpen(false)}
-              options={options}
+              options={elderList.map((item) => item.elderName)}
               onSelect={(option) => {
-                setPerson(option);
+                setElderId(
+                  elderList[
+                    elderList.map((item) => item.elderName).indexOf(option)
+                  ].elderId
+                );
+                setElderName(option);
                 setPopupOpen(false);
-                console.log(option);
               }}
             />
           </DropDownWrapper>
@@ -91,9 +99,11 @@ export const SocialHomeHeader = () => {
 };
 
 const CareHomeHeader = () => {
+  // const { data } = useCareGiverHomeStore();
+  //TODO 주소 넣기
   return (
     <div>
-      <HomeHeader child={<span>서울 특별시 영등포구 문래동</span>}></HomeHeader>
+      <HomeHeader child={<span>{}</span>}></HomeHeader>
       <HomeOption />
     </div>
   );

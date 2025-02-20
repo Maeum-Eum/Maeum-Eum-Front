@@ -52,24 +52,26 @@ export const useLoginStore = create<LoginState>((set) => ({
       const { id, password } = useLoginStore.getState();
       const response = await authService.login({ id, password });
 
-      console.log("로그인 응답", response)
+      console.log('로그인 응답', response);
 
       if (response.status === 200) {
-        
         const accessToken = response.accessToken;
         const refreshToken = response.refreshToken;
-    
+
         console.log('🔑 받은 Access Token:', accessToken);
         console.log('🔑 받은 Refresh Token:', refreshToken);
 
         if (accessToken) {
-          localStorage.setItem('accessToken', accessToken.replace('Bearer ', ''));
+          localStorage.setItem(
+            'accessToken',
+            accessToken.replace('Bearer ', '')
+          );
         }
         if (refreshToken) {
           localStorage.setItem('refreshToken', refreshToken);
         }
-        console.log("accessToken", accessToken);
-        console.log("refreshToken", refreshToken);
+        console.log('accessToken', accessToken);
+        console.log('refreshToken', refreshToken);
         set({ isAuthenticated: true });
       }
     } catch (error: any) {

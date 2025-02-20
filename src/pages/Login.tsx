@@ -21,20 +21,17 @@ export const Login = () => {
     }
   }, []);
 
-  const handleLogin = useCallback (async () => {
+  const handleLogin = useCallback(async () => {
     await login();
 
-    console.log("authenticate-plz", useLoginStore.getState().isAuthenticated)
-    
-    
-
-  },[login]);
+    console.log('authenticate', useLoginStore.getState().isAuthenticated);
+  }, [login]);
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
     }
-  },[isAuthenticated, navigate])
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const handleEnterKey = (event: KeyboardEvent) => {

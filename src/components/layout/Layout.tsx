@@ -40,13 +40,11 @@ const Wrapper = styled.div<WrapperProps>`
 
 export const Layout = ({ children, isMobile, header, footer }: LayoutProps) => {
   return (
-    <OuterWrapper>
-      <Wrapper isMobile={isMobile}>
-        {header && <HeaderContainer>{header}</HeaderContainer>}
-        <ContentContainer>{children}</ContentContainer>
-        {footer && <FooterContainer>{footer}</FooterContainer>}
-      </Wrapper>
-    </OuterWrapper>
+    <Wrapper isMobile={isMobile}>
+      {header && <HeaderContainer>{header}</HeaderContainer>}
+      <ContentContainer>{children}</ContentContainer>
+      {footer && <FooterContainer>{footer}</FooterContainer>}
+    </Wrapper>
   );
 };
 const ContentContainer = styled.div`
@@ -72,17 +70,4 @@ const FooterContainer = styled.div`
   width: 100%;
   max-width: 440px;
   background-color: ${({ theme }) => theme.colors.background};
-`;
-const OuterWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  min-height: 100dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media (min-width: 1024px) {
-    background: url('public/icons/background.svg') no-repeat center;
-    background-size: cover;
-  }
 `;
