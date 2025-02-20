@@ -10,6 +10,7 @@ import { useCareGiverHomeStore } from '../store/careGiverHomeStore';
 import { useHomeOptionStoreStore } from '../store/homeOptionStore';
 
 import { sampleMainList } from '../components/home/DynamicHome';
+import { BlankPage } from '../components/BlankPage';
 
 export const HomeCareWorker = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const HomeCareWorker = () => {
   return data ? (
     <Wrapper>
       {data.content.length === 0 ? (
-        <Empty>아직 연락이 없어요</Empty>
+        <BlankPage text="아직 연락이 없어요"></BlankPage>
       ) : (
         data.content.map((item) => (
           <div key={item.contactId}>
